@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/g2d/src/g2d_CharCanvas.c
+sha1 28128185b2b2684d37e31f8e4aede868e1d343c6
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1282 splice 46 8
+|__builtin_alloca
+@1321 splice 46 8
+|__builtin_alloca

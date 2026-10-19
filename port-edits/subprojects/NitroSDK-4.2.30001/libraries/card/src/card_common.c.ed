@@ -1,0 +1,16 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/card/src/card_common.c
+sha1 2aa6b6bb3a7a3b2b204bee6eac014f7140f4628c
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 insert-before 3
+|#ifdef SDK_GCC
+|#include <hw_dev_hooks.h>   /* port: the backup lock hooks (bet 2.6b, source/hw/hw_save.c) */
+|#endif
+@236 insert-before 3
+|#ifdef SDK_GCC
+|	HWDEV_BackupLock(lock_id);   /* port: the backup resource is held from here to the matching unlock */
+|#endif
+@256 insert-before 3
+|#ifdef SDK_GCC
+|	HWDEV_BackupUnlock(lock_id);   /* port: every request is finished here (the wait above), so the flash writes of this round have all landed */
+|#endif

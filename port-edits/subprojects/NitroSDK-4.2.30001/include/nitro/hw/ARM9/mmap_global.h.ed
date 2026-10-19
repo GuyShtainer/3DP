@@ -1,0 +1,313 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_global.h
+sha1 42e86dc8f0235c781ce93468c7c419b4cbc5b16b
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@12 insert-before 31
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|/* 3DS port (phase 1 bet 1.3): the DS memory map redirected to host-side arrays.
+|   Every region keeps its DS size and its DS internal layout; only the base address changes, from
+|   a literal DS address to the address of one array (the same trick the stock HW_DTCM already uses).
+|   Because every REG_*_ADDR / reg_* macro and every HW_*_BUF is "base + DS offset", redirecting the base
+|   redirects all 329 register macros and the whole system-work page without touching them.
+|   Table: the private design notes. Arrays are defined in source/hw/hw_sys.c. */
+|#include <nitro/types.h>
+|#define HW_REGS_SIZE            0x100020        /* highest ARM9 register: REG_MCD1 at +0x100010 */
+|typedef struct HwRegs {
+|    u8 b[HW_REGS_SIZE];
+|} __attribute__((aligned(32))) HwRegs;
+|extern HwRegs g_hwregs;                         /* 0x04000000.. : the I/O register block */
+|extern u8 g_hwmainmem[];                        /* 0x02000000.. : 4 MB main RAM (game heaps, arenas) */
+|extern u8 g_hwsys[];                            /* 0x027ff000.. : 4 KB shared page + system work (HW_MAIN_MEM_SYSTEM at +0xc00) */
+|extern u8 g_hwitcm[];                           /* 0x01ff8000.. : 32 KB ITCM */
+|extern u8 g_hwwram[];                           /* 0x037f8000.. : 32 KB shared WRAM window */
+|extern u8 g_hwpltt[];                           /* 0x05000000.. : main BG/OBJ + sub BG/OBJ palettes, 0x800 */
+|extern u8 g_hwvram_bg[];                        /* 0x06000000.. : main BG VRAM window, 512 KB */
+|extern u8 g_hwvram_dbbg[];                      /* 0x06200000.. : sub BG VRAM window, 128 KB */
+|extern u8 g_hwvram_obj[];                       /* 0x06400000.. : main OBJ VRAM window, 256 KB */
+|extern u8 g_hwvram_dbobj[];                     /* 0x06600000.. : sub OBJ VRAM window, 128 KB */
+|extern u8 g_hwvram_lcdc[];                      /* 0x06800000.. : LCDC VRAM window, 656 KB */
+|extern u8 g_hwoam[];                            /* 0x07000000.. : main + sub OAM, 0x800 */
+|extern u8 g_hwctrdg_rom[];                      /* 0x08000000.. : "no cartridge" sentinel, 16 bytes of 0xff */
+|extern u8 g_hwbios[];                           /* 0xffff0000.. : 32 KB BIOS window (zero) */
+|#ifndef HW_ARRAY_                              /* the host tests (tools/host-tests/build.sh) define it with a 64-bit-safe cast first */
+|#define HW_ARRAY_(a)            ((u32)(a))
+|#endif
+|#endif
+|
+@13 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_ITCM_IMAGE HW_ARRAY_(g_hwitcm)
+|#else
+@13 splice 21 11
+| 
+@14 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_ITCM HW_ARRAY_(g_hwitcm)
+|#else
+@14 splice 15 17
+| 
+@15 insert-before 1
+|#endif
+@30 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_MAIN_MEM HW_ARRAY_(g_hwmainmem)
+|#else
+@30 splice 19 13
+| 
+@31 insert-before 8
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|/* port: the sound code tells a pointer from an offset (snd_bank.c) or a command id (snd_command.c) by comparing against the DS main RAM
+|   base. g_hwmainmem no longer sits at that base, so the comparison uses this explicit bound instead: offsets and command ids are below
+|   it (the largest wave archive is 458 564 bytes; command ids are < 64), every host pointer is above it (the 3DS process image, heap,
+|   stack and linear memory all start at or above 0x00100000). hw_sys_init asserts both sides. */
+|#define HW_SND_PTR_MIN          0x00100000
+|#endif
+@36 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_WRAM HW_ARRAY_(g_hwwram)
+|#else
+@36 splice 15 17
+| 
+@37 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_WRAM_END (HW_WRAM + 0x8000)
+|#else
+@37 splice 19 13
+| 
+@38 insert-before 1
+|#endif
+@40 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_IOREG HW_ARRAY_(&g_hwregs)
+|#else
+@40 splice 16 16
+| 
+@41 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_IOREG_END (HW_IOREG + HW_REGS_SIZE)
+|#else
+@41 splice 20 12
+| 
+@42 insert-before 1
+|#endif
+@44 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BG_PLTT (HW_ARRAY_(g_hwpltt) + 0)
+|#else
+@44 splice 18 14
+| 
+@45 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BG_PLTT_END (HW_BG_PLTT + 0x200)
+|#else
+@45 splice 22 10
+| 
+@46 insert-before 1
+|#endif
+@47 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OBJ_PLTT (HW_ARRAY_(g_hwpltt) + 0x200)
+|#else
+@47 splice 19 13
+| 
+@48 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OBJ_PLTT_END (HW_OBJ_PLTT + 0x200)
+|#else
+@48 splice 23 9
+| 
+@49 insert-before 1
+|#endif
+@53 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_BG_PLTT (HW_ARRAY_(g_hwpltt) + 0x400)
+|#else
+@53 splice 21 11
+| 
+@54 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_BG_PLTT_END (HW_DB_BG_PLTT + 0x200)
+|#else
+@54 splice 25 7
+| 
+@55 insert-before 1
+|#endif
+@56 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OBJ_PLTT (HW_ARRAY_(g_hwpltt) + 0x600)
+|#else
+@56 splice 22 10
+| 
+@57 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OBJ_PLTT_END (HW_DB_OBJ_PLTT + 0x200)
+|#else
+@57 splice 26 6
+| 
+@58 insert-before 1
+|#endif
+@62 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BG_VRAM HW_ARRAY_(g_hwvram_bg)
+|#else
+@62 splice 18 14
+| 
+@63 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BG_VRAM_END (HW_BG_VRAM + 0x80000)
+|#else
+@63 splice 22 10
+| 
+@64 insert-before 1
+|#endif
+@65 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_BG_VRAM HW_ARRAY_(g_hwvram_dbbg)
+|#else
+@65 splice 21 11
+| 
+@66 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_BG_VRAM_END (HW_DB_BG_VRAM + 0x20000)
+|#else
+@66 splice 25 7
+| 
+@67 insert-before 1
+|#endif
+@68 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OBJ_VRAM HW_ARRAY_(g_hwvram_obj)
+|#else
+@68 splice 19 13
+| 
+@69 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OBJ_VRAM_END (HW_OBJ_VRAM + 0x40000)
+|#else
+@69 splice 23 9
+| 
+@70 insert-before 1
+|#endif
+@71 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OBJ_VRAM HW_ARRAY_(g_hwvram_dbobj)
+|#else
+@71 splice 22 10
+| 
+@72 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OBJ_VRAM_END (HW_DB_OBJ_VRAM + 0x20000)
+|#else
+@72 splice 26 6
+| 
+@73 insert-before 1
+|#endif
+@74 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_LCDC_VRAM HW_ARRAY_(g_hwvram_lcdc)
+|#else
+@74 splice 20 12
+| 
+@75 insert-before 1
+|#endif
+@76 insert-before 7
+|#define HW_LCDC_VRAM_END_OFFSET 0xA4000
+|#else
+|#define HW_LCDC_VRAM_END_OFFSET 0x98000
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_LCDC_VRAM_END        (HW_LCDC_VRAM + HW_LCDC_VRAM_END_OFFSET)
+|#elif defined(SDK_TS)
+@81 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OAM HW_ARRAY_(g_hwoam)
+|#else
+@81 splice 14 18
+| 
+@82 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_OAM_END (HW_OAM + 0x400)
+|#else
+@82 splice 18 14
+| 
+@83 insert-before 1
+|#endif
+@84 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OAM (HW_OAM + 0x400)
+|#else
+@84 splice 17 15
+| 
+@85 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_DB_OAM_END (HW_DB_OAM + 0x400)
+|#else
+@85 splice 21 11
+| 
+@86 insert-before 1
+|#endif
+@88 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_CTRDG_ROM HW_ARRAY_(g_hwctrdg_rom)
+|#else
+@88 splice 20 12
+| 
+@89 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_CTRDG_ROM_END (HW_CTRDG_ROM + 16)
+|#else
+@89 splice 24 8
+| 
+@90 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_CTRDG_RAM (HW_CTRDG_ROM + 16)
+|#else
+@90 splice 20 12
+| 
+@91 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_CTRDG_RAM_END (HW_CTRDG_ROM + 16)
+|#else
+@91 splice 24 8
+| 
+@92 insert-before 1
+|#endif
+@93 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BIOS HW_ARRAY_(g_hwbios)
+|#else
+@93 splice 15 17
+| 
+@94 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_BIOS_END (HW_BIOS + 0x8000)
+|#else
+@94 splice 19 13
+| 
+@95 insert-before 4
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_RESET_VECTOR HW_BIOS
+|#else
+@95 splice 23 9
+| 
+@96 insert-before 1
+|#endif

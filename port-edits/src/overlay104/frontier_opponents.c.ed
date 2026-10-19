@@ -1,0 +1,30 @@
+3DP-edit 1
+path src/overlay104/frontier_opponents.c
+sha1 181e41c35e4012a7002a3bf00797b85ef7924c36
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@181 insert-before 4
+|            {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|                u16 rngLow = LCRNG_Next();
+|                u16 rngHigh = LCRNG_Next();
+|
+@181 splice 0 12
+|                
+@181 splice 26 12
+|rngLow
+@181 splice 41 10
+|
+@181 splice 52 1
+|rngHigh
+@181 splice 59 0
+|)
+@182 insert-before 1
+|            }
+@421 insert-before 2
+|    u16 otIDLow = LCRNG_Next();   // port: the two draws are ordered explicitly (the first is the low half, as mwcc compiled it)
+|    u16 otIDHigh = LCRNG_Next();
+@421 splice 15 12
+|otIDLow
+@421 splice 31 12
+|otIDHigh
+@422 insert-before 1
+|

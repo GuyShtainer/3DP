@@ -1,0 +1,40 @@
+3DP-edit 1
+path src/main_menu/ov97_02232DC8.c
+sha1 a11e492975d03f4bbb7a94897a7fd79195ed3181
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@104 splice 4 0
+|param1 = 
+@104 splice 18 1
+|
+@107 insert-before 1
+|    v1->unk_2C = ov97_02232E28();
+@107 splice 4 0
+|param1 = 
+@107 splice 18 1
+|
+@107 splice 30 18
+|
+@110 insert-before 1
+|    v1->unk_30 = ov97_02232E30();
+@110 splice 4 0
+|param1 = 
+@110 splice 18 1
+|
+@110 splice 30 18
+|
+@113 splice 4 0
+|param1 = 
+@113 splice 18 1
+|
+@116 splice 4 0
+|param1 = 
+@116 splice 18 1
+|
+@152 splice 4 0
+|param1 = 
+@152 splice 18 1
+|
+@155 splice 4 0
+|param1 = 
+@155 splice 18 1
+|

@@ -1,0 +1,31 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/ioreg_GX.h
+sha1 25fd2d971d0838a5b4df44d0a28152861d0b05d9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@746 insert-before 26
+|/* 3DS port (bet 2.1b): a VRAMCNT_A..I store cannot be intercepted through the lvalue macros above, and the bank's bytes have to move between the physical
+|   VRAM store and the CPU-visible window arrays at the moment of the write. Every VRAMCNT store site of the SDK uses HWVRAM_STORE(BANK, v) instead.
+|   SDK_GCC: the register byte is stored (the census and every readback still see it), then the hook remaps (port-shim/include/hw_dev_hooks.h,
+|   source/hw/hw_vram.c). Otherwise it is the plain assignment, so the mwcc build is unchanged. BANK is the letter A..I. */
+|#ifdef SDK_GCC
+|#include <hw_dev_hooks.h>
+|#define HWVRAM_IDX_A 0
+|#define HWVRAM_IDX_B 1
+|#define HWVRAM_IDX_C 2
+|#define HWVRAM_IDX_D 3
+|#define HWVRAM_IDX_E 4
+|#define HWVRAM_IDX_F 5
+|#define HWVRAM_IDX_G 6
+|#define HWVRAM_IDX_H 7
+|#define HWVRAM_IDX_I 8
+|#define HWVRAM_STORE(BANK, v) \
+|    do { \
+|        u8 hwvram_v_ = (u8)(v); \
+|        reg_GX_VRAMCNT_##BANK = hwvram_v_; \
+|        HWVRAM_SetCnt(HWVRAM_IDX_##BANK, hwvram_v_); \
+|    } while (0)
+|#else
+|#define HWVRAM_STORE(BANK, v) (reg_GX_VRAMCNT_##BANK = (v))
+|#endif
+|
+|

@@ -1,0 +1,11 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/spi/src/tp.c
+sha1 3a93f0a827041821550d8a269745932d1063cf3c
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@684 delete 1
+@685 insert-before 2
+|        /* 3DS port: the ARM7's answer is a word in the PXI FIFO and nothing delivers the IRQ inside a spin, so drain it here (as PMi_WaitBusy does) */
+|        PXIi_HandlerRecvFifoNotEmpty();
+@703 delete 1
+@704 insert-before 1
+|        PXIi_HandlerRecvFifoNotEmpty();   /* 3DS port: see TP_WaitBusy */

@@ -1,0 +1,13 @@
+3DP-edit 1
+path src/system.c
+sha1 17f8d1cf667c36fdfadcb87f5605e8c17f084dc9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@15 insert-before 1
+|/* port: 32 on the DS, where the asynchronous vblank drains the list during a multi-frame field load; the cooperative vblank cannot, so a load queues 56 (bet 2.2a2) */
+@15 splice 29 2
+|128
+@25 insert-before 2
+|
+|extern void hwtask_note(unsigned list, unsigned used, unsigned cap); /* 3DS port: queue high-water trace (source/hw/hw_log.c) */
+@39 insert-before 1
+|    hwtask_note(0, gSystem.vBlankTaskMgr->stackPointer, gSystem.vBlankTaskMgr->maxTasks);   /* 3DS port, trace only (bet 2.2c F8) */

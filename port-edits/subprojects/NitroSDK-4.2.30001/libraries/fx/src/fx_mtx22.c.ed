@@ -1,0 +1,56 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx22.c
+sha1 e54410c50c95bb66b7c3e0398fc46d0c086d16bc
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 splice 0 0
+|static 
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@21 insert-before 9
+|#else
+|void MTX_Identity22_ (MtxFx22 *pDst)
+|{
+|	pDst->_00 = 4096;
+|	pDst->_01 = 0;
+|	pDst->_10 = 0;
+|	pDst->_11 = 4096;
+|}
+|#endif
+@22 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@31 insert-before 11
+|#else
+|void MTX_Transpose22_ (const MtxFx22 *pSrc, MtxFx22 *pDst)
+|{
+|	fx32 a = pSrc->_00, b = pSrc->_01, c = pSrc->_10, d = pSrc->_11;
+|
+|	pDst->_00 = a;
+|	pDst->_01 = c;
+|	pDst->_10 = b;
+|	pDst->_11 = d;
+|}
+|#endif
+@34 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@43 insert-before 9
+|#else
+|void MTX_Scale22_ (MtxFx22 *pDst, fx32 x, fx32 y)
+|{
+|	pDst->_00 = x;
+|	pDst->_01 = 0;
+|	pDst->_10 = 0;
+|	pDst->_11 = y;
+|}
+|#endif
+@44 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@53 insert-before 9
+|#else
+|void MTX_Rot22_ (MtxFx22 *pDst, fx32 sinVal, fx32 cosVal)
+|{
+|	pDst->_00 = cosVal;
+|	pDst->_01 = sinVal;
+|	pDst->_10 = (fx32)(0u - (u32)sinVal);
+|	pDst->_11 = cosVal;
+|}
+|#endif

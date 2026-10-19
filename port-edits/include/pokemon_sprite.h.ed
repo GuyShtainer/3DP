@@ -1,0 +1,8 @@
+3DP-edit 1
+path include/pokemon_sprite.h
+sha1 62f72d2b5be5b3f78e7e5576ac8c02d7d0e6ce75
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@179 splice 0 0
+|static 
+@184 splice 0 0
+|static 

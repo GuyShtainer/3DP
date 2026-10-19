@@ -1,0 +1,34 @@
+3DP-edit 1
+path src/unk_0204AEE8.c
+sha1 7906f0e36b4a207a4faa0d7f9a9958fb475e1075
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@342 insert-before 4
+|            {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|                u16 rngLow = BattleTower_GetRandom(battleTower);
+|                u16 rngHigh = BattleTower_GetRandom(battleTower);
+|
+@342 splice 0 12
+|                
+@342 splice 17 35
+|rngLow
+@342 splice 55 21
+|
+@342 splice 77 12
+|rngHigh
+@343 insert-before 1
+|            }
+@506 insert-before 4
+|    {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|        u16 rngLow = BattleTower_GetRandom(battleTower);
+|        u16 rngHigh = BattleTower_GetRandom(battleTower);
+|
+@506 splice 0 4
+|        
+@506 splice 9 35
+|rngLow
+@506 splice 48 34
+|rngHigh
+@506 splice 89 1
+|
+@507 insert-before 1
+|    }

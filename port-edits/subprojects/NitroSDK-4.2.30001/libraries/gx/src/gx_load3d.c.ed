@@ -1,0 +1,142 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/gx_load3d.c
+sha1 2525374c99ccf55698eb0074c59a718261ecf5ac
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@8 insert-before 10
+|
+|#if defined(SDK_GCC)
+|/* 3DS port: HW_LCDC_VRAM_x is the address of a host array, not a constant, so the table cannot hold address >> 12.
+|   It holds the 4 KB-slot offset from HW_LCDC_VRAM plus one (0 = "no block"); TEXBASE() turns it back into an address. */
+|#define TEXBLK(a)   ((u16)((((a) - HW_LCDC_VRAM) >> 12) + 1))
+|#define TEXBASE(b)  ((b) ? (u32)(HW_LCDC_VRAM + ((u32)((b) - 1) << 12)) : 0u)
+|#else
+|#define TEXBLK(a)   ((u16)((a) >> 12))
+|#define TEXBASE(b)  ((u32)((b) << 12))
+|#endif
+@25 splice 2 5
+|TEXBLK
+@25 splice 22 6
+|
+@28 splice 2 5
+|TEXBLK
+@28 splice 22 6
+|
+@31 splice 2 5
+|TEXBLK
+@31 splice 22 6
+|
+@34 splice 2 5
+|TEXBLK
+@34 splice 22 6
+|
+@37 splice 2 5
+|TEXBLK
+@37 splice 22 6
+|
+@37 splice 31 5
+|TEXBLK
+@37 splice 51 6
+|
+@40 splice 2 5
+|TEXBLK
+@40 splice 22 6
+|
+@43 splice 2 5
+|TEXBLK
+@43 splice 22 6
+|
+@46 splice 2 5
+|TEXBLK
+@46 splice 22 6
+|
+@49 splice 2 5
+|TEXBLK
+@49 splice 22 6
+|
+@49 splice 31 5
+|TEXBLK
+@49 splice 51 6
+|
+@52 splice 2 5
+|TEXBLK
+@52 splice 22 6
+|
+@52 splice 31 5
+|TEXBLK
+@52 splice 51 6
+|
+@55 splice 2 5
+|TEXBLK
+@55 splice 22 6
+|
+@56 splice 2 5
+|TEXBLK
+@56 splice 22 6
+|
+@59 splice 2 5
+|TEXBLK
+@59 splice 22 6
+|
+@62 splice 2 5
+|TEXBLK
+@62 splice 22 6
+|
+@62 splice 31 5
+|TEXBLK
+@62 splice 51 6
+|
+@65 splice 2 5
+|TEXBLK
+@65 splice 22 6
+|
+@68 splice 2 5
+|TEXBLK
+@68 splice 22 6
+|
+@85 splice 9 5
+|TEXBASE
+@85 splice 43 6
+|
+@86 splice 9 5
+|TEXBASE
+@86 splice 43 6
+|
+@122 splice 16 5
+|TEXBASE
+@122 splice 51 6
+|
+@123 splice 16 5
+|TEXBASE
+@123 splice 51 6
+|
+@175 splice 1 5
+|TEXBLK
+@175 splice 21 6
+|
+@176 splice 1 5
+|TEXBLK
+@176 splice 21 6
+|
+@177 splice 1 5
+|TEXBLK
+@177 splice 21 6
+|
+@178 splice 1 5
+|TEXBLK
+@178 splice 21 6
+|
+@180 splice 1 5
+|TEXBLK
+@180 splice 21 6
+|
+@181 delete 1
+@182 insert-before 1
+|	TEXBLK(HW_LCDC_VRAM_E)
+@191 splice 8 5
+|TEXBASE
+@191 splice 50 6
+|
+@210 splice 19 5
+|TEXBASE
+@210 splice 62 6
+|

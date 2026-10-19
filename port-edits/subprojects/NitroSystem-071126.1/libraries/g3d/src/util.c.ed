@@ -1,0 +1,12 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/g3d/src/util.c
+sha1 0ee1db117a4de4df2e2b94aeaf1ac14c7f9b1343
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@70 delete 1
+@71 insert-before 1
+|            HWG3_FIFO(G3OP_MTX_LOAD_4x3);
+@72 delete 3
+@75 insert-before 3
+|            HWG3_FIFO(0);
+|            HWG3_FIFO(0);
+|            HWG3_FIFO(0);

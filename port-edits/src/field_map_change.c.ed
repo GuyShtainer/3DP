@@ -1,0 +1,11 @@
+3DP-edit 1
+path src/field_map_change.c
+sha1 8dd1c9d5ae044221270a6c46278f5677932c9bc7
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@78 insert-before 2
+|
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c) */
+@521 insert-before 1
+|            hwtrace("boot: field landed map=%d x=%d z=%d via=special", (int)fieldSystem->location->mapHeaderID, PlayerAvatar_GetXPos(fieldSystem->playerAvatar), PlayerAvatar_GetZPos(fieldSystem->playerAvatar));
+@526 insert-before 1
+|            hwtrace("boot: field landed map=%d x=%d z=%d via=saved", (int)fieldSystem->location->mapHeaderID, PlayerAvatar_GetXPos(fieldSystem->playerAvatar), PlayerAvatar_GetZPos(fieldSystem->playerAvatar));

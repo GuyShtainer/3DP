@@ -1,0 +1,13 @@
+3DP original art, generated (no fonts, images or audio are read; Python 3 standard library only)
+
+  gen_icon.py    icon.png    48x48: "3DP" as two offset layers (coral + cyan, a stereo pair) on a dark tile
+  gen_banner.py  banner.png  256x128: large "3DP" stereo pair over a perspective floor grid, safe-area centred
+  gen_chime.py   banner.wav  ~1.9 s, 44.1 kHz 16-bit stereo: three ascending FM bell notes (E5 A5 C#6), peak -4 dBFS
+  art_common.py  PNG writer, stroke rasterizer, and the "3DP" stroke geometry (our own polylines and arcs)
+  check_art.py   drift guard: regenerates into a temp dir, fails if a committed file differs; --self-test plants a fault
+
+Regenerate (writes into the repo root):
+  python3 tools/art/gen_icon.py && python3 tools/art/gen_banner.py && python3 tools/art/gen_chime.py
+Verify:
+  python3 tools/art/check_art.py && python3 tools/art/check_art.py --self-test
+Output is deterministic: the same bytes on every run.

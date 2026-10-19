@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/code32.h
+sha1 c4be31ea14981c4a89ea1cbdf9be3e3aea25bd70
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 delete 1
+@7 insert-before 2
+|    /* SDK_GCC: no-op. We compile ARM state only (no -mthumb); the Thumb/ARM split of the original
+|       build does not exist here, so FX_Mul & co. keep the inline variant selected below. */

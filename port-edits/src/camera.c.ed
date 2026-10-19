@@ -1,0 +1,31 @@
+3DP-edit 1
+path src/camera.c
+sha1 5eff46f69b4778034a3d323556eda9a20e532bc9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@356 insert-before 4
+|extern fx32 HWDEV_WideSin(fx32 sinFovY);   /* 3DS port, bet 2.8: widescreen ("reveal, not stretch"); identity unless config.ini wide = 1 (source/hw/hw_devs.c) */
+|extern fx32 HWDEV_WideAspect(fx32 aspectRatio, fx32 sinFovY);
+|extern void HWDEV_WideProjection(const void *projMtx, s32 ortho, fx32 sinFovY, fx32 cosFovY, fx32 aspectRatio, fx32 nearClip, fx32 farClip, fx32 distance);
+|
+@360 splice 12 0
+|HWDEV_WideSin(
+@360 splice 39 0
+|)
+@362 splice 12 0
+|HWDEV_WideAspect(
+@362 splice 44 0
+| camera->perspective.sinFovY),
+@365 insert-before 2
+|        HWDEV_WideProjection(NNS_G3dGlbGetProjectionMtx(), 0, camera->perspective.sinFovY, camera->perspective.cosFovY, camera->perspective.aspectRatio,
+|                             camera->perspective.nearClip, camera->perspective.farClip, camera->distance);
+@369 splice 33 0
+|HWDEV_WideSin(
+@369 splice 60 0
+|)
+@370 splice 33 0
+|HWDEV_WideAspect(
+@370 splice 64 0
+|, camera->perspective.sinFovY)
+@373 insert-before 2
+|        HWDEV_WideProjection(NNS_G3dGlbGetProjectionMtx(), 1, camera->perspective.sinFovY, camera->perspective.cosFovY, camera->perspective.aspectRatio,
+|                             camera->perspective.nearClip, camera->perspective.farClip, camera->distance);

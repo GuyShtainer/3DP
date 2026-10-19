@@ -1,0 +1,16 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/os/common/timer.h
+sha1 a31bb8a4231a8db674a4c74153ecef8d2eaf93f0
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@43 insert-before 4
+|#ifdef SDK_GCC
+|    #include <hw_os_hooks.h>
+|#endif
+|
+@46 insert-before 4
+|#ifdef SDK_GCC
+|	/* port: a control write is a hook: the timer is brought up to date, then re-latched */
+|	HWOS_TimerControlWrite((unsigned)id, control);
+|#else
+@47 insert-before 1
+|#endif

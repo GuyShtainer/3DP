@@ -1,0 +1,234 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/hw/common/mmap_shared.h
+sha1 b62f45e77a2bbcc175337221abf915061aec30d8
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@8 splice 41 11
+|HW_MAIN_MEM_SHARED
+@8 splice 55 10
+|0x800
+@9 splice 41 11
+|HW_MAIN_MEM_SHARED
+@9 splice 55 10
+|0xa00
+@22 splice 41 11
+|HW_MAIN_MEM_SHARED
+@22 splice 55 10
+|0xa80
+@24 splice 41 11
+|HW_MAIN_MEM_SHARED
+@24 splice 55 10
+|0xbe0
+@27 splice 41 11
+|HW_MAIN_MEM_SHARED
+@27 splice 55 10
+|0xc00
+@29 splice 41 11
+|HW_MAIN_MEM_SHARED
+@29 splice 55 10
+|0xc00
+@30 splice 41 11
+|HW_MAIN_MEM_SHARED
+@30 splice 55 10
+|0xc20
+@32 splice 41 11
+|HW_MAIN_MEM_SHARED
+@32 splice 55 10
+|0xc20
+@34 splice 41 11
+|HW_MAIN_MEM_SHARED
+@34 splice 55 10
+|0xc2c
+@35 splice 41 11
+|HW_MAIN_MEM_SHARED
+@35 splice 55 10
+|0xc30
+@37 splice 41 11
+|HW_MAIN_MEM_SHARED
+@37 splice 55 10
+|0xc30
+@38 splice 41 11
+|HW_MAIN_MEM_SHARED
+@38 splice 55 10
+|0xc3c
+@40 splice 41 11
+|HW_MAIN_MEM_SHARED
+@40 splice 55 10
+|0xc3c
+@42 splice 41 11
+|HW_MAIN_MEM_SHARED
+@42 splice 55 10
+|0xc40
+@43 splice 41 11
+|HW_MAIN_MEM_SHARED
+@43 splice 55 10
+|0xc80
+@45 splice 41 11
+|HW_MAIN_MEM_SHARED
+@45 splice 55 10
+|0xc80
+@46 splice 41 11
+|HW_MAIN_MEM_SHARED
+@46 splice 55 10
+|0xd80
+@48 splice 41 11
+|HW_MAIN_MEM_SHARED
+@48 splice 55 10
+|0xd80
+@49 splice 41 11
+|HW_MAIN_MEM_SHARED
+@49 splice 55 10
+|0xd9c
+@50 splice 41 11
+|HW_MAIN_MEM_SHARED
+@50 splice 55 10
+|0xd9c
+@52 splice 41 11
+|HW_MAIN_MEM_SHARED
+@52 splice 55 10
+|0xda0
+@53 splice 41 11
+|HW_MAIN_MEM_SHARED
+@53 splice 55 10
+|0xde8
+@55 splice 41 11
+|HW_MAIN_MEM_SHARED
+@55 splice 55 10
+|0xdf0
+@56 splice 41 11
+|HW_MAIN_MEM_SHARED
+@56 splice 55 10
+|0xe00
+@58 splice 41 11
+|HW_MAIN_MEM_SHARED
+@58 splice 55 10
+|0xe00
+@59 splice 41 11
+|HW_MAIN_MEM_SHARED
+@59 splice 55 10
+|0xf60
+@60 splice 41 11
+|HW_MAIN_MEM_SHARED
+@60 splice 55 10
+|0xf60
+@61 splice 41 11
+|HW_MAIN_MEM_SHARED
+@61 splice 55 10
+|0xf80
+@63 splice 41 11
+|HW_MAIN_MEM_SHARED
+@63 splice 55 10
+|0xf80
+@64 splice 41 11
+|HW_MAIN_MEM_SHARED
+@64 splice 55 10
+|0xf84
+@65 splice 41 11
+|HW_MAIN_MEM_SHARED
+@65 splice 55 10
+|0xf88
+@66 splice 41 11
+|HW_MAIN_MEM_SHARED
+@66 splice 55 10
+|0xf8c
+@68 splice 41 11
+|HW_MAIN_MEM_SHARED
+@68 splice 55 10
+|0xf90
+@69 splice 41 11
+|HW_MAIN_MEM_SHARED
+@69 splice 55 10
+|0xf94
+@71 splice 41 11
+|HW_MAIN_MEM_SHARED
+@71 splice 55 10
+|0xf96
+@72 splice 41 11
+|HW_MAIN_MEM_SHARED
+@72 splice 55 10
+|0xf98
+@74 splice 41 11
+|HW_MAIN_MEM_SHARED
+@74 splice 55 10
+|0xf9a
+@75 splice 41 11
+|HW_MAIN_MEM_SHARED
+@75 splice 55 10
+|0xf9b
+@77 splice 41 11
+|HW_MAIN_MEM_SHARED
+@77 splice 55 10
+|0xf9c
+@79 splice 41 11
+|HW_MAIN_MEM_SHARED
+@79 splice 55 10
+|0xfa0
+@80 splice 41 11
+|HW_MAIN_MEM_SHARED
+@80 splice 55 10
+|0xfa4
+@81 splice 41 11
+|HW_MAIN_MEM_SHARED
+@81 splice 55 10
+|0xfa8
+@82 splice 41 11
+|HW_MAIN_MEM_SHARED
+@82 splice 55 10
+|0xfaa
+@83 splice 41 11
+|HW_MAIN_MEM_SHARED
+@83 splice 55 10
+|0xfae
+@85 splice 41 11
+|HW_MAIN_MEM_SHARED
+@85 splice 55 10
+|0xfb0
+@86 splice 41 11
+|HW_MAIN_MEM_SHARED
+@86 splice 55 10
+|0xfb8
+@88 splice 41 11
+|HW_MAIN_MEM_SHARED
+@88 splice 55 10
+|0xfc0
+@89 splice 41 11
+|HW_MAIN_MEM_SHARED
+@89 splice 55 10
+|0xfc8
+@90 splice 41 11
+|HW_MAIN_MEM_SHARED
+@90 splice 55 10
+|0xfd0
+@91 splice 41 11
+|HW_MAIN_MEM_SHARED
+@91 splice 55 10
+|0xfd8
+@92 splice 41 11
+|HW_MAIN_MEM_SHARED
+@92 splice 55 10
+|0xfe0
+@93 splice 41 11
+|HW_MAIN_MEM_SHARED
+@93 splice 55 10
+|0xfe8
+@94 splice 41 11
+|HW_MAIN_MEM_SHARED
+@94 splice 55 10
+|0xff0
+@96 splice 41 11
+|HW_MAIN_MEM_SHARED
+@96 splice 55 10
+|0xff8
+@97 splice 41 11
+|HW_MAIN_MEM_SHARED
+@97 splice 55 10
+|0xffa
+@99 splice 41 11
+|HW_MAIN_MEM_SHARED
+@99 splice 55 10
+|0xffe
+@104 splice 33 10
+|(HW_MAIN_MEM_SHARED + 0xc10)
+@105 splice 33 10
+|(HW_MAIN_MEM_SHARED + 0x814)
+@106 splice 33 10
+|(HW_MAIN_MEM_SHARED + 0xc14)

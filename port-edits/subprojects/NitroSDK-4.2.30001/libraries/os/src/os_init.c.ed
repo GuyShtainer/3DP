@@ -1,0 +1,15 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_init.c
+sha1 b019c6ded9d3e0e918f6062f55546eb0fc2669b5
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@24 insert-before 6
+|#else
+|static void OSi_WaitVCount0 (void)
+|{
+|    HWOS_WaitVCount0();
+|}
+|#endif

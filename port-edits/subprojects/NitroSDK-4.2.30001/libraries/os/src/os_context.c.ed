@@ -1,0 +1,47 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_context.c
+sha1 c2918f7d638d3518ff7bcf2bd8eac4df924368ed
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@10 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@63 insert-before 22
+|#else
+|void OS_InitContext (OSContext *context, u32 newpc, u32 newsp)
+|{
+|    int i;
+|
+|    newpc += 4;
+|    context->pc_plus4 = newpc;
+|#ifdef SDK_CONTEXT_HAS_SP_SVC
+|    context->sp_svc = newsp;
+|    newsp -= HW_SVC_STACK_SIZE;
+|#endif
+|    if (newsp & 4) {
+|        newsp -= 4;
+|    }
+|    context->sp = newsp;
+|    context->cpsr = (newpc & 1) ? (HW_PSR_SYS_MODE | HW_PSR_THUMB_STATE) : (HW_PSR_SYS_MODE | HW_PSR_ARM_STATE);
+|    for (i = 0; i < 13; i++) {
+|        context->r[i] = 0;
+|    }
+|    context->lr = 0;
+|}
+|#endif
+@68 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@93 insert-before 4
+|#else
+|/* OS_SaveContext is setjmp-like (returns 0, then 1 when the saved context is loaded), so a returning
+|   stub cannot implement it. It is left extern; the hw_os layer defines it (see hw_os_hooks.h). */
+|#endif
+@96 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@123 insert-before 6
+|#else
+|void OS_LoadContext (OSContext *context)
+|{
+|    HWOS_LoadContext(context);
+|}
+|#endif

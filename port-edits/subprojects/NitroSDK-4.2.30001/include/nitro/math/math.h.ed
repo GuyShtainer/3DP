@@ -1,0 +1,12 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/math/math.h
+sha1 335032d546c0729606fbb9e9a1e578fc6d58a5ad
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@62 delete 1
+@63 insert-before 6
+|            /* mwcc `clz x, x`; ARM CLZ returns 32 for 0, and so does MATH_CountLeadingZerosFunc's C fallback.
+|               __builtin_clz(0) is undefined, so the zero case is explicit (GCC still emits a bare CLZ). */
+|            SDK_INLINE u32 MATH_CountLeadingZerosInline (u32 x)
+|            {
+|                return x ? (u32)__builtin_clz(x) : 32u;
+|            }

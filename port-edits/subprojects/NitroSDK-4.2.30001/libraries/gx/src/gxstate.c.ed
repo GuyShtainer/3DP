@@ -1,0 +1,18 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/gxstate.c
+sha1 427934383af8788f1774842b1e66aa9ba7f6cea3
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@3 insert-before 3
+|#ifdef SDK_GCC
+|#include <hw_dev_hooks.h>
+|#endif
+@32 insert-before 9
+|#ifdef SDK_GCC
+|	/* 3DS port (bet 2.1b): the five stores above cleared VRAMCNT_A..I (A-D one word, E-G three bytes, H-I one halfword): the hook sees every bank */
+|	{
+|		u32 bank;
+|
+|		for (bank = 0; bank < 9; bank++)
+|			HWVRAM_SetCnt(bank, 0);
+|	}
+|#endif

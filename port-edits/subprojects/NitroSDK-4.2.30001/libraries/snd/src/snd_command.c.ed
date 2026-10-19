@@ -1,0 +1,14 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_command.c
+sha1 00285d2a14dba504ea926ff6c5bfc750e237ce99
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@13 insert-before 7
+|
+|/* port: the pointer-versus-command-id bound (see HW_SND_PTR_MIN in nitro/hw/ARM9/mmap_global.h); on the DS it is the main RAM base */
+|#if defined(SDK_GCC) && defined(HW_SND_PTR_MIN)
+|    #define SNDi_PTR_MIN HW_SND_PTR_MIN
+|#else
+|    #define SNDi_PTR_MIN HW_MAIN_MEM
+|#endif
+@588 splice 16 11
+|SNDi_PTR_MIN

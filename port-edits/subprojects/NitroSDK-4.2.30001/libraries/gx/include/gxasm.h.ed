@@ -1,0 +1,14 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/include/gxasm.h
+sha1 02d167dac96a53a76e707c86ab07a74563c03982
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@10 delete 1
+@11 insert-before 1
+|/* SDK_GCC: no extern declaration; the static inline definition below is the only one */
+@17 insert-before 6
+|#ifdef SDK_GCC
+|	if (MIi_IS_G3_PORT(pDest)) {   /* 3DS port (bet 2.1a): the destination is the GX FIFO; see source/hw/hw_gx.c */
+|		HWG3_Words(MIi_G3_PORT_OFS(pDest), pSrc, 9, HWG3_MODE_FIFO);
+|		return;
+|	}
+|#endif

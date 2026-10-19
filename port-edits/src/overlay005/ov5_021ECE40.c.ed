@@ -1,0 +1,10 @@
+3DP-edit 1
+path src/overlay005/ov5_021ECE40.c
+sha1 43a708e26cd79d77f4356e925d375880d564b521
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@338 splice 8 0
+|v2 = (BillboardResources *)(
+@338 splice 18 1
+|
+@338 splice 22 0
+|)

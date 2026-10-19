@@ -1,0 +1,6 @@
+3DP-edit 1
+path lib/crypto/src/sign.c
+sha1 bef11b2d61b97f1880235a5e093559e01b1e839e
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@4 insert-before 1
+|#include <nitro/math/dgt.h>

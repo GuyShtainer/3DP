@@ -1,0 +1,69 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_spinLock.c
+sha1 6a5d3947ba8521c0c7f135e1dd1bea25c41b0046
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@227 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@232 insert-before 6
+|#else
+|s32 OS_UnLockCartridge (u16 lockID)
+|{
+|    return OS_UnlockCartridge(lockID);
+|}
+|#endif
+@316 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@321 insert-before 6
+|#else
+|s32 OS_UnLockCard (u16 lockID)
+|{
+|    return OS_UnlockCard(lockID);
+|}
+|#endif
+@352 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@420 insert-before 9
+|#else
+|s32 OS_GetLockID (void)
+|{
+|    /* first clear flag bit (MSB first) over the two flag words; the asm then clears it */
+|    u32 *flag = (u32 *)OSi_ANYP_LOCK_ID_FLAG;
+|    u32 *word = &flag[0];
+|    u32 start = OSi_ANYP_LOCK_ID_START;
+|    u32 bits = flag[0];
+|    u32 z = bits ? (u32)__builtin_clz(bits) : 32;
+@421 insert-before 15
+|    if (z == 32) {
+|        word = &flag[1];
+|        start = OSi_ANYP_LOCK_ID_START + 32;
+|        bits = flag[1];
+|        z = bits ? (u32)__builtin_clz(bits) : 32;
+|        if (z == 32) {
+|            return OS_LOCK_ID_ERROR;
+|        }
+|    }
+|    *word &= ~(0x80000000U >> z);
+|    return (s32)(start + z);
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@454 insert-before 18
+|#else
+|void OS_ReleaseLockID (u16 lockID)
+|{
+|    u32 *flag = (u32 *)OSi_ANYP_LOCK_ID_FLAG;
+|    s32 idx = (s32)lockID;
+|    u32 mask;
+|
+|    if (idx >= OSi_ANYP_LOCK_ID_START + 32) {
+|        flag++;
+|        idx -= OSi_ANYP_LOCK_ID_START + 32;
+|    } else {
+|        idx -= OSi_ANYP_LOCK_ID_START;
+|    }
+|    /* a register shift by 32 or more yields 0 on the DS, so out-of-range ids set nothing */
+|    mask = (idx >= 0 && idx < 32) ? (0x80000000U >> idx) : 0;
+|    *flag |= mask;
+|}
+|#endif

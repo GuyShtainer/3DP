@@ -1,0 +1,17 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_bank.c
+sha1 2b7b415c38f9753998e4a374236d349eed772682
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@26 insert-before 8
+|#endif
+|
+|
+|/* port: the pointer-versus-offset bound (see HW_SND_PTR_MIN in nitro/hw/ARM9/mmap_global.h); on the DS it is the main RAM base */
+|#if defined(SDK_GCC) && defined(HW_SND_PTR_MIN)
+|    #define SNDi_PTR_MIN HW_SND_PTR_MIN
+|#else
+|    #define SNDi_PTR_MIN HW_MAIN_MEM
+@396 splice 53 11
+|SNDi_PTR_MIN
+@422 splice 21 11
+|SNDi_PTR_MIN

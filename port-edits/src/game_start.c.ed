@@ -1,0 +1,11 @@
+3DP-edit 1
+path src/game_start.c
+sha1 22b96663dcff39ce143c878cbb8879923abb1afb
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@26 insert-before 2
+|
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c) */
+@128 insert-before 1
+|        hwtrace("identity: SystemData_Init ran from the Continue mismatch path (not the new-game path)"); /* trace only */
+@129 insert-before 1
+|        hwtrace("identity: Shaymin revert ran (Party_SetShayminLandForm from the Continue mismatch path)"); /* trace only */

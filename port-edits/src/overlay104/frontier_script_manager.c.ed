@@ -1,0 +1,9 @@
+3DP-edit 1
+path src/overlay104/frontier_script_manager.c
+sha1 ae1070f0d5505ab9b061e88298d943455453fd47
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@188 insert-before 2
+|    u32 offset = FrontierScriptContext_ReadWord(ctx);   // port: unordered in C; read first, then add to the pointer after the operand (the order mwcc produced)
+|
+@188 splice 22 35
+|offset

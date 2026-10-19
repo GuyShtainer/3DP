@@ -1,0 +1,6 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/dgt/dgt.h
+sha1 98581eff83afc90789b06b7f67285f0c81bdd230
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@17 splice 1 18
+|u64

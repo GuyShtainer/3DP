@@ -1,0 +1,56 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/cp/src/cp_context.c
+sha1 bea937fd39f1338302c68097d01d44fdecede94b
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 3
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|#endif
+@9 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@27 insert-before 9
+|#else
+|void CP_SaveContext (CPContext *context)
+|{
+|    /* C equivalent of the ldm/stm sequence; same register access order. */
+|    volatile u32 *div = (volatile u32 *)REG_DIV_NUMER_ADDR;
+|    volatile u32 *sq = (volatile u32 *)REG_SQRT_PARAM_ADDR;
+|    u32 *dst = (u32 *)context;
+|    u32 divcnt = *(volatile u16 *)REG_DIVCNT_ADDR;
+|    u32 sqrtcnt;
+@28 insert-before 13
+|    dst[0] = div[0];
+|    dst[1] = div[1];
+|    dst[2] = div[2];
+|    dst[3] = div[3];
+|    dst[4] = sq[0];
+|    dst[5] = sq[1];
+|    sqrtcnt = *(volatile u16 *)REG_SQRTCNT_ADDR;
+|    context->div_mode = (u16)(divcnt & REG_CP_DIVCNT_MODE_MASK);
+|    context->sqrt_mode = (u16)(sqrtcnt & REG_CP_SQRTCNT_MODE_MASK);
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@45 insert-before 21
+|#else
+|void CPi_RestoreContext (const CPContext *context)
+|{
+|    volatile u32 *div = (volatile u32 *)REG_DIV_NUMER_ADDR;
+|    volatile u32 *sq = (volatile u32 *)REG_SQRT_PARAM_ADDR;
+|    const u32 *src = (const u32 *)context;
+|
+|    div[0] = src[0];
+|    div[1] = src[1];
+|    div[2] = src[2];
+|    div[3] = src[3];
+|    *(volatile u16 *)REG_DIVCNT_ADDR = context->div_mode;
+|    *(volatile u16 *)REG_SQRTCNT_ADDR = context->sqrt_mode;
+|    sq[0] = src[4];
+|    sq[1] = src[5];
+|#ifdef SDK_GCC
+|    HWDEV_CpDivRun();    /* port: the DS re-runs the division and the root as the operands are written back */
+|    HWDEV_CpSqrtRun();
+|#endif
+|}
+|#endif

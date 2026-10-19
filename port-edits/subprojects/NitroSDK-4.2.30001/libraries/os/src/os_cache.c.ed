@@ -1,0 +1,215 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c
+sha1 38275dfa70b03f3e5e6d2a939e920dcd9ce91148
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@15 insert-before 7
+|#else
+|/* DS cache maintenance has no ARM11 counterpart here (the 3DS maps and flushes shared GPU/DMA buffers itself). */
+|BOOL DC_Enable (void)
+|{
+|    return FALSE;
+|}
+|#endif
+@16 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@25 insert-before 6
+|#else
+|BOOL DC_Disable (void)
+|{
+|    return FALSE;
+|}
+|#endif
+@26 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@39 insert-before 7
+|#else
+|BOOL DC_Restore (BOOL enable)
+|{
+|    (void)enable;
+|    return FALSE;
+|}
+|#endif
+@40 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@46 insert-before 5
+|#else
+|void DC_InvalidateAll (void)
+|{
+|}
+|#endif
+@47 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@63 insert-before 5
+|#else
+|void DC_StoreAll (void)
+|{
+|}
+|#endif
+@64 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@82 insert-before 5
+|#else
+|void DC_FlushAll (void)
+|{
+|}
+|#endif
+@83 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@94 insert-before 7
+|#else
+|void DC_InvalidateRange (void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@95 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@106 insert-before 7
+|#else
+|void DC_StoreRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@107 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@120 insert-before 7
+|#else
+|void DC_FlushRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@121 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@132 insert-before 7
+|#else
+|void DC_TouchRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@133 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@165 insert-before 7
+|#else
+|void DC_LockdownRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@166 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@172 insert-before 5
+|#else
+|void DC_UnlockdownAll (void)
+|{
+|}
+|#endif
+@173 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@182 insert-before 6
+|#else
+|void DC_Unlockdown (u32 num)
+|{
+|    (void)num;
+|}
+|#endif
+@183 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@189 insert-before 5
+|#else
+|void DC_WaitWriteBufferEmpty (void)
+|{
+|}
+|#endif
+@190 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@199 insert-before 6
+|#else
+|BOOL IC_Enable (void)
+|{
+|    return FALSE;
+|}
+|#endif
+@200 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@209 insert-before 6
+|#else
+|BOOL IC_Disable (void)
+|{
+|    return FALSE;
+|}
+|#endif
+@210 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@223 insert-before 7
+|#else
+|BOOL IC_Restore (BOOL enable)
+|{
+|    (void)enable;
+|    return FALSE;
+|}
+|#endif
+@224 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@230 insert-before 5
+|#else
+|void IC_InvalidateAll (void)
+|{
+|}
+|#endif
+@231 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@242 insert-before 7
+|#else
+|void IC_InvalidateRange (void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@243 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@254 insert-before 7
+|#else
+|void IC_PrefetchRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@257 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@289 insert-before 7
+|#else
+|void IC_LockdownRange (const void * startAddr, u32 nBytes)
+|{
+|    (void)startAddr;
+|    (void)nBytes;
+|}
+|#endif
+@292 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@298 insert-before 5
+|#else
+|void IC_UnlockdownAll (void)
+|{
+|}
+|#endif
+@299 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@308 insert-before 6
+|#else
+|void IC_Unlockdown (u32 num)
+|{
+|    (void)num;
+|}
+|#endif

@@ -1,0 +1,9 @@
+3DP-edit 1
+path src/script_manager.c
+sha1 3e13c29864b00f2c201bcb9e9b81736ba15e3006
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@415 insert-before 2
+|    u32 offset = ScriptContext_ReadWord(ctx);   // port: C leaves `scriptPtr += Read()` unordered; read first, then add to the pointer AFTER the operand (the order mwcc produced)
+|
+@415 splice 22 27
+|offset

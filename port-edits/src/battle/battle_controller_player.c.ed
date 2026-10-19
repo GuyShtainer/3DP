@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/battle/battle_controller_player.c
+sha1 1ffb5a454f271260c505213f99ee1a7cccd60bd2
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@564 splice 28 0
+|(u32 *)

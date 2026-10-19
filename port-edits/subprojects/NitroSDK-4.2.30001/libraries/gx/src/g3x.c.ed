@@ -1,0 +1,97 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3x.c
+sha1 1c51d0c57e7c2345298336094f3af1d58e62eb04
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@14 insert-before 5
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@15 insert-before 3
+|#else
+|static void GXi_NopClearFifo128_(void *pDest);
+|#endif
+@34 insert-before 4
+|#ifdef SDK_GCC
+|	HWG3_StatWrite(0x600u);   /* 3DS port (bet 2.4b): the geometry engine sees the GXSTAT / DISP3DCNT writes (hw_devs.c) */
+|	HWG3_StatWrite(0x060u);
+|#endif
+@200 insert-before 3
+|#ifdef SDK_GCC
+|		HWG3_Readback(0x640u, 16u, &m->_00);   /* 3DS port (bet 2.4a): trace-only RDBK entry */
+|#endif
+@212 insert-before 3
+|#ifdef SDK_GCC
+|		HWG3_Readback(0x680u, 9u, &m->_00);
+|#endif
+@264 splice 2 18
+|HWG3_STORE(SHININESS,
+@264 splice 22 0
+|)
+@272 insert-before 1
+|	u32 st = G3X_ReadGxstat_();
+@272 splice 5 14
+|st
+@275 splice 18 14
+|st
+@284 insert-before 1
+|	u32 st = G3X_ReadGxstat_();
+@284 splice 5 14
+|st
+@287 splice 18 14
+|st
+@302 insert-before 1
+|	u32 st = G3X_ReadGxstat_();
+@302 splice 5 14
+|st
+@305 splice 14 14
+|st
+@315 splice 5 14
+|G3X_ReadGxstat_()
+@322 insert-before 7
+|#ifdef SDK_GCC
+|		{
+|			u32 r[4];
+|			r[0] = (u32)vec->x; r[1] = (u32)vec->y; r[2] = (u32)vec->z; r[3] = (u32)*w;
+|			HWG3_Readback(0x620u, 4u, r);
+|		}
+|#endif
+@330 splice 5 14
+|G3X_ReadGxstat_()
+@336 insert-before 8
+|#ifdef SDK_GCC
+|		{
+|			u32 r;
+|			r = (u16)*(vec + 0); HWG3_Readback(0x630u, 1u, &r);
+|			r = (u16)*(vec + 1); HWG3_Readback(0x632u, 1u, &r);
+|			r = (u16)*(vec + 2); HWG3_Readback(0x634u, 1u, &r);
+|		}
+|#endif
+@352 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@392 insert-before 24
+|#else
+|static void GXi_NopClearFifo128_ (void *pDest)
+|{
+|    static const u32 nops[16];   /* 3DS port (bet 2.1a): 128 NOP words into the GX FIFO, see source/hw/hw_gx.c */
+|
+|    if (MIi_IS_G3_PORT(pDest)) {
+|        int k;
+|
+|        for (k = 0; k < 8; k++) {
+|            HWG3_Words(MIi_G3_PORT_OFS(pDest), nops, 16, HWG3_MODE_FIFO);
+|        }
+|        return;
+|    }
+|    volatile u32 *d = (volatile u32 *)pDest;
+|    int i;
+|
+|    for (i = 0; i < 32; i++) {
+|        d[0] = 0;
+|        d[1] = 0;
+|        d[2] = 0;
+|        d[3] = 0;
+|    }
+|}
+|#endif

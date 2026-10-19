@@ -1,0 +1,10 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/platform.h
+sha1 b74b1dc3f2b53a7dd55c1e276d192a8866300ff3
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@28 insert-before 5
+|#elif defined(SDK_GCC)
+|    #define PLATFORM_BITFIELDS_ENDIAN    PLATFORM_ENDIAN_LITTLE
+|    #define PLATFORM_COMPILER_ASSERT(expr)  _Static_assert(expr, "PLATFORM_COMPILER_ASSERT")
+|    #define PLATFORM_STRUCT_PADDING_FOOTER
+|    #define PLATFORM_ATTRIBUTE_INLINE       SDK_INLINE

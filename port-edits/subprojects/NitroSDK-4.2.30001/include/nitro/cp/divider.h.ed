@@ -1,0 +1,20 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/cp/divider.h
+sha1 304922a791c07b3ef2085be2922e9df5a626028d
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@10 insert-before 7
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|    #define CPi_DIV_RUN()  HWDEV_CpDivRun()    /* port: the divider runs at the instant the operands are written (hw_cp.c) */
+|#else
+|    #define CPi_DIV_RUN()  ((void)0)
+|#endif
+|
+@17 insert-before 1
+|	CPi_DIV_RUN();
+@23 insert-before 1
+|	CPi_DIV_RUN();
+@29 insert-before 1
+|	CPi_DIV_RUN();
+@35 insert-before 1
+|	CPi_DIV_RUN();

@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/spi/ARM9/pm.h
+sha1 5f934b46c513c4a5e450c340fd4744e759c0c9d9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@113 splice 0 0
+|static 
+@118 splice 0 0
+|static 

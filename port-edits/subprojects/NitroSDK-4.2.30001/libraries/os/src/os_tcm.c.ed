@@ -1,0 +1,98 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_tcm.c
+sha1 d55765d7e0a12a9e5318760a08e5769849f92c07
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@11 insert-before 6
+|#else
+|void OS_EnableITCM (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) | HW_C1_ITCM_ENABLE);
+|}
+|#endif
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@19 insert-before 6
+|#else
+|void OS_DisableITCM (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) & ~(u32)HW_C1_ITCM_ENABLE);
+|}
+|#endif
+@20 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@26 insert-before 6
+|#else
+|void OS_SetITCMParam (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_ITCM, param & HW_C9_TCMR_SIZE_MASK);
+|}
+|#endif
+@27 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@33 insert-before 6
+|#else
+|u32 OS_GetITCMParam (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_ITCM) & HW_C9_TCMR_SIZE_MASK;
+|}
+|#endif
+@34 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@41 insert-before 6
+|#else
+|void OS_EnableDTCM (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) | HW_C1_DTCM_ENABLE);
+|}
+|#endif
+@42 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@49 insert-before 6
+|#else
+|void OS_DisableDTCM (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) & ~(u32)HW_C1_DTCM_ENABLE);
+|}
+|#endif
+@50 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@57 insert-before 6
+|#else
+|void OS_SetDTCMParam (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_DTCM, param & (HW_C9_TCMR_BASE_MASK | HW_C9_TCMR_SIZE_MASK));
+|}
+|#endif
+@58 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@65 insert-before 6
+|#else
+|u32 OS_GetDTCMParam (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_DTCM) & (HW_C9_TCMR_BASE_MASK | HW_C9_TCMR_SIZE_MASK);
+|}
+|#endif
+@69 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@79 insert-before 4
+|#else
+|void OS_SetDTCMAddress (u32 address)
+|{
+|    u32 size = HWOS_Cp15Read(HWOS_CP15_DTCM) & OSi_TCM_REGION_SIZE_MASK;
+@80 insert-before 5
+|    HWOS_Cp15Write(HWOS_CP15_DTCM, (address & OSi_TCM_REGION_BASE_MASK) | size);
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@87 insert-before 6
+|#else
+|u32 OS_GetDTCMAddress (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_DTCM) & OSi_TCM_REGION_BASE_MASK;
+|}
+|#endif

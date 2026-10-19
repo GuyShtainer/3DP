@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/applications/capsule_menu/graphics.c
+sha1 bdbbc5e574bebbf3bf6c1cf238ace6155ac14248
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@447 splice 73 0
+|(u32)

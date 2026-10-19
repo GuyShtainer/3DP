@@ -1,0 +1,12 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/mi/compress.h
+sha1 91085d8969269d722165b977ae49936d623d0dcc
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@14 splice 0 0
+|static 
+@19 splice 0 0
+|static 
+@24 splice 0 0
+|static 
+@29 splice 0 0
+|static 

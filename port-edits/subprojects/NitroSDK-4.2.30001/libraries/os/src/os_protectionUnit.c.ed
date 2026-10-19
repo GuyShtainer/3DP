@@ -1,0 +1,24 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionUnit.c
+sha1 17ea4f17b0481a71fe3844828a19a3811de9aff7
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@11 insert-before 6
+|#else
+|void OS_EnableProtectionUnit (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) | HW_C1_PROTECT_UNIT_ENABLE);
+|}
+|#endif
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@19 insert-before 6
+|#else
+|void OS_DisableProtectionUnit (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) & ~(u32)HW_C1_PROTECT_UNIT_ENABLE);
+|}
+|#endif

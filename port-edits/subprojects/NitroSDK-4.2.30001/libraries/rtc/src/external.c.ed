@@ -1,0 +1,16 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/rtc/src/external.c
+sha1 f109793966907341ff03a495eaab7068f4698b7f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1032 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@1041 insert-before 9
+|#else
+|static void RtcWaitBusy (void)
+|{
+|    /* Spins until the lock word is released by the callback side. Slice 1.3 (event model) may need a
+|       yield here if the release happens on the same thread of control. */
+|    while (*(volatile u32 *)&rtcWork.lock == RTC_LOCK_ON) {
+|    }
+|}
+|#endif

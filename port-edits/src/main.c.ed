@@ -1,0 +1,73 @@
+3DP-edit 1
+path src/main.c
+sha1 cd8fe5875384bb90a07a19fa007c381da3ef5c0b
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@64 insert-before 8
+|extern void port_trace(const char *msg); /* 3DS port: boot-trace milestone (source/port_main.c) */
+|extern void port_trace_once(const char *msg); /* same, only the first time this string is passed */
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c) */
+|extern unsigned hw_devs_snapshot_point(void); /* 3DS port, bet 2.2c B3: seals the pending gxtrace frame's state; returns the DS vblank count (source/hw/hw_devs.c) */
+|extern void port_frame_key(unsigned vblanks, int ovl, const void *appMain, int exec, int proc, const void *vblankCb, int haveField, int map, int x, int z); /* bet 2.2c B1 (source/port_main.c) */
+|extern int port_field_key(ApplicationManager *appMan, int *map, int *x, int *z); /* bet 2.2c B1 (src/field_system.c) */
+|extern void hwtask_note(unsigned list, unsigned used, unsigned cap); /* bet 2.2c F8 (source/hw/hw_log.c) */
+|
+@66 insert-before 1
+|    port_trace("NitroMain entered");
+@67 insert-before 1
+|    port_trace("InitSystem done");
+@75 insert-before 1
+|    port_trace("InitApplication done");
+@85 insert-before 1
+|    port_trace("SoundSystem_Init done");
+@86 insert-before 1
+|    port_trace("Timer_Start done");
+@90 insert-before 1
+|    port_trace("DWC init check done");
+@112 insert-before 2
+|    hwtrace("app: NitroMain start reset_param=%d args.error=%d", (int)OS_GetResetParameter(), (int)sApplication.args.error);
+|    port_trace("first application enqueued");
+@120 insert-before 1
+|    port_trace("main loop entered");
+@123 insert-before 1
+|        port_trace_once("loop: CheckHeapCanary");
+@124 insert-before 1
+|        port_trace_once("loop: HandleConsoleFold");
+@125 insert-before 1
+|        port_trace_once("loop: ReadKeypadAndTouchpad");
+@131 insert-before 1
+|            port_trace_once("loop: CommSys_Update");
+@133 insert-before 1
+|            port_trace_once("loop: RunApplication");
+@157 insert-before 14
+|        }
+|
+|        {   /* 3DS port, trace only (Rule 2): the plan's snapshot point (after the vblank callback). Seals the gxtrace frame and logs the game-state key. */
+|            int keyMap = -1, keyX = -1, keyZ = -1, keyField = 0, keyExec = -1, keyProc = -1;
+|            const void *keyMain = NULL;
+|
+|            if (sApplication.currApplication != NULL) {
+|                keyMain = (const void *)sApplication.currApplication->template.main;
+|                keyExec = sApplication.currApplication->execState;
+|                keyProc = sApplication.currApplication->procState;
+|                keyField = port_field_key(sApplication.currApplication, &keyMap, &keyX, &keyZ);
+|            }
+|            hwtask_note(1, gSystem.postVBlankTaskMgr->stackPointer, gSystem.postVBlankTaskMgr->maxTasks);
+|            port_frame_key(hw_devs_snapshot_point(), (int)sApplication.currOverlayID, keyMain, keyExec, keyProc, (const void *)gSystem.vblankCallback, keyField, keyMap, keyX, keyZ);
+@185 insert-before 1
+|        hwtrace("app: START ovl=%d init=%p", (int)sApplication.currOverlayID, (void *)sApplication.nextApplication->init);
+@189 insert-before 8
+|    int traceExec = sApplication.currApplication->execState, traceProc = sApplication.currApplication->procState;
+|    BOOL traceDone = ApplicationManager_Exec(sApplication.currApplication);
+|
+|    if (traceDone || sApplication.currApplication->execState != traceExec || sApplication.currApplication->procState != traceProc) {
+|        hwtrace("app: %p exec=%d proc=%d%s", (void *)sApplication.currApplication->template.init, sApplication.currApplication->execState,
+|            sApplication.currApplication->procState, traceDone ? " DONE" : "");
+|    }
+|
+@189 splice 8 53
+|traceDone
+@202 insert-before 1
+|    hwtrace("app: ENQUEUE ovl=%d init=%p", (int)overlayID, (void *)template->init);
+@265 insert-before 2
+|
+|    hwtrace("app: HeapCanaryFailed (network-error screen) resetParam=%d commError=%d", resetParam, param1);

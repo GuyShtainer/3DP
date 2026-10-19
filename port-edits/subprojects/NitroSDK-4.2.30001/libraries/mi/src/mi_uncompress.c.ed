@@ -1,0 +1,373 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c
+sha1 b24d1959abbceb8803af0b9ce3e0c4cb3ac7e7a9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@57 insert-before 12
+|#else
+|void MI_UnpackBits (const void *srcp, void *destp, MIUnpackBitsParam *paramp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u32 *d = (u32 *)destp;
+|    s32 srcNum = paramp->srcNum;
+|    u32 srcBits = paramp->srcBitNum;
+|    u32 destBits = paramp->destBitNum;
+|    u32 offset = paramp->destOffset;
+|    u32 zeroOn = paramp->destOffset0_on;
+|    u32 accum = 0;
+|    u32 shift = 0;
+@58 insert-before 25
+|    /* as the asm: a partially filled output word at the end is not flushed */
+|    while (srcNum-- > 0) {
+|        u32 mask = 0xff >> (8 - srcBits);
+|        u32 byte = *s++;
+|        u32 pos;
+|
+|        for (pos = 0; pos < 8; pos += srcBits) {
+|            u32 v = (byte & mask) >> pos;
+|            if (v != 0 || zeroOn != 0) {
+|                v += offset;
+|            }
+|            accum |= v << shift;
+|            shift += destBits;
+|            if (shift >= 32) {
+|                *d++ = accum;
+|                accum = 0;
+|                shift = 0;
+|            }
+|            mask <<= srcBits;
+|        }
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@157 insert-before 8
+|#else
+|void MI_UncompressLZ8 (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u8 *d = (u8 *)destp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|    BOOL ext = (hdr & 0x0F) != 0;
+@158 insert-before 47
+|    s += 4;
+|    while (size > 0) {
+|        u32 flags = *s++;
+|        int i;
+|
+|        for (i = 0; i < 8; i++) {
+|            if ((flags & 0x80) == 0) {
+|                *d++ = *s++;
+|                size--;
+|            } else {
+|                u32 b = *s;
+|                u32 len;
+|                u32 disp1;
+|
+|                if (!ext) {
+|                    len = 3;
+|                } else if ((b & 0xE0) != 0) {
+|                    len = 1;
+|                } else {
+|                    s++;
+|                    len = (b & 0xF) << 4;
+|                    if (b & 0x10) {
+|                        len = (len << 8) + ((u32)*s++ << 4) + 0x100;
+|                    }
+|                    len += 0x11;
+|                    b = *s;
+|                }
+|                len += b >> 4;
+|                s++;
+|                disp1 = (((b & 0xF) << 8) | *s++) + 1;
+|                size -= (s32)len;
+|                do {
+|                    *d = d[-(s32)disp1];
+|                    d++;
+|                } while (--len > 0);
+|            }
+|            if (size > 0) {
+|                flags <<= 1;
+|            } else {
+|                break;
+|            }
+|        }
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@318 insert-before 12
+|#else
+|void MI_UncompressLZ16 (const void *srcp, void *destp)
+|{
+|    /* Output is assembled in a halfword accumulator (VRAM-safe). As on the DS,
+|       a displacement of 1 reads memory that has not been written yet. */
+|    const u8 *s = (const u8 *)srcp;
+|    u8 *d = (u8 *)destp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|    BOOL ext = (hdr & 0x0F) != 0;
+|    u32 accum = 0;
+|    u32 bpos = 0;
+@319 insert-before 65
+|    s += 4;
+|    while (size > 0) {
+|        u32 flags = *s++;
+|        int i;
+|
+|        for (i = 0; i < 8; i++) {
+|            if ((flags & 0x80) == 0) {
+|                accum |= (u32)*s++ << bpos;
+|                size--;
+|                bpos ^= 8;
+|                if (bpos == 0) {
+|                    *(u16 *)d = (u16)accum;
+|                    d += 2;
+|                    accum = 0;
+|                }
+|            } else {
+|                u32 b = *s;
+|                u32 len;
+|                u32 disp1;
+|                u32 sel;
+|
+|                if (!ext) {
+|                    len = 3;
+|                } else if ((b & 0xE0) != 0) {
+|                    len = 1;
+|                } else {
+|                    s++;
+|                    len = (b & 0xF) << 4;
+|                    if (b & 0x10) {
+|                        len = (len << 8) + ((u32)*s++ << 4) + 0x100;
+|                    }
+|                    len += 0x11;
+|                    b = *s;
+|                }
+|                len += b >> 4;
+|                s++;
+|                disp1 = (((b & 0xF) << 8) | *s++) + 1;
+|                sel = (8 - bpos) ^ ((disp1 & 1) << 3);
+|                size -= (s32)len;
+|                do {
+|                    u32 off = (disp1 + ((8 - bpos) >> 3)) >> 1 << 1;
+|                    u32 half;
+|
+|                    sel ^= 8;
+|                    half = *(const u16 *)(d - off);
+|                    accum |= ((half & (0xFFu << sel)) >> sel) << bpos;
+|                    bpos ^= 8;
+|                    if (bpos == 0) {
+|                        *(u16 *)d = (u16)accum;
+|                        d += 2;
+|                        accum = 0;
+|                    }
+|                } while (--len > 0);
+|            }
+|            if (size > 0) {
+|                flags <<= 1;
+|            } else {
+|                break;
+|            }
+|        }
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@406 insert-before 14
+|#else
+|void MI_UncompressHuffman (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u32 *d = (u32 *)destp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    u32 bits = hdr & 0xF;
+|    s32 size = (s32)(hdr >> 8);
+|    u32 perWord = (bits & 7) + 4;
+|    const u8 *tree = s + 4;
+|    const u32 *stream = (const u32 *)(const void *)(tree + ((u32)tree[0] + 1) * 2);
+|    u32 node = 1;
+|    u32 accum = 0;
+|    u32 count = 0;
+@407 insert-before 30
+|    while (size > 0) {
+|        u32 word = *stream++;
+|        int i;
+|
+|        for (i = 0; i < 32; i++) {
+|            u32 bit = (word >> 31) & 1;
+|            u32 nb = tree[node];
+|
+|            node = (node & ~1u) + (((nb & 0x3F) + 1) << 1) + bit;
+|            if (((nb << bit) & 0x80) != 0) {
+|                accum = (accum >> bits) | ((u32)tree[node] << (32 - bits));
+|                node = 1;
+|                count++;
+|                if (count == perWord) {
+|                    *d++ = accum;
+|                    size -= 4;
+|                    count = 0;
+|                }
+|            }
+|            if (size > 0) {
+|                word <<= 1;
+|            } else {
+|                break;
+|            }
+|        }
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@442 insert-before 31
+|#else
+|void MI_UncompressRL8 (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u8 *d = (u8 *)destp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|
+|    s += 4;
+|    while (size > 0) {
+|        u32 flag = *s++;
+|        s32 len = (s32)(flag & 0x7F);
+|
+|        if ((flag & 0x80) == 0) {
+|            len += 1;
+|            size -= len;
+|            do {
+|                *d++ = *s++;
+|            } while (--len > 0);
+|        } else {
+|            u8 v;
+|            len += 3;
+|            size -= len;
+|            v = *s++;
+|            do {
+|                *d++ = v;
+|            } while (--len > 0);
+|        }
+|    }
+|}
+|#endif
+@445 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@507 insert-before 39
+|#else
+|void MI_UncompressRL16 (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u8 *d = (u8 *)destp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|    u32 accum = 0;
+|    u32 bpos = 0;
+|
+|    s += 4;
+|    while (size > 0) {
+|        u32 flag = *s++;
+|        s32 len = (s32)(flag & 0x7F);
+|        BOOL run = (flag & 0x80) != 0;
+|        u32 v = 0;
+|
+|        if (run) {
+|            len += 3;
+|            v = *s++;
+|        } else {
+|            len += 1;
+|        }
+|        size -= len;
+|        do {
+|            if (!run) {
+|                v = *s++;
+|            }
+|            accum |= v << bpos;
+|            bpos ^= 8;
+|            if (bpos == 0) {
+|                *(u16 *)d = (u16)accum;
+|                d += 2;
+|                accum = 0;
+|            }
+|        } while (--len > 0);
+|    }
+|}
+|#endif
+@510 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@542 insert-before 7
+|#else
+|void MI_UnfilterDiff8 (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|    u32 sum = 0;
+@543 insert-before 22
+|    /* do-while, like the asm: at least one unit is written even for size 0 */
+|    if ((hdr & 0xF) == 1) {
+|        const u8 *sp = s + 4;
+|        u8 *dp = (u8 *)destp;
+|        do {
+|            sum += *sp++;
+|            size -= 1;
+|            *dp++ = (u8)sum;
+|        } while (size > 0);
+|    } else {
+|        const u16 *sp = (const u16 *)(s + 4);
+|        u16 *dp = (u16 *)destp;
+|        do {
+|            sum += *sp++;
+|            size -= 2;
+|            *dp++ = (u16)sum;
+|        } while (size > 0);
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@584 insert-before 38
+|#else
+|void MI_UnfilterDiff16 (const void *srcp, void *destp)
+|{
+|    const u8 *s = (const u8 *)srcp;
+|    u32 hdr = (u32)s[0] | ((u32)s[1] << 8) | ((u32)s[2] << 16) | ((u32)s[3] << 24);
+|    s32 size = (s32)(hdr >> 8);
+|    const u16 *sp = (const u16 *)(s + 4);
+|    u16 *dp = (u16 *)destp;
+|    u32 sum = 0;
+|
+|    if ((hdr & 0xF) == 1) {
+|        /* 8-bit units, 16-bit stores */
+|        for (;;) {
+|            u32 v = *sp++;
+|            u32 lo;
+|
+|            size -= 2;
+|            sum += v;
+|            lo = sum & 0xFF;
+|            sum += v >> 8;
+|            *dp++ = (u16)(lo + (sum << 8));
+|            if (size <= 1) {
+|                break;
+|            }
+|        }
+|        if (size == 1) {
+|            sum += *sp;
+|            *dp = (u16)(sum & 0xFF);
+|        }
+|    } else {
+|        do {
+|            sum += *sp++;
+|            size -= 2;
+|            *dp++ = (u16)sum;
+|        } while (size > 0);
+|    }
+|}
+|#endif

@@ -1,0 +1,22 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/cp/sqrt.h
+sha1 3c8bcac5af7adf5e43e4f89a3682bc0e6f4996a3
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@10 insert-before 7
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|    #define CPi_SQRT_RUN() HWDEV_CpSqrtRun()   /* port: the unit runs at the instant the operand is written (hw_cp.c) */
+|#else
+|    #define CPi_SQRT_RUN() ((void)0)
+|#endif
+|
+@16 insert-before 1
+|	CPi_SQRT_RUN();
+@21 insert-before 1
+|	CPi_SQRT_RUN();
+@26 insert-before 1
+|	CPi_SQRT_RUN();
+@31 insert-before 1
+|	CPi_SQRT_RUN();
+@36 insert-before 1
+|	CPi_SQRT_RUN();

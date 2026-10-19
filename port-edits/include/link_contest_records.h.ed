@@ -1,0 +1,10 @@
+3DP-edit 1
+path include/link_contest_records.h
+sha1 2e8efd4aa3cc504f60ac6df69b93cddf7e0273cd
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1 splice 8 22
+|POKEPLATINUM_LINK_CONTEST_RECORDS_H
+@2 splice 8 22
+|POKEPLATINUM_LINK_CONTEST_RECORDS_H
+@18 splice 10 22
+|POKEPLATINUM_LINK_CONTEST_RECORDS_H

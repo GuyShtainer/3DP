@@ -1,0 +1,92 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncomp_stream.c
+sha1 746ded559e952386df820b151e8d816588b9c5d6
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@14 insert-before 8
+|#else
+|void MI_InitUncompContextRL(
+|    MIUncompContextRL *ctx, u8 *dst, const MICompressionHeader *hdr)
+|{
+|    (void)ctx; (void)dst; (void)hdr;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@15 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@27 insert-before 8
+|#else
+|void MI_InitUncompContextLZ(
+|    MIUncompContextLZ *ctx, u8 *dst, const MICompressionHeader *hdr)
+|{
+|    (void)ctx; (void)dst; (void)hdr;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@28 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@40 insert-before 8
+|#else
+|void MI_InitUncompContextHuffman(
+|    MIUncompContextHuffman *ctx, u8 *dst, const MICompressionHeader *hdr)
+|{
+|    (void)ctx; (void)dst; (void)hdr;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@43 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@103 insert-before 8
+|#else
+|s32 MI_ReadUncompRL8(
+|    MIUncompContextRL *ctx, const u8 *src, u32 n)
+|{
+|    (void)ctx; (void)src; (void)n;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@104 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@172 insert-before 8
+|#else
+|s32 MI_ReadUncompRL16(
+|    MIUncompContextRL *ctx, const u8 *src, u32 n)
+|{
+|    (void)ctx; (void)src; (void)n;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@173 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@296 insert-before 8
+|#else
+|s32 MI_ReadUncompLZ8(
+|    MIUncompContextLZ *ctx, const u8 *src, u32 n)
+|{
+|    (void)ctx; (void)src; (void)n;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@297 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@442 insert-before 8
+|#else
+|s32 MI_ReadUncompLZ16(
+|    MIUncompContextLZ *ctx, const u8 *src, u32 n)
+|{
+|    (void)ctx; (void)src; (void)n;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif
+@445 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@543 insert-before 8
+|#else
+|s32 MI_ReadUncompHuffman(
+|    MIUncompContextHuffman *ctx, const u8 *src, u32 n)
+|{
+|    (void)ctx; (void)src; (void)n;
+|    __builtin_trap();   /* 3DP: not ported; the game never calls the streaming decoders (release P1) */
+|}
+|#endif

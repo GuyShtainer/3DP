@@ -1,0 +1,58 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/g3d/src/sbc.c
+sha1 c5163626dba90b054472b8f8fdf61edada00ebb0
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@729 splice 8 17
+|HWG3_FIFO(
+@729 splice 94 0
+|)
+@730 splice 8 17
+|HWG3_FIFO(
+@730 splice 51 0
+|)
+@731 delete 1
+@732 insert-before 1
+|        HWG3_FIFO(0);
+@760 splice 12 17
+|HWG3_FIFO(
+@760 splice 97 0
+|)
+@768 splice 12 17
+|HWG3_FIFO(
+@768 splice 94 0
+|)
+@773 splice 12 17
+|HWG3_FIFO(
+@773 splice 97 0
+|)
+@781 splice 12 17
+|HWG3_FIFO(
+@781 splice 94 0
+|)
+@877 splice 8 17
+|HWG3_FIFO(
+@877 splice 94 0
+|)
+@878 splice 8 17
+|HWG3_FIFO(
+@878 splice 51 0
+|)
+@879 delete 1
+@880 insert-before 1
+|        HWG3_FIFO(0);
+@921 splice 12 17
+|HWG3_FIFO(
+@921 splice 97 0
+|)
+@929 splice 12 17
+|HWG3_FIFO(
+@929 splice 94 0
+|)
+@934 splice 12 17
+|HWG3_FIFO(
+@934 splice 97 0
+|)
+@942 splice 12 17
+|HWG3_FIFO(
+@942 splice 94 0
+|)

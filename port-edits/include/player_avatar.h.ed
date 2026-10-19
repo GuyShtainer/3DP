@@ -1,0 +1,6 @@
+3DP-edit 1
+path include/player_avatar.h
+sha1 d4e13368147d2fe0b952ef83fa6b30863ad40c08
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@68 insert-before 1
+|int PlayerAvatar_GetMoveState(const PlayerAvatar *playerAvatar);

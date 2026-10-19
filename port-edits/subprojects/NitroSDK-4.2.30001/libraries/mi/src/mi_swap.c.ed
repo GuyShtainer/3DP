@@ -1,0 +1,24 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c
+sha1 a8d8a3784c13417ba4873c9b6a4daa42e5718165
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@11 insert-before 7
+|#else
+|u32 MI_SwapWord (u32 setData, volatile u32 *destp)
+|{
+|    /* swp: atomic exchange, returns the old value */
+|    return (u32)__sync_lock_test_and_set(destp, setData);
+|}
+|#endif
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@17 insert-before 7
+|#else
+|u8 MI_SwapByte (u32 setData, volatile u8 *destp)
+|{
+|    /* swpb */
+|    return (u8)__sync_lock_test_and_set(destp, (u8)setData);
+|}
+|#endif

@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/enc_effects.c
+sha1 9af8c930b61ce18b87b87595f1a881a341e18913
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@118 splice 0 0
+|static 

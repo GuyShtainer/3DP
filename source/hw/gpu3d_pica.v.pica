@@ -1,0 +1,17 @@
+; gpu3d_pica.v.pica -- vertex shader of the DS polygon-list rasteriser (bet 2.5a). The CPU builds clip-space positions (DS screen position and depth already folded in,
+; the private design notes), so the shader only passes position, texture coordinate and colour through.
+
+.out outpos position
+.out outtc0 texcoord0
+.out outclr color
+
+.alias inpos v0
+.alias intex v1
+.alias inclr v2
+
+.proc main
+	mov outpos, inpos
+	mov outtc0, intex
+	mov outclr, inclr
+	end
+.end

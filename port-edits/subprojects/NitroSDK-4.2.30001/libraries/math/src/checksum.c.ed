@@ -1,0 +1,40 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/math/src/checksum.c
+sha1 fe13d9953bf11ae6198b01a0f050c7d929b0ffe9
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@12 splice 12 1
+|const 
+@12 splice 23 3
+|
+@13 insert-before 1
+|		input = (const u8 *)input + 1;
+@20 splice 12 1
+|const 
+@20 splice 24 3
+|
+@21 insert-before 1
+|			input = (const u16 *)input + 1;
+@28 splice 11 1
+|const 
+@28 splice 23 3
+|
+@29 insert-before 1
+|			input = (const u16 *)input + 1;
+@73 splice 11 1
+|const 
+@73 splice 22 3
+|
+@74 insert-before 1
+|		input = (const u8 *)input + 1;
+@80 splice 12 1
+|const 
+@80 splice 24 3
+|
+@81 insert-before 1
+|			input = (const u16 *)input + 1;
+@88 splice 11 1
+|const 
+@88 splice 23 3
+|
+@89 insert-before 1
+|			input = (const u16 *)input + 1;

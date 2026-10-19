@@ -1,0 +1,267 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c
+sha1 94c3deb018df6962fdfc204449dc95a014c86ffa
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@11 insert-before 6
+|#else
+|void OS_EnableICacheForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_ICACHE_CFG, HWOS_Cp15Read(HWOS_CP15_ICACHE_CFG) | flags);
+|}
+|#endif
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@19 insert-before 6
+|#else
+|void OS_DisableICacheForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_ICACHE_CFG, HWOS_Cp15Read(HWOS_CP15_ICACHE_CFG) & ~flags);
+|}
+|#endif
+@20 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@25 insert-before 6
+|#else
+|u32 OS_GetICacheEnableFlagsForProtectionRegion (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_ICACHE_CFG);
+|}
+|#endif
+@26 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@34 insert-before 6
+|#else
+|void OS_SetIPermissionsForProtectionRegion (u32 setMask, u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_IPERM, (HWOS_Cp15Read(HWOS_CP15_IPERM) & ~setMask) | flags);
+|}
+|#endif
+@35 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@40 insert-before 6
+|#else
+|u32 OS_GetIPermissionsForProtectionRegion (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_IPERM);
+|}
+|#endif
+@41 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@48 insert-before 6
+|#else
+|void OS_EnableDCacheForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_DCACHE_CFG, HWOS_Cp15Read(HWOS_CP15_DCACHE_CFG) | flags);
+|}
+|#endif
+@49 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@56 insert-before 6
+|#else
+|void OS_DisableDCacheForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_DCACHE_CFG, HWOS_Cp15Read(HWOS_CP15_DCACHE_CFG) & ~flags);
+|}
+|#endif
+@57 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@62 insert-before 6
+|#else
+|u32 OS_GetDCacheEnableFlagsForProtectionRegion (u32 flags)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_DCACHE_CFG);
+|}
+|#endif
+@63 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@71 insert-before 6
+|#else
+|void OS_SetDPermissionsForProtectionRegion (u32 setMask, u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_DPERM, (HWOS_Cp15Read(HWOS_CP15_DPERM) & ~setMask) | flags);
+|}
+|#endif
+@72 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@77 insert-before 6
+|#else
+|u32 OS_GetDPermissionsForProtectionRegion (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_DPERM);
+|}
+|#endif
+@78 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@85 insert-before 6
+|#else
+|void OS_EnableWriteBufferForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_WRITEBUF, HWOS_Cp15Read(HWOS_CP15_WRITEBUF) | flags);
+|}
+|#endif
+@86 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@93 insert-before 6
+|#else
+|void OS_DisableWriteBufferForProtectionRegion (u32 flags)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_WRITEBUF, HWOS_Cp15Read(HWOS_CP15_WRITEBUF) & ~flags);
+|}
+|#endif
+@94 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@99 insert-before 6
+|#else
+|u32 OS_GetWriteBufferEnableFlagsForProtectionRegion (u32 flags)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_WRITEBUF);
+|}
+|#endif
+@100 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@105 insert-before 6
+|#else
+|void OS_SetProtectionRegion0 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 0, param);
+|}
+|#endif
+@106 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@111 insert-before 6
+|#else
+|void OS_SetProtectionRegion1 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 1, param);
+|}
+|#endif
+@112 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@117 insert-before 6
+|#else
+|void OS_SetProtectionRegion2 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 2, param);
+|}
+|#endif
+@118 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@123 insert-before 6
+|#else
+|void OS_SetProtectionRegion3 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 3, param);
+|}
+|#endif
+@124 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@129 insert-before 6
+|#else
+|void OS_SetProtectionRegion4 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 4, param);
+|}
+|#endif
+@130 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@135 insert-before 6
+|#else
+|void OS_SetProtectionRegion5 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 5, param);
+|}
+|#endif
+@136 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@141 insert-before 6
+|#else
+|void OS_SetProtectionRegion6 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 6, param);
+|}
+|#endif
+@142 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@147 insert-before 6
+|#else
+|void OS_SetProtectionRegion7 (u32 param)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_REGION0 + 7, param);
+|}
+|#endif
+@148 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@153 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion0 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 0);
+|}
+|#endif
+@154 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@159 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion1 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 1);
+|}
+|#endif
+@160 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@165 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion2 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 2);
+|}
+|#endif
+@166 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@171 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion3 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 3);
+|}
+|#endif
+@172 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@177 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion4 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 4);
+|}
+|#endif
+@178 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@183 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion5 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 5);
+|}
+|#endif
+@184 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@189 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion6 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 6);
+|}
+|#endif
+@190 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@195 insert-before 6
+|#else
+|u32 OS_GetProtectionRegion7 (void)
+|{
+|    return HWOS_Cp15Read(HWOS_CP15_REGION0 + 7);
+|}
+|#endif

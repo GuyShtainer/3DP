@@ -1,0 +1,21 @@
+3DP-edit 1
+path src/billboard_vram_transfer.c
+sha1 8bbc8170ae00a24752b00c829e2de414e90f23fb
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@7 insert-before 2
+|
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c); trace only (Rule 2), bet 2.1e review D-S2 */
+@106 insert-before 6
+|    if (buffer == NULL) {
+|        static int nullTexCount;
+|        if (++nullTexCount <= 256) {
+|            hwtrace("boot: billboard null tex idx=%u pltt idx=%u seq=%p (texture request)", (unsigned)texPlttIndexes->textureIdx, (unsigned)texPlttIndexes->plttIdx, (void *)transfer->gfxSequence);
+|        }
+|    }
+@113 insert-before 6
+|    if (buffer == NULL) {
+|        static int nullPlttCount;
+|        if (++nullPlttCount <= 256) {
+|            hwtrace("boot: billboard null tex idx=%u pltt idx=%u seq=%p (palette request)", (unsigned)texPlttIndexes->textureIdx, (unsigned)texPlttIndexes->plttIdx, (void *)transfer->gfxSequence);
+|        }
+|    }

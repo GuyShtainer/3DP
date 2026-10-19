@@ -1,0 +1,7 @@
+3DP-edit 1
+path src/overlay_manager.c
+sha1 aa905185bead4685952903a4047accff842d2dba
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@13 delete 1
+@14 insert-before 1
+|    memcpy((void *)&appMan->template, template, sizeof(*template)); // GCC: 'template' is a const member; mwcc let the struct assignment through

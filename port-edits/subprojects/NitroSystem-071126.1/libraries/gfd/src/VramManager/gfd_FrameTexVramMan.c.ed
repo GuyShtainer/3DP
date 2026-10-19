@@ -1,0 +1,6 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/gfd/src/VramManager/gfd_FrameTexVramMan.c
+sha1 be899cbecf4e6c80fd2d6c5dbc22d5ed67a7b09a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@318 splice 9 0
+| int

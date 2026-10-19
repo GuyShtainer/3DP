@@ -1,0 +1,6 @@
+3DP-edit 1
+path include/applications/capsule_menu/manager.h
+sha1 3a2ecaa911c47f0a89f7248f6ccd31ab93ff1cbf
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@28 insert-before 1
+|int SealManger_CapsuleMenuField(CapsuleAppManager *appMan, int index);

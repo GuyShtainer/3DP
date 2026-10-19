@@ -1,0 +1,9 @@
+3DP-edit 1
+path src/system_data.c
+sha1 a4dd1928f98b538adc23c6c10b60c20a59d7f700
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@7 insert-before 2
+|
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c) */
+@122 insert-before 1
+|    hwtrace("identity: GameTime_StartPenalty ran (3DS port trace, bet 2.6a: the time-based events stall for 24 h)"); /* trace only */

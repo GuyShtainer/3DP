@@ -1,0 +1,2 @@
+# port-edits/ is byte-exact (tools/apply_edits.py refuses CR bytes): never convert its line ends
+port-edits/** -text

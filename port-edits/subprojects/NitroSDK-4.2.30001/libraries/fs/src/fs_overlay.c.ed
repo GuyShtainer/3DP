@@ -1,0 +1,42 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/fs/src/fs_overlay.c
+sha1 fa6193b79552f663465d5e46501ca9b32fa328c7
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@11 insert-before 3
+|#if defined(SDK_GCC)
+|#include <hw_dev_hooks.h>   /* the overlays are linked into the host image: load = restore .data / zero .bss (source/hw/hw_ovl.c) */
+|#endif
+@181 insert-before 5
+|#if defined(SDK_GCC)
+|            HWDEV_OverlayLoad(p_ovi->header.id);   /* no read: the file stays open so the caller's FS_WaitAsync / FS_CloseFile stay valid */
+|            return TRUE;
+|        }
+|#else
+@190 insert-before 1
+|#endif
+@193 insert-before 7
+|#if defined(SDK_GCC)
+|    BOOL FS_LoadOverlayImage (FSOverlayInfo *p_ovi)
+|    {
+|        HWDEV_OverlayLoad(p_ovi->header.id);   /* the DS load address is not memory here: restore the linked section instead */
+|        return TRUE;
+|    }
+|#else
+@212 insert-before 1
+|#endif
+@234 insert-before 4
+|#if defined(SDK_GCC)
+|	HWDEV_OverlayStart(p_ovi->header.id);   /* no decompression, no cache flush; hw_ovl.c runs the .sinit table (34 overlays carry a NitroStaticInit) and marks it started */
+|	return;
+|#else
+@281 delete 1
+@282 insert-before 1
+|#endif
+@286 insert-before 4
+|#if defined(SDK_GCC)
+|	HWDEV_OverlayUnload(p_ovi->header.id);   /* logs; the section stays linked in (no destructor chain: no C++ statics) */
+|	return;
+|#else
+@345 delete 1
+@346 insert-before 1
+|#endif

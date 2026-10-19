@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/field_battle_data_transfer.c
+sha1 e4acebc29827f3b68bf0f78c33ef7b7a595d690d
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@28 insert-before 1
+|#include "wifi_history_save_data.h"

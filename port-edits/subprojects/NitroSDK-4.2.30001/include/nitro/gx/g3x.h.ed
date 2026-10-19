@@ -1,0 +1,59 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/gx/g3x.h
+sha1 a75b57223448e39c659b5f1f526ce6376789cf5f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 insert-before 3
+|#ifdef SDK_GCC
+|#include <hw_dev_hooks.h>   /* 3DS port: the geometry engine hooks */
+|#endif
+@182 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_StatWrite(0x600u);
+|#endif
+@202 insert-before 14
+|/* 3DS port (bet 2.4a): every GXSTAT read the game makes is also recorded as a trace-only RDBK entry (hw_dev_hooks.h); the mwcc build reads the register as before. */
+|#ifdef SDK_GCC
+|static inline u32 G3X_ReadGxstat_ (void)
+|{
+|	u32 v;
+|	HWG3_Sync();
+|	v = (u32)reg_G3X_GXSTAT;
+|	HWG3_Readback(0x600u, 1u, &v);
+|	return v;
+|}
+|#else
+|#define G3X_ReadGxstat_()  ((u32)reg_G3X_GXSTAT)
+|#endif
+|
+@204 insert-before 1
+|	u32 st = G3X_ReadGxstat_();
+@205 splice 5 14
+|st
+@209 splice 19 14
+|st
+@222 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_Sync();
+|#endif
+@227 splice 14 14
+|G3X_ReadGxstat_()
+@233 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_StatWrite(0x600u);
+|#endif
+@245 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_StatWrite(0x060u);
+|#endif
+@249 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_Sync();
+|#endif
+@254 insert-before 3
+|#ifdef SDK_GCC
+|	HWG3_Sync();
+|#endif
+@264 splice 15 14
+|G3X_ReadGxstat_()
+@269 splice 22 14
+|G3X_ReadGxstat_()

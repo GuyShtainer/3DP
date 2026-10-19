@@ -1,0 +1,17 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/spi/src/mic.c
+sha1 022aea9bfa846c50a4fa045dd336cab0d7c7916d
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@429 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@438 insert-before 10
+|#else
+|static void MicWaitBusy (void)
+|{
+|    /* Spins until the lock word is released by the callback side. 3DS port: the ARM7's answer is a word in the PXI FIFO and nothing delivers the
+|       IRQ inside a spin on the same thread of control, so drain it here (as PMi_WaitBusy and TP_WaitBusy do). */
+|    while (*(volatile u32 *)&micWork.lock == MIC_LOCK_ON) {
+|        PXIi_HandlerRecvFifoNotEmpty();
+|    }
+|}
+|#endif

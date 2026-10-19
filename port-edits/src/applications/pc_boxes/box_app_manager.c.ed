@@ -1,0 +1,10 @@
+3DP-edit 1
+path src/applications/pc_boxes/box_app_manager.c
+sha1 140fbfe3b144c64b806d32323cf59a2c84228b8b
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@3996 splice 8 0
+|boxMon = (BoxPokemon *)(
+@3996 splice 22 1
+|
+@3996 splice 40 0
+|)

@@ -1,0 +1,12 @@
+3DP-edit 1
+path subprojects/NitroDWC-2.2.30008/include/base/dwc_friend.h
+sha1 0b5fed68284d48ff208cc906398d59165229bf97
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@120 splice 0 0
+|static 
+@125 splice 0 0
+|static 
+@130 splice 0 0
+|static 
+@135 splice 0 0
+|static 

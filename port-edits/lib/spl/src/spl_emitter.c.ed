@@ -1,0 +1,6 @@
+3DP-edit 1
+path lib/spl/src/spl_emitter.c
+sha1 aafc50bbeb1b593ece2948cfb8a2db8d40f564ae
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 insert-before 1
+|#include <nitro/fx/fx_vec.h>

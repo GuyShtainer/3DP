@@ -1,0 +1,30 @@
+3DP-edit 1
+path src/field_system.c
+sha1 2874a55de47cc93fb630a44a6c8a6c949504a0a0
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@42 insert-before 2
+|extern void hwtrace(const char *fmt, ...); /* 3DS port: ordered trace line (source/hw/hw_log.c) */
+|
+@57 insert-before 19
+|/* 3DS port, trace only (bet 2.2c B1): the field half of the game-state key. Valid only while the current application is the field application
+|   (sFieldSystem is never cleared, so it is not read here); returns 0 when it is not, or while the player avatar does not exist yet. */
+|int port_field_key(ApplicationManager *appMan, int *map, int *x, int *z)
+|{
+|    FieldSystem *fs;
+|
+|    if (appMan->template.main != ExecuteFieldProcesses) {
+|        return 0;
+|    }
+|    fs = ApplicationManager_Data(appMan);
+|    if (fs == NULL || fs->location == NULL || fs->playerAvatar == NULL || PlayerAvatar_GetMapObject(fs->playerAvatar) == NULL) {
+|        return 0;
+|    }
+|    *map = (int)fs->location->mapHeaderID;
+|    *x = PlayerAvatar_GetXPos(fs->playerAvatar);
+|    *z = PlayerAvatar_GetZPos(fs->playerAvatar);
+|    return 1;
+|}
+|
+@61 insert-before 2
+|    hwtrace("app: FieldSystem continue args.error=%d (%s)", (int)argv->error,
+|        argv->error ? "FieldSystem_StartLoadMapFromErrorTask" : "FieldSystem_SetLoadSavedGameMapTask");

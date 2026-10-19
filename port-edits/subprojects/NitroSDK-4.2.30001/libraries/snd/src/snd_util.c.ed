@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_util.c
+sha1 4746e6fae06c4fe4c3af50c8e73d9cf1ea6f1aac
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@12 splice 40 0
+| && !defined(SDK_GCC)
+@13 insert-before 1
+|    /* port: the 3DS has no DS BIOS; the ARM7 driver behind the PXI loopback uses the embedded copies of the same tables (the ARM9 build does too) */

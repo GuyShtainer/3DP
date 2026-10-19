@@ -1,0 +1,13 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_vramExclusive.c
+sha1 0812b5d48bc0b0bc1aa361c9e7568850c15940fd
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@9 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@14 insert-before 6
+|#else
+|static u32 OsCountZeroBits (u32 bitmap)
+|{
+|    return bitmap ? (u32)__builtin_clz(bitmap) : 32;
+|}
+|#endif

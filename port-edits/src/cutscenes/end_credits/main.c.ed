@@ -1,0 +1,8 @@
+3DP-edit 1
+path src/cutscenes/end_credits/main.c
+sha1 332b94cb0d93e16ce4bdc43dd522d4dcdc79a692
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@90 splice 0 7
+|
+@304 splice 0 7
+|

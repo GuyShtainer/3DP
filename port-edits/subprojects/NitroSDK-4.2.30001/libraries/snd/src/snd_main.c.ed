@@ -1,0 +1,87 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_main.c
+sha1 338f66ba2f83f2d508ca3e7f74872558e8941c4a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@21 insert-before 1
+|    #ifndef SDK_GCC
+@23 insert-before 1
+|    #endif
+@29 insert-before 1
+|    #ifndef SDK_GCC
+@30 insert-before 1
+|    #endif
+@50 insert-before 6
+|    #ifdef SDK_GCC
+|    /* port (review 1.5 F3): the ARM7 build's OSThread/OSContext are 164/72 bytes, the ARM9 OS_CreateThread writes 192/100 into them. The ARM7 driver has
+|       no thread here (hw_snd7.c runs it at the pump's yield points via SNDi_PortDriverInit/Run), so the three thread entry points can never be used. */
+|    (void)threadPrio;
+|    OS_Panic("SND_Init (ARM7 build): the port runs the driver through SNDi_PortDriverInit, never as an ARM7 thread");
+|    #else
+@59 insert-before 1
+|    #endif
+@63 insert-before 4
+|    #ifdef SDK_GCC
+|    (void)threadPrio;
+|    OS_Panic("SND_CreateThread (ARM7 build): no ARM7 thread in the port");
+|    #else
+@70 insert-before 1
+|    #endif
+@74 insert-before 5
+|    #ifdef SDK_GCC
+|    (void)prio;
+|    OS_Panic("SND_SetThreadPriority (ARM7 build): no ARM7 thread in the port");
+|    return FALSE;
+|    #else
+@75 insert-before 1
+|    #endif
+@131 insert-before 4
+|    /* port (bet 1.5): the body of SndThread split into its three parts so that source/hw/hw_snd7.c can run them without a second scheduler:
+|       SndInitDriver (everything before the loop, minus the interval alarm), SndStep (one pass of the loop), and SndThread itself, unchanged in
+|       behaviour. the private design notes. */
+|    static void SndStep (BOOL doPeriodicProc);
+@131 splice 16 9
+|SndInitDriver
+@131 splice 31 2
+|
+@141 insert-before 6
+|    }
+|
+|    #ifndef SDK_GCC
+|    static void SndThread (void *)
+|    {
+|        SndInitDriver();
+@158 insert-before 7
+|            SndStep(doPeriodicProc);
+|        }
+|    }
+|    #endif
+|
+|    static void SndStep (BOOL doPeriodicProc)
+|    {
+@169 insert-before 8
+|    #ifdef SDK_GCC
+|    /* the hardware layer's entry points (source/hw/hw_snd7.c). Init replaces SndThread's start (no thread, no interval alarm: the hardware
+|       layer owns the 5.2 ms cadence). Run is one iteration of the loop: a pending wake-up message from the ARM9 (SND_SendWakeupMessage)
+|       always runs one pass; `periodic` additionally says that a SND_PROC_INTERVAL has elapsed. Returns FALSE when there was nothing to do. */
+|    void SNDi_PortDriverInit (void)
+|    {
+|        SndInitDriver();
+|    }
+@170 delete 1
+@171 insert-before 8
+|    BOOL SNDi_PortDriverRun (BOOL periodic)
+|    {
+|        OSMessage message;
+|        BOOL woke = OS_ReceiveMessage(&sndMesgQueue, &message, OS_MESSAGE_NOBLOCK);
+|
+|        if (!woke && !periodic) {
+|            return FALSE;
+|        }
+@171 splice 8 21
+|SndStep
+@171 splice 30 0
+|periodic
+@172 insert-before 1
+|        return TRUE;
+@173 insert-before 1
+|    #endif

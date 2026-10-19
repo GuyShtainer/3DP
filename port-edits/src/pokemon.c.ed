@@ -1,0 +1,64 @@
+3DP-edit 1
+path src/pokemon.c
+sha1 a725541b802e68322c1947b038c52f362a24938b
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@412 insert-before 4
+|        {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|            u16 rngLow = LCRNG_Next();
+|            u16 rngHigh = LCRNG_Next();
+|
+@412 splice 0 8
+|            
+@412 splice 25 13
+|rngLow
+@412 splice 42 12
+|rngHigh
+@412 splice 61 1
+|
+@413 insert-before 1
+|        }
+@419 insert-before 4
+|            {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|                u16 rngLow = LCRNG_Next();
+|                u16 rngHigh = LCRNG_Next();
+|
+@419 splice 0 12
+|                
+@419 splice 22 13
+|rngLow
+@419 splice 39 12
+|rngHigh
+@419 splice 58 1
+|
+@420 insert-before 1
+|            }
+@498 insert-before 4
+|        {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|            u16 rngLow = LCRNG_Next();
+|            u16 rngHigh = LCRNG_Next();
+|
+@498 splice 0 8
+|            
+@498 splice 25 13
+|rngLow
+@498 splice 42 12
+|rngHigh
+@498 splice 61 1
+|
+@499 insert-before 1
+|        }
+@512 insert-before 4
+|            {   // port: the two draws are ordered explicitly (C leaves `Next() | (Next() << 16)` unordered; the first draw is the low half, as mwcc compiled it)
+|                u16 rngLow = LCRNG_Next();
+|                u16 rngHigh = LCRNG_Next();
+|
+@512 splice 0 12
+|                
+@512 splice 29 13
+|rngLow
+@512 splice 46 12
+|rngHigh
+@512 splice 65 1
+|
+@513 insert-before 1
+|            }

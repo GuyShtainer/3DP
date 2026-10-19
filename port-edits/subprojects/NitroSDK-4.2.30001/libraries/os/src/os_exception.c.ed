@@ -1,0 +1,91 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c
+sha1 2f0a4b42ba3c2cc5519d7210c2ee46c388fea730
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@11 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@12 insert-before 4
+|#else
+|static void OSi_ExceptionHandler(void);
+|#endif
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@13 insert-before 4
+|#else
+|static void OSi_GetAndDisplayContext(void);
+|#endif
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@14 insert-before 3
+|#else
+|static void OSi_SetExContext(void);
+|#endif
+@31 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@38 insert-before 6
+|#else
+|void OS_SetExceptionVectorUpper (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) | HW_C1_EXCEPT_VEC_UPPER);
+|}
+|#endif
+@39 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@46 insert-before 6
+|#else
+|void OS_SetExceptionVectorLower (void)
+|{
+|    HWOS_Cp15Write(HWOS_CP15_CONTROL, HWOS_Cp15Read(HWOS_CP15_CONTROL) & ~(u32)HW_C1_EXCEPT_VEC_UPPER);
+|}
+|#endif
+@49 insert-before 3
+|#if defined(SDK_GCC)
+|#define HW_EXCP_VECTOR_BUF_FOR_DEBUGGER  HW_EXCP_VECTOR_MAIN   /* 0x027ffd9c of the DS, redirected with the system page */
+|#else
+@50 insert-before 1
+|#endif
+@73 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@135 insert-before 6
+|#else
+|    static void OSi_DebuggerExceptionHook (void)
+|    {
+|        HWOS_DebuggerExceptionHook(OSi_GetAndDisplayContext);
+|    }
+|#endif
+@154 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@205 insert-before 6
+|#else
+|void OSi_ExceptionHandler (void)
+|{
+|    HWOS_ExceptionHandler(OSi_GetAndDisplayContext);
+|}
+|#endif
+@206 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@214 insert-before 7
+|#else
+|static void OSi_GetAndDisplayContext (void)
+|{
+|    OSi_SetExContext();
+|    OSi_DisplayExContext();
+|}
+|#endif
+@215 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@264 insert-before 6
+|#else
+|static void OSi_SetExContext (void)
+|{
+|    HWOS_FillExContext(&OSi_ExContext);
+|}
+|#endif
+@289 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@315 insert-before 5
+|#else
+|        HWOS_UserExceptionEnter();
+|        OSi_UserExceptionHandler((u32)&OSi_ExContext, OSi_UserExceptionHandlerArg);
+|        HWOS_UserExceptionLeave();
+|#endif

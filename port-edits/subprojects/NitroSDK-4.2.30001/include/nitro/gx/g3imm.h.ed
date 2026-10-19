@@ -1,0 +1,216 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/gx/g3imm.h
+sha1 eeca43f8ed3858618e5590378ecb68067ebaa2f8
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@65 splice 1 1
+|HWG3_STORE_OFS
+@65 splice 3 31
+|REG_MTX_MODE_OFFSET
+@65 splice 63 3
+|,
+@65 splice 68 0
+|)
+@70 splice 1 1
+|HWG3_STORE_OFS
+@70 splice 3 31
+|REG_MTX_MODE_OFFSET
+@70 splice 63 3
+|,
+@70 splice 73 0
+|)
+@75 splice 1 1
+|HWG3_STORE_OFS
+@75 splice 3 31
+|REG_MTX_MODE_OFFSET
+@75 splice 63 3
+|,
+@75 splice 73 0
+|)
+@76 splice 1 1
+|HWG3_STORE_OFS
+@76 splice 3 31
+|REG_MTX_MODE_OFFSET
+@76 splice 63 3
+|,
+@76 splice 73 0
+|)
+@81 splice 1 1
+|HWG3_STORE_OFS
+@81 splice 3 31
+|REG_MTX_MODE_OFFSET
+@81 splice 63 3
+|,
+@81 splice 73 0
+|)
+@82 splice 1 1
+|HWG3_STORE_OFS
+@82 splice 3 31
+|REG_MTX_MODE_OFFSET
+@82 splice 63 3
+|,
+@82 splice 73 0
+|)
+@83 splice 1 1
+|HWG3_STORE_OFS
+@83 splice 3 31
+|REG_MTX_MODE_OFFSET
+@83 splice 63 3
+|,
+@83 splice 73 0
+|)
+@89 splice 1 17
+|HWG3_STORE(MTX_MODE,
+@89 splice 46 0
+|)
+@94 splice 1 17
+|HWG3_STORE(MTX_PUSH,
+@94 splice 20 0
+|)
+@100 splice 1 16
+|HWG3_STORE(MTX_POP,
+@100 splice 43 0
+|)
+@106 splice 1 18
+|HWG3_STORE(MTX_STORE,
+@106 splice 47 0
+|)
+@112 splice 1 20
+|HWG3_STORE(MTX_RESTORE,
+@112 splice 51 0
+|)
+@117 splice 1 21
+|HWG3_STORE(MTX_IDENTITY,
+@117 splice 24 0
+|)
+@122 splice 1 18
+|HWG3_STORE(MTX_SCALE,
+@122 splice 26 0
+|)
+@123 splice 1 18
+|HWG3_STORE(MTX_SCALE,
+@123 splice 26 0
+|)
+@124 splice 1 18
+|HWG3_STORE(MTX_SCALE,
+@124 splice 26 0
+|)
+@129 splice 1 18
+|HWG3_STORE(MTX_TRANS,
+@129 splice 26 0
+|)
+@130 splice 1 18
+|HWG3_STORE(MTX_TRANS,
+@130 splice 26 0
+|)
+@131 splice 1 18
+|HWG3_STORE(MTX_TRANS,
+@131 splice 26 0
+|)
+@137 splice 1 14
+|HWG3_STORE(COLOR,
+@137 splice 40 0
+|)
+@146 splice 1 15
+|HWG3_STORE(NORMAL,
+@146 splice 46 0
+|)
+@154 splice 1 17
+|HWG3_STORE(TEXCOORD,
+@154 splice 47 0
+|)
+@159 splice 1 15
+|HWG3_STORE(VTX_16,
+@159 splice 34 0
+|)
+@160 splice 1 15
+|HWG3_STORE(VTX_16,
+@160 splice 28 0
+|)
+@165 splice 1 15
+|HWG3_STORE(VTX_10,
+@165 splice 45 0
+|)
+@170 splice 1 15
+|HWG3_STORE(VTX_XY,
+@170 splice 42 0
+|)
+@175 splice 1 15
+|HWG3_STORE(VTX_XZ,
+@175 splice 42 0
+|)
+@180 splice 1 15
+|HWG3_STORE(VTX_YZ,
+@180 splice 42 0
+|)
+@189 splice 1 17
+|HWG3_STORE(VTX_DIFF,
+@189 splice 49 0
+|)
+@201 splice 1 21
+|HWG3_STORE(POLYGON_ATTR,
+@202 splice 92 0
+|)
+@221 splice 1 23
+|HWG3_STORE(TEXIMAGE_PARAM,
+@221 splice 96 0
+|)
+@229 splice 1 21
+|HWG3_STORE(TEXPLTT_BASE,
+@229 splice 28 0
+|)
+@237 splice 1 16
+|HWG3_STORE(DIF_AMB,
+@237 splice 72 0
+|)
+@245 splice 1 16
+|HWG3_STORE(SPE_EMI,
+@245 splice 72 0
+|)
+@255 splice 1 21
+|HWG3_STORE(LIGHT_VECTOR,
+@255 splice 66 0
+|)
+@263 splice 1 20
+|HWG3_STORE(LIGHT_COLOR,
+@263 splice 60 0
+|)
+@269 splice 1 19
+|HWG3_STORE(BEGIN_VTXS,
+@269 splice 51 0
+|)
+@274 splice 1 17
+|HWG3_STORE(END_VTXS,
+@274 splice 20 0
+|)
+@282 splice 1 21
+|HWG3_STORE(SWAP_BUFFERS,
+@282 splice 56 0
+|)
+@288 splice 1 17
+|HWG3_STORE(VIEWPORT,
+@288 splice 57 0
+|)
+@293 splice 1 17
+|HWG3_STORE(BOX_TEST,
+@293 splice 30 0
+|)
+@294 splice 1 17
+|HWG3_STORE(BOX_TEST,
+@294 splice 30 0
+|)
+@295 splice 1 17
+|HWG3_STORE(BOX_TEST,
+@295 splice 30 0
+|)
+@300 splice 1 17
+|HWG3_STORE(POS_TEST,
+@300 splice 36 0
+|)
+@301 splice 1 17
+|HWG3_STORE(POS_TEST,
+@301 splice 30 0
+|)
+@310 splice 1 17
+|HWG3_STORE(VEC_TEST,
+@310 splice 52 0
+|)

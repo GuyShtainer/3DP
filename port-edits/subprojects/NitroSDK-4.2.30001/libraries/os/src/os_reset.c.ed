@@ -1,0 +1,45 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_reset.c
+sha1 5494a4eb5291127ce9ce67da7e58f338cedd8f1f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@128 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@135 insert-before 3
+|#else
+|        HWOS_ResetSystem(OSi_DoResetSystem);
+|#endif
+@186 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@234 insert-before 6
+|#else
+|void OSi_DoBoot (void)
+|{
+|    HWOS_DoBoot();
+|}
+|#endif
+@240 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@271 insert-before 6
+|#else
+|void OSi_DoBoot (void)
+|{
+|    HWOS_DoBoot();
+|}
+|#endif
+@278 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@295 insert-before 12
+|#else
+|static __attribute__((unused)) void OSi_CpuClear32 (u32 data, void *destp, u32 size)
+|{
+|    /* kept for the CW build's OSi_DoBoot; unused once that body is the HWOS_DoBoot hook */
+|    u32 *d = (u32 *)destp;
+|    u32 *e = (u32 *)((u8 *)destp + size);
+|
+|    while (d < e) {
+|        *d++ = data;
+|    }
+|}
+|#endif

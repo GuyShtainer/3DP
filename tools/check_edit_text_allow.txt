@@ -1,0 +1,246 @@
+# check_edit_text.py allow list: carried lines that share a 40+ character run with the pret tree on purpose.
+# <file under port-edits>\t<sha1>\t<why>. The sha1 is of the whitespace-normalised line (a line unit) or of the joined multi-line payload
+# block (a block unit: a signature plus its opening brace, with our body after it). Every entry is a declaration, prototype or
+# expression made of the SDK's / game's own names, which our code has to spell the same way; none is a function body. Regenerate an entry's
+# sha1 with the tool's output when its line changes; an entry that no longer matches fails the gate (stale).
+include/applications/capsule_menu/graphics.h.ed	63d459f84f6d74911309584e57ca5489b605c56e	signature of CapsuleGraphics_LoadBgLayer2Tilemap: our definition or prototype of the existing function
+include/applications/capsule_menu/graphics.h.ed	ca3d17f099b104a8a8891c4d30cfd22cbde0a437	signature of CapsuleGraphics_Dummy: our definition or prototype of the existing function
+include/applications/capsule_menu/manager.h.ed	f671a14e5e1274f53c9530936ef524f840ff52e0	signature of SealManger_CapsuleMenuField: our definition or prototype of the existing function
+include/applications/pokedex/pokedex_sort.h.ed	559ca8cc4bf346affd0848802586d5f70b4bb63f	signature of PokedexSort_NumDisplayed: our definition or prototype of the existing function
+include/battle/battle_controller.h.ed	95d39f764568de0c7c32ef0d990611f4839267d3	signature of BattleController_EmitSelectedCommand: our definition or prototype of the existing function
+include/battle/battle_controller.h.ed	ea6df175f0d2756de0f825bbb982036c51a20015	signature of BattleController_EmitSelectedMove: our definition or prototype of the existing function
+include/battle/battle_controller.h.ed	dffdcbbb0a1d1630e38248c033fbb5bc0b09774b	signature of BattleController_EmitSelectedTarget: our definition or prototype of the existing function
+include/battle/battle_controller.h.ed	c74f339d8b13c7e99fe7c9bff3131e0df2d235c1	prototypes of three existing functions (BattleController_EmitSelected*): the game's own declarations
+include/player_avatar.h.ed	fa656fcf719521db782f24a361da7fb16bf1ef1f	signature of PlayerAvatar_GetMoveState: our definition or prototype of the existing function
+lib/gds/include/gds_internal.h.ed	95d22f3ed987dfffb96252993190934e1ffe898c	declaration of the one definition of the game's object (gds-single-definition)
+lib/gds/src/ov61_0222CEDC.c.ed	ae1fd4ef9f8658c2eed618a37e84aa06242a769f	declaration of the one definition of the game's object (gds-single-definition)
+lib/spl/src/spl_draw.c.ed	3ccc50d1d5f4fb2f9159bb9c6d6ed20eed8c405d	two #include lines of existing SDK headers
+new/lib/crypto/src/rc4_encrypt.c	fe4453c3563bf6263cada6e2d6e98c210be08432	signature of CRYPTO_RC4Encrypt: our definition or prototype of the existing function
+new/lib/crypto/src/rc4_encrypt.c	12301c3a3f2f836e17491b617119b289136770eb	signature of CRYPTO_RC4FastEncrypt: our definition or prototype of the existing function
+new/lib/crypto/src/rc4_encrypt.c	ed6232c198e43aa2134acc72569d5055b5c1aeee	#include lines and the signatures of CRYPTO_RC4Encrypt / CRYPTO_RC4FastEncrypt that crypto/rc4.h declares; the bodies are ours
+src/camera.c.ed	197eaa3c581a591d0a5753b7e00fe4eb2769c66c	our statement over the existing names NNS_G3dGlbGetProjectionMtx, HWDEV_WideProjection
+src/camera.c.ed	e395d78ddd11431a9c85988e05cce351d2435e2a	our statement over the existing names perspective, nearClip
+src/camera.c.ed	ce6f730aff2e3343e648eaa1b2f2123ea58e4656	our statement over the existing names NNS_G3dGlbGetProjectionMtx, HWDEV_WideProjection
+src/camera.c.ed	d0933a92b0248b181563f5c3c51384919562baf3	our call over the existing names HWDEV_WideProjection, camera->perspective fields
+src/camera.c.ed	16d5d7659e2cf37b12d78002bb524a3f6e7632cb	our call over the existing names HWDEV_WideProjection, camera->perspective fields
+src/field_map_change.c.ed	e3abb5e86a4265634c9103530eb52053ba80566b	our statement over the existing names PlayerAvatar_GetZPos, PlayerAvatar_GetXPos
+src/field_map_change.c.ed	47f6698727c466a0a88a5614b2fc5a3a7a55e336	our statement over the existing names PlayerAvatar_GetZPos, PlayerAvatar_GetXPos
+src/field_system.c.ed	e3a4a0dc85b171e2897ec8fc54a6b2982192ae6c	our trace function; statements over the existing names ApplicationManager_Data, PlayerAvatar_GetXPos/ZPos, fs->playerAvatar
+src/main.c.ed	94852a60a167903806769a8326238140617e7b60	our statement over the existing names ApplicationManager_Exec, currApplication
+src/overlay104/frontier_script_manager.c.ed	3dd1eaadd662171f9d67956a4a5d58d138a376d2	our statement over the existing names FrontierScriptContext_ReadWord, offset
+src/scrcmd.c.ed	bb9d5b398d1b89ccf0bcb90a3e94e0db895fdbfe	our statement over the existing names ScriptContext_ReadWord, offset
+src/scrcmd.c.ed	20eb595777f2bd3d7a08b44a6cb8e6dac7c9f372	our statement over the existing names ScriptContext_ReadWord, offset
+src/script_manager.c.ed	1a170f6eccbc1ef7c0142dc8010eb72de90f2444	our statement over the existing names ScriptContext_ReadWord, offset
+subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_main.h.ed	01d2bccb662543dcb1a22e57d7702c14eb18a4f1	#define HW_MAIN_MEM_SHARED_END: our value for the SDK macro, written with the SDK's macro names
+subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_main.h.ed	f0b76b92e318efe9140c9cd32fac1bcdee112d80	#define HW_MAIN_MEM_SYSTEM_END: our value for the SDK macro, written with the SDK's macro names
+subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_main.h.ed	896d5985bcfc1e18bd450e851d1a2d99d3622204	our #define values over the existing macro names HW_MAIN_MEM_SHARED_END, HW_MAIN_MEM_SYSTEM_END
+subprojects/NitroSDK-4.2.30001/include/nitro/math/math.h.ed	072eafad8f199b3a6bdf2bbece387bc6335d2d17	signature of MATH_CountLeadingZerosInline: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/include/nitro/math/math.h.ed	b3103c3327b17a4ad7bd284ee0b2442e04f45595	signature of MATH_CountLeadingZerosInline (its comment above it and a one-line body) plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/include/nitro/mi/memory.h.ed	f81ed807667a37a9c911b415375b22bbb231027f	#include lines of existing SDK headers
+subprojects/NitroSDK-4.2.30001/include/nitro/platform.h.ed	f6984cf9ff699e3e2ba431fd6d195ea74e0c13e9	#define PLATFORM_BITFIELDS_ENDIAN: our value for the SDK macro, written with the SDK's macro names
+subprojects/NitroSDK-4.2.30001/include/nitro/platform.h.ed	ab553d89b7990e6b57ca93bbe03abd84548e51eb	#define PLATFORM_ATTRIBUTE_INLINE: our value for the SDK macro, written with the SDK's macro names
+subprojects/NitroSDK-4.2.30001/include/nitro/platform.h.ed	053e696336ec81c9f345cf35d605762e0b9b5d6b	the GCC branch of the SDK's platform macro list: the same macro names with the CW branch's constants (configuration, not logic)
+subprojects/NitroSDK-4.2.30001/include/nitro/sinit.h.ed	aabc200efcf28c72613cd79d755b6f67bfdfceed	prototype of the static NitroStaticInit the SDK_GCC branch declares; the section table after it is ours
+subprojects/NitroSDK-4.2.30001/libraries/card/src/card_rom.c.ed	bf13139c6e814ff0927d3d05ba19c8fbcdb41380	our statement over the existing names CARD_COMMAND_PAGE, CARDi_GetRomFlag
+subprojects/NitroSDK-4.2.30001/libraries/card/src/card_rom.c.ed	8933da2e6ee539fbecb613875fc417519a3ee517	our statement over the existing names p->ctrl, CARDi_GetRomFlag, CARD_COMMAND_PAGE
+subprojects/NitroSDK-4.2.30001/libraries/cp/src/cp_context.c.ed	9a50a87651b2c0e150d80aaecfddf2a741269a44	signature of CPi_RestoreContext: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/cp/src/cp_context.c.ed	56dacadd3732dcd27be345d3ad2bc4b63d9631ad	signature of CPi_RestoreContext plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fs/src/fs_overlay.c.ed	df54c23ce8ae76b0a97007e4860b99f73b5d1590	signature of FS_LoadOverlayImage: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/fs/src/fs_overlay.c.ed	ed09b4cb49ffea2c00f120fd18c3ac4b347e0754	signature of FS_LoadOverlayImage plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx22.c.ed	af8129e373b11c5c58fa5fb7136eaa6bdab0235e	signature of MTX_Transpose22_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx33.c.ed	e92f6044d7e1921b5308af42c9b13687014e5355	signature of MTX_Transpose33_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx33.c.ed	7b08cafdb08216643d49e261a47d988a83c7c7fb	signature of MTX_Scale33_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx43.c.ed	be8b2368edb8578ca7e567ab0888d47b029f0bd5	signature of MTX_Transpose43_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx43.c.ed	55efba10a51ef73195d9ef363475d1101a33f808	signature of MTX_Scale43_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx44.c.ed	7bcf4a21bc160170ab1840a8f32066b04fea13f1	signature of MTX_Transpose44_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx44.c.ed	a6ea17b69ce60a9b58e890fec1befd34215890b7	signature of MTX_Scale44_ plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/math/src/qsort.c.ed	e0a053f9f11cca7d4891afd57906254ad6abb886	signature of MATH_QSort: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/math/src/qsort.c.ed	eb433614a6d4eed9cbdca27a5afd677646c55744	signature of MATH_QSort plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	ba41726bab78f057b5290ce06eeb41a88a2495aa	signature of MIi_CpuClear16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	47646b78be3a56c5258faf2639a7d7160887c53e	signature of MIi_CpuClear16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	398c0b7f5290c4f9c470091fc7e3eb4feebaed9b	signature of MIi_CpuCopy16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	32f533164e453410f77a88f4b115121f3eb08003	signature of MIi_CpuCopy16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	970af0d1d877f444d5e11098096986046f0e6db8	signature of MIi_CpuSend16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	9c9b3880d5e02d4522aeeaef1d26bc299ace9858	signature of MIi_CpuSend16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	01c69a8738028be5b32dfa2c343b485754b787af	signature of MIi_CpuClear32: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	b2e8bab3ffe9ba1e4cd26a2c466d8d286904721f	signature of MIi_CpuClear32 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	c57e9ac6ba950ed6645c6d863fc1cec8d3790ce7	signature of MIi_CpuCopy32: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	1cfdcf2c444c86cbf0ff15a6e9edf448449c6908	signature of MIi_CpuCopy32 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	a060e2dc3c35015fe00ec71bc394125d6c64ed5e	signature of MIi_CpuSend32: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	c9b2166982643482fbbe9104bc920a761476790d	signature of MIi_CpuSend32 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	eb5d9df7bcb8b33af6044678d9f1334e03437466	signature of MIi_CpuClearFast: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	2902626562583af4151c75b71112a0e535bd27a3	signature of MIi_CpuClearFast plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	db7b7974348aec28cf67101858d3db0475729ce9	signature of MIi_CpuCopyFast: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed	227369d8f372da53a6588175ee9e2d6a8e91eb18	signature of MIi_CpuCopyFast plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c.ed	170c813cae5f05fb24aed9fa8d1ece68e488aa0f	signature of MI_SwapWord: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c.ed	de1a394df1c45d06abb1d4d7196ae288e7ad947f	signature of MI_SwapWord plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c.ed	b1cc82b68193352c54572b2a91046e52bdf81dd7	signature of MI_SwapByte: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c.ed	c3d4b6f3da1b426244044ed5f60eb2a465e31131	signature of MI_SwapByte plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	6e1712d914aa4067207a066ac59daff623951383	signature of MI_UnpackBits: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	50673cfde980a6f5a5239b5b2c58976fbb42f962	signature of MI_UnpackBits plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	d46ef48f3fcc136cc00009a8a6894ca7cce249d3	signature of MI_UncompressLZ8: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	8c5c602c8402be58538f9a05066110a5b614e7bb	signature of MI_UncompressLZ8 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	856e11cbff6bee93491ad5d081ec53fcec5dbde5	signature of MI_UncompressLZ16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	971ad25748d6194305705e1accd496e90c568137	signature of MI_UncompressLZ16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	0dd6419ae03dffc7074d20dbb898ba816a09002c	signature of MI_UncompressHuffman: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	d562600db21ec29be5f2e0948635562c9f26aa04	signature of MI_UncompressHuffman plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	9a4571d9f73d5060faa02f5321f08745000655ff	signature of MI_UncompressRL8: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	a24c74ab289f326e63f9e7d2d3d22b5a563ce5a4	signature of MI_UncompressRL8 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	2c8c0743bd2385207c492386837315fe3a2d2790	signature of MI_UncompressRL16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	e6115989ca2713f139bf0a6879a1e99e42848a4f	signature of MI_UncompressRL16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	02ced322d0bc0bea539c8e4e3d1075a5fe808c65	signature of MI_UnfilterDiff8: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	a0cfe99e1c83c1e98c0321acbb8174a28645eda3	signature of MI_UnfilterDiff8 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	a810713d3c4d63aa83a2f6da83b4e6257cf0dffe	signature of MI_UnfilterDiff16: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed	b9255f4c7ecef2253acb3013812595c3cdd3055d	signature of MI_UnfilterDiff16 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	21abaa8f26dbe24e80dbef0ff2b295814c2516e0	signature of DC_StoreRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	cf806881bcd1c5336047b6797c4eede5d75cbaef	signature of DC_FlushRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	9308f94c58d229d862c2a1f9ac7a315838d0fd9d	signature of DC_TouchRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	1ec672fc3fbd1b945d594be84a11fddfbd60126b	signature of DC_LockdownRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	125134ba969a64d34d305baff300f79639b44bcb	signature of IC_PrefetchRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	aa0ffadab22876ee1b4b8ee27c84a749dc9e175e	signature of IC_LockdownRange: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	6eb6f3d075c45aa40ba7f8f35dacd8344ca9f5b5	signature of DC_InvalidateRange: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	26782ac44ce2f35a6342cbbb11ef735ff87336d8	signature of DC_InvalidateRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	66e7e11962bf5ec8f2b01ce9d8da1a17487c4864	signature of DC_StoreRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	d7c78213a6c986dd9103ecacd9f8ce701ff006e0	signature of DC_FlushRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	23f69c1804f280bd1acfb64677db4b303ccd2ba2	signature of DC_TouchRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	460de1545827fbf1452868d0caea8be1f523e14f	signature of DC_LockdownRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	c51760db0ef03ede252a457395fc6056a4cc4d60	signature of IC_InvalidateRange: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	baaa72d1c4b973234278e05569b008ca9ed9a010	signature of IC_InvalidateRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	5e4193101389268afe68050432b3408fff53f80f	signature of IC_PrefetchRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed	bab1ea25c77afa3a106adbd100a7b4a63f4cb1be	signature of IC_LockdownRange plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_context.c.ed	5548d8a62c1c8ab671a187a504fd87e200b321ad	signature of OS_InitContext: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_context.c.ed	47e4b1a64566d138eb4aff294f9e4faad5ca8db0	signature of OS_InitContext plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	57c159f01456b28d313626e893ec2eb908a54770	#define HW_EXCP_VECTOR_BUF_FOR_DEBUGGER: our value for the SDK macro, written with the SDK's macro names
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	e1bf709975aab37b8d3d1b9e9052a003578010a0	signature of OSi_DebuggerExceptionHook: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	acd8bfb4478cf6599890971f6a46ee613705dfec	signature of OS_SetExceptionVectorUpper plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	80b701df0fa47adcabbdf6d3b7ad10729831d33d	signature of OS_SetExceptionVectorLower plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	345f83769663a925744e75971cffe0dd5385e01a	#define of the existing name HW_EXCP_VECTOR_BUF_FOR_DEBUGGER
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	5f6fad4cb1ecca6a33692521a700250250665bc7	signature of OSi_DebuggerExceptionHook plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed	849a8129476e4f1216c627ec60780dab7aa064d1	signature of OSi_GetAndDisplayContext plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_irqHandler.c.ed	c1f8839a2637117a510d6152133b7d930ced5d8d	signature of OS_IrqHandler_ThreadSwitch plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	ea756bf16867d9cb99c0f264ba0337b80b08e2ac	signature of OS_EnableICacheForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	232e76c4dcc168018634e9b9d52bac38983e83f2	signature of OS_DisableICacheForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	218cdfc70ea4152f550c0f3552843b99474cd973	signature of OS_GetICacheEnableFlagsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	643b59e12d0c97a60da27da6391872f7fd145187	signature of OS_SetIPermissionsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	9840922ab3bc2496c2b373f5a4724d84b3ccc2da	signature of OS_GetIPermissionsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	08c3eda6d04e7ba79ae434799614781a25f0d51f	signature of OS_EnableDCacheForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	c3abedeb21040aaaa04adde69dcc125ef7fb6d3f	signature of OS_DisableDCacheForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	50e8652773581ae228bdc85c2e7dba93453013d0	signature of OS_GetDCacheEnableFlagsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	c780072a4c153035eb0cafa32dfd698eae699526	signature of OS_SetDPermissionsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	e05b5b65069f5f47637b4bc1cf30d5b232d4882f	signature of OS_GetDPermissionsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	098dac09d8b847007e0cebcbe7c052c36ae6452e	signature of OS_EnableWriteBufferForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	b4204c94fb8e79875549d262781ca32fadd74f53	signature of OS_DisableWriteBufferForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	b545baeee5d27d344f2d1ac4a783fbdc832f3beb	signature of OS_GetWriteBufferEnableFlagsForProtectionRegion: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	c3480c3fd6eba787dbc6158332bc407f26dc9421	signature of OS_SetProtectionRegion0: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	6db6832890fc805cc6118a3d4ea0c45e6749e228	signature of OS_SetProtectionRegion1: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	d54d8075423852e91fdea36afee7138d482cb69d	signature of OS_SetProtectionRegion2: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	b7e9a9936d06e68ef36ffb1c283ed8c2dbd41eb2	signature of OS_SetProtectionRegion3: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	fdbe38a0be3fa0dda32d7f00bf94a3d69557a894	signature of OS_SetProtectionRegion4: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	df664c462860ae0e8f5d9f9f2bc64789a9cc48e7	signature of OS_SetProtectionRegion5: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	b2e105bb39b42e272d851c3cb0cb60bee6858251	signature of OS_SetProtectionRegion6: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	c4a66ce52b63a9dcd632acceceefce2d482aef8b	signature of OS_SetProtectionRegion7: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	b0b10eb73c9567786940c1bcccf38a4a358aa323	signature of OS_EnableICacheForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	415ec8788b8f30180cf17271696d11b61e62a026	signature of OS_DisableICacheForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	a95402e45080f07a587418ce3f1d6bcbea2d22dd	signature of OS_GetICacheEnableFlagsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	daa6839f8ba79e41e60ad694a25d0e75e4c608ec	signature of OS_SetIPermissionsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	3f2d32142cf95db8c820e7cbf57503cd6c4e4476	signature of OS_GetIPermissionsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	9e3a5ae1beda61f5f61303f0eea3ed3ef6c4d1ea	signature of OS_EnableDCacheForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	14720577e2129643efc8f7c56259cc851e8fab99	signature of OS_DisableDCacheForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	8694bc2ca5f7a7c5dcec14d249d5502f41ed6be2	signature of OS_GetDCacheEnableFlagsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	a36212ebda8d469b873edf487787faeeec7a84c3	signature of OS_SetDPermissionsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	1c3453dacb45bd305256df83e60a35d02edc6950	signature of OS_GetDPermissionsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	fb22891e99c3edd22bc6dc7ec9a31360d2af3497	signature of OS_EnableWriteBufferForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	21802bf122752f891ef169deb120ec0c92a12631	signature of OS_DisableWriteBufferForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	a6355615d34ab12f8ed5f472d04b59349ac02922	signature of OS_GetWriteBufferEnableFlagsForProtectionRegion plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	67763bca67d263467e129a52d02756428f73f96e	signature of OS_SetProtectionRegion0 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	462a35929643af0b10d0e5c24e197459c58b2aef	signature of OS_SetProtectionRegion1 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	0fbe9905328c5efa11e729a75d6c9b95643a6ca2	signature of OS_SetProtectionRegion2 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	4f62c4efe926e5bc04478a19f7a7d5bc7f7b8fcb	signature of OS_SetProtectionRegion3 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	ba904fb8485c9b7abfc7c2b2f458c28b97ecaf1d	signature of OS_SetProtectionRegion4 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	4c343525d6a8b81d36b9f0b185dbcfb3b77f707f	signature of OS_SetProtectionRegion5 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	67b00688ef3d1bababe1d5f5df787f57ebec320d	signature of OS_SetProtectionRegion6 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed	68e604060b35aa6ff5d909a95c8af66b6ad0fe90	signature of OS_SetProtectionRegion7 plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_reset.c.ed	ad85f4652e26ed37744136aa2567608ca207e35f	signature of OSi_CpuClear32 (declared static __attribute__((unused))): the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	1afda932f38c392162ddf2e771e8230e7361724e	signature of OS_EnableInterrupts_IrqAndFiq: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	bdc38d046b9bd2ddfe0a94d36619dbd746dc8da4	signature of OS_DisableInterrupts_IrqAndFiq: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	b55123c65f3e387068c54379a9c9fb5d3a81e228	signature of OS_RestoreInterrupts_IrqAndFiq: our definition or prototype of the existing function
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	c4aca6b3ad2c2123b31965e94b3853f793364b01	signature of OS_EnableInterrupts plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	4a8e4999beb9d9a3eb0a8548a159cf1bb5701ba1	signature of OS_DisableInterrupts plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	e024baa05213e9c3ee5f9ee88b5c132090f3ef62	signature of OS_RestoreInterrupts: the SDK's own declaration, spelled with different blanks
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	f7093d9258f6c53c433ac51707f02e812b65175a	signature of OS_EnableInterrupts_IrqAndFiq plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed	ecb493fd2799c898a90e7ebb72513ea4eb7e5ee9	signature of OS_DisableInterrupts_IrqAndFiq plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_tcm.c.ed	24c7350e6be19cf7ba50fef2151cba7acdcb2fb2	our statement over the existing names HW_C9_TCMR_BASE_MASK, HW_C9_TCMR_SIZE_MASK
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_tcm.c.ed	26a64a3d14ac383a41b07c506d7b5eed7f6a808c	our statement over the existing names HWOS_Cp15Read, HWOS_CP15_DTCM, HW_C9_TCMR_BASE_MASK, HW_C9_TCMR_SIZE_MASK (a return of the cp15 read masked by the TCM masks)
+subprojects/NitroSDK-4.2.30001/libraries/os/src/os_thread.c.ed	b77db6a7eeaf083a7d7838e9449c481b35ec307b	signature of OSi_GetCurrentStackPointer plus its opening brace: the SDK's own declaration; the body that follows is ours
+subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_main.c.ed	d905fc00bb2eb9ecd987178aff08060286f4f50c	our statement over the existing names OS_MESSAGE_NOBLOCK, OS_ReceiveMessage
+subprojects/NitroSDK-4.2.30001/libraries/spi/src/mic.c.ed	8a68f0492b62396a01d28fc20a0f2162098a6b6f	our spin loop calling the existing PXIi_HandlerRecvFifoNotEmpty (3 lines + closing braces)
+# --- the tree scan (--tree, run on the exported tree by the private release export): units of the exported tree outside port-edits/, keyed @tree/<path> ---
+@tree/source/hw/hw_ctrdg.c	9732e6c96b718a97394e0e9610c5b1be02268c22	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_ctrdg.c	155b8ed27405f2e29991896834067e8fd65da88c	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_ctrdg.c	155b8ed27405f2e29991896834067e8fd65da88c	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	6d5681d0feb5dc768014a34f238d906d9f79f091	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	5a7e4175350511fa1cc0a2cd6fce013976e449c7	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	5a7e4175350511fa1cc0a2cd6fce013976e449c7	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	5a7e4175350511fa1cc0a2cd6fce013976e449c7	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	4928e58cd265a86306adddd60260474312fde3dc	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_dwc.c	4928e58cd265a86306adddd60260474312fde3dc	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_ppwlobby.c	8c88c3b13980c736e6fe472a3aefe186e9e4f7fa	continuation of the prototype of our PPW_LobbyInitializeAsync stub (parameter list)
+@tree/source/hw/hw_ppwlobby.c	0d47e030f2a1d4727e04104aecf7608d06e0ec1a	continuation of the prototype of our PPW_LobbyInitializeAsync stub (parameter list)
+@tree/source/hw/hw_pxi_arm7.c	9e243a1836cec37ab0bfcbf6c8f07ad318a652a2	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_sys.c	2aafb4af01cb3396cfef1e2b5534bac9395f81d0	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_sys.c	155b8ed27405f2e29991896834067e8fd65da88c	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	5e931bd2b80f12caac8b467be8b284c7534fc3a7	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	27384a05abab67dfc19a94015b6dfd44f81a2afc	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	c7a39613f35417cfe090bcff8aa09d8ebb054054	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a91eddfa9e2d7725589e4423795c7ed77352bfc1	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/source/hw/hw_wm7.c	a05a714f0589f9737da5942eafed45ffe60e0052	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/tools/apply_edits.py	33d146cbde226acdc3cd67953cfbacf90f9daa06	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/apply_edits.py	195f52ee2b1d52329e998b68c2ac7fb46e974daa	our statement over the SDK's own names (enum values, types, macros); not a body copied from the SDK
+@tree/tools/apply_edits.py	1d6edfc2233a4cb4dcb86662a059df5c5987bd9e	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/art/check_art.py	c7fcb1b58fbb4f53f6352275e78630cd4a3dec92	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/art/check_art.py	c7fcb1b58fbb4f53f6352275e78630cd4a3dec92	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/check_edit_text.py	07ef458c294fb8d8a8bc1d2994432a8edeab9901	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/check_edit_text.py	b7be50e1c33670c22f3a43e70eaea7982766cb12	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/check_edit_text.py	1d6edfc2233a4cb4dcb86662a059df5c5987bd9e	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/gen_filesys_table.py	b3ebfc5f4a10537366337c028b1775ccc2cd3077	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/gen_filesys_table.py	6a7217e206465ec3ab28b1cc24dd1a44465c32e6	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/generated-headers.sha256	d95bb623a85586fca9a3ec747e80a60a90a2f001	a hash line of the manifest: the generated header's path, which is pret's file name
+@tree/tools/generated-headers.sha256	942959d9a272a88b2b07b370428fecf769f27eba	a hash line of the manifest: the generated header's path, which is pret's file name
+@tree/tools/generated-headers.sha256	f82de1357a327314a5a712cb0d35e1b9f07dbb39	a hash line of the manifest: the generated header's path, which is pret's file name
+@tree/tools/get_pret.sh	316ee260149201b2bb50895ed5648e5c56f34876	package names from pret's own install instructions, which we point the player at
+@tree/tools/header_manifest.py	1d6edfc2233a4cb4dcb86662a059df5c5987bd9e	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/asm_to_c_test.c	ae503a460adae4dd924d8661ea4b88a9099fa2d1	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/build.sh	d9fc2e788c7e633b725af408a6914f1fc54f4ae8	a directory path inside the synced port/ tree
+@tree/tools/host-tests/check_edit_text_test.py	ad714fdc112b636c0ff6812f455d2d82a285b86a	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/gxtrace_test.py	61ff68969a1dd6b828137550627e72a6a11ed05b	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/header_manifest_test.py	32c750fe7b8362ff0e207309f1eb043c8c6fb7af	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/header_manifest_test.py	8a14ecba54e99fed8c8a3c06faf3bacc912ed56d	a path of a generated header, pret's own file name
+@tree/tools/host-tests/hw_benchio_test.c	8853f72c87fc8f3b3da1925b7ea81377bf91ce80	an all-zero test digest string
+@tree/tools/host-tests/hw_census_test.c	7ddba8bde8ef747a852371c52e3ee5dc4d0e3a26	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/hw_census_test.c	e0f8508a94674cb95c95f0d71f21b68d5e8ae672	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/hw_census_test.c	8f7d914284322b35dc00d6ab93a731c61edd67a3	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/hw_census_test.c	f05977958f6ce0d5e2c69e85b33ae00cba6d052f	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/hw_os_test.c	14fc8d4765bc2c57783cadf1234483cf4a900ac9	standard MD5 test vectors (RFC 1321), not pret code
+@tree/tools/host-tests/hw_os_test.c	a8702475c15286ee4ee8c5616221fa75019786ea	standard MD5 test vectors (RFC 1321), not pret code
+@tree/tools/host-tests/plat_ref_test.py	32c750fe7b8362ff0e207309f1eb043c8c6fb7af	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/port_edits_test.py	d9966d78ea7389072934f689e0af838198a7fe49	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/port_edits_test.py	ad714fdc112b636c0ff6812f455d2d82a285b86a	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/host-tests/pxi_sdk_test.c	2d0a075952bdf2cff387ef698e1a903bcef190cf	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/pxi_sdk_test.c	125b645619b86418b7ec0a4ef44e52aa29852b2f	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/pxi_sdk_test.c	5de27f34090b1bd230710985bda51a71a054ff0f	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/pxi_sdk_test.c	2b8a1f074443dedd99050c0a8df81e19befcc9fc	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/pxi_sdk_test.c	5203e9944c713b97f11f5583897b94a019b18d40	our test statement made of the SDK's own register / tag / function names
+@tree/tools/host-tests/pxi_sdk_test.c	78862c07c182567a5bd5cd53451011ec9e04c6ca	our test statement made of the SDK's own register / tag / function names
+@tree/tools/mkedit.py	d19fa31e536233bf1c2429515066ff44e539c1ef	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/mkedit.py	d406f52e6ac6c3d77a4a9aa7257e65877327fca4	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/mkedit.py	1d6edfc2233a4cb4dcb86662a059df5c5987bd9e	Python standard-library idiom (argparse / pathlib / tempfile / os.walk), not pret code
+@tree/tools/port.mk	84314f4e8692ca69db2e9180346c8392af0c2555	our compiler flags / include paths: the SDK's own directory names
+@tree/tools/port.mk	de732ce322f5ecebb50370f51dfba08fe5d84b4a	our compiler flags / include paths: the SDK's own directory names
+@tree/tools/port.mk	f4e7f3910ff5442ce4e09a6e30ae6ef9d9ebb83c	our compiler flags / include paths: the SDK's own directory names
+@tree/tools/port.mk	f9f43d662720e42110e219bc856faf39a39cf6da	our compiler flags / include paths: the SDK's own directory names
+@tree/tools/port.mk	38c0218afb576979ac1d2f11a5d7c689e62d27a7	our compiler flags / include paths: the SDK's own directory names

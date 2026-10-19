@@ -1,0 +1,36 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/mi/memory.h
+sha1 2b4e9ce0ec86cd8db1cd367cb1fbbb624f7df558
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@10 insert-before 10
+|
+|#if defined(SDK_GCC) && defined(SDK_ARM9)
+|/* 3DS port (bet 2.1a): a store into the GX FIFO or a command port (I/O block 0x400..0x5FF) cannot be a plain memory store: it goes to the hardware layer,
+|   in program order with every other geometry input (source/hw/hw_gx.c). One inline range test per copy; the full-width compare cannot alias on a 64-bit host. */
+|#include <stdint.h>
+|#include <nitro/hw/ARM9/mmap_global.h>
+|#include <hw_dev_hooks.h>
+|#define MIi_IS_G3_PORT(dest) (((uintptr_t)(dest) - ((uintptr_t)HW_REG_BASE + 0x400u)) < 0x200u)
+|#define MIi_G3_PORT_OFS(dest) ((u32)((uintptr_t)(dest) - (uintptr_t)HW_REG_BASE))
+|#endif
+@36 insert-before 6
+|#if defined(SDK_GCC) && defined(SDK_ARM9)
+|	if (MIi_IS_G3_PORT(dest)) {
+|		HWG3_Words(MIi_G3_PORT_OFS(dest), src, size >> 2, HWG3_MODE_COPY);
+|		return;
+|	}
+|#endif
+@50 insert-before 6
+|#if defined(SDK_GCC) && defined(SDK_ARM9)
+|	if (MIi_IS_G3_PORT(dest)) {
+|		HWG3_Words(MIi_G3_PORT_OFS(dest), src, size >> 2, HWG3_MODE_SEND);
+|		return;
+|	}
+|#endif
+@98 insert-before 6
+|#if defined(SDK_GCC) && defined(SDK_ARM9)
+|	if (MIi_IS_G3_PORT(dest)) {
+|		HWG3_Words(MIi_G3_PORT_OFS(dest), src, size >> 2, HWG3_MODE_COPY);
+|		return;
+|	}
+|#endif

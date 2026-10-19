@@ -1,0 +1,12 @@
+3DP-edit 1
+path src/scrcmd.c
+sha1 57917dc1dbf33c4cba898ed56e46af80b33265ab
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1006 insert-before 1
+|    s32 offset = ScriptContext_ReadWord(ctx);   // port: C leaves `scriptPtr + Read()` unordered; the offset is relative to the pointer AFTER the operand (mwcc order)
+@1006 splice 45 27
+|offset
+@1055 insert-before 1
+|    s32 offset = ScriptContext_ReadWord(ctx);   // port: same evaluation-order fix as ScrCmd_GoTo
+@1055 splice 45 27
+|offset

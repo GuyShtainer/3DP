@@ -1,0 +1,20 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/ioreg_G3.h
+sha1 3b9595f1e40bc319295828845f509499214be8e6
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1307 insert-before 15
+|/* 3DS port (bet 2.1a): a store to a command port cannot be intercepted through the lvalue macros above, so every store site uses these instead.
+|   SDK_GCC: the store goes to the hardware layer (port-shim/include/hw_dev_hooks.h, source/hw/hw_gx.c), in program order with the FIFO words.
+|   Otherwise it is the plain assignment, so the mwcc build is unchanged. HWG3_STORE(NAME, v): reg_G3_NAME = v; HWG3_STORE_OFS(offset, v): the
+|   G3_DirectN computed port; HWG3_FIFO(v): reg_G3X_GXFIFO = v. */
+|#ifdef SDK_GCC
+|#include <hw_dev_hooks.h>
+|#define HWG3_STORE(NAME, v)     HWG3_Port(REG_##NAME##_OFFSET, (u32)(v))
+|#define HWG3_STORE_OFS(ofs, v)  HWG3_Port((u32)(ofs), (u32)(v))
+|#define HWG3_FIFO(v)            HWG3_Port(REG_GXFIFO_OFFSET, (u32)(v))
+|#else
+|#define HWG3_STORE(NAME, v)     (reg_G3_##NAME = (v))
+|#define HWG3_STORE_OFS(ofs, v)  (*(REGType32v *)(HW_REG_BASE + (ofs)) = (v))
+|#define HWG3_FIFO(v)            (reg_G3X_GXFIFO = (v))
+|#endif
+|

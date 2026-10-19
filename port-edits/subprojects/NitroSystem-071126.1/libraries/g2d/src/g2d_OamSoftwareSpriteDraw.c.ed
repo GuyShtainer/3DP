@@ -1,0 +1,14 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/g2d/src/g2d_OamSoftwareSpriteDraw.c
+sha1 0b6edb7343d82568d7f433fc2551fb84211b03fb
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@241 delete 1
+@242 splice 0 13
+|        HWG3_STORE(TEXIMAGE_PARAM,
+@249 splice 74 0
+|)
+@259 delete 1
+@260 splice 0 13
+|        HWG3_STORE(TEXIMAGE_PARAM,
+@267 splice 49 0
+|)

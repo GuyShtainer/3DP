@@ -1,0 +1,11 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/sinit.h
+sha1 3e5c8d6a1d817652299f675d011a040f8135856c
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@12 delete 1
+@13 insert-before 5
+|    /* SDK_GCC: mwcc collects NitroStaticInit into a dedicated .sinit section that the overlay loader walks. Same here: a one-word
+|       table in the ".sinit" section, which overlay_map.ld gathers per overlay (.ovl<N>.sinit) and hw_ovl.c runs at FS_StartOverlay.
+|       34 overlays of this game carry one (tools/overlay_map.py checks the set). */
+|    static void NitroStaticInit(void);
+|    static void * NitroStaticInit_[] __attribute__((section(".sinit"), used)) = { NitroStaticInit };

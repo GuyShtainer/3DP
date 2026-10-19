@@ -1,0 +1,544 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/gx_vramcnt.c
+sha1 21dc6682d4e737166b9e24725cf517ebae46dfeb
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@142 splice 2 18
+|HWVRAM_STORE(A,
+@142 splice 53 0
+|)
+@145 splice 2 18
+|HWVRAM_STORE(B,
+@145 splice 53 0
+|)
+@148 splice 2 18
+|HWVRAM_STORE(C,
+@148 splice 53 0
+|)
+@151 splice 2 18
+|HWVRAM_STORE(D,
+@151 splice 53 0
+|)
+@154 splice 2 18
+|HWVRAM_STORE(E,
+@154 splice 53 0
+|)
+@157 splice 2 18
+|HWVRAM_STORE(F,
+@157 splice 53 0
+|)
+@160 splice 2 18
+|HWVRAM_STORE(G,
+@160 splice 53 0
+|)
+@163 splice 2 18
+|HWVRAM_STORE(H,
+@163 splice 53 0
+|)
+@166 splice 2 18
+|HWVRAM_STORE(I,
+@166 splice 53 0
+|)
+@173 splice 2 18
+|HWVRAM_STORE(D,
+@173 splice 51 0
+|)
+@176 splice 2 18
+|HWVRAM_STORE(D,
+@176 splice 51 0
+|)
+@178 splice 2 18
+|HWVRAM_STORE(C,
+@178 splice 51 0
+|)
+@181 splice 2 18
+|HWVRAM_STORE(D,
+@181 splice 51 0
+|)
+@183 splice 2 18
+|HWVRAM_STORE(C,
+@183 splice 51 0
+|)
+@185 splice 2 18
+|HWVRAM_STORE(B,
+@185 splice 51 0
+|)
+@188 splice 2 18
+|HWVRAM_STORE(D,
+@188 splice 51 0
+|)
+@190 splice 2 18
+|HWVRAM_STORE(C,
+@190 splice 51 0
+|)
+@192 splice 2 18
+|HWVRAM_STORE(B,
+@192 splice 51 0
+|)
+@194 splice 2 18
+|HWVRAM_STORE(A,
+@194 splice 51 0
+|)
+@198 splice 2 18
+|HWVRAM_STORE(A,
+@198 splice 51 0
+|)
+@199 splice 2 18
+|HWVRAM_STORE(B,
+@199 splice 51 0
+|)
+@200 splice 2 18
+|HWVRAM_STORE(D,
+@200 splice 51 0
+|)
+@203 splice 2 18
+|HWVRAM_STORE(D,
+@203 splice 51 0
+|)
+@205 splice 2 18
+|HWVRAM_STORE(A,
+@205 splice 51 0
+|)
+@206 splice 2 18
+|HWVRAM_STORE(C,
+@206 splice 51 0
+|)
+@209 splice 2 18
+|HWVRAM_STORE(A,
+@209 splice 51 0
+|)
+@210 splice 2 18
+|HWVRAM_STORE(D,
+@210 splice 51 0
+|)
+@213 splice 2 18
+|HWVRAM_STORE(B,
+@213 splice 51 0
+|)
+@214 splice 2 18
+|HWVRAM_STORE(D,
+@214 splice 51 0
+|)
+@217 splice 2 18
+|HWVRAM_STORE(G,
+@217 splice 51 0
+|)
+@219 splice 2 18
+|HWVRAM_STORE(F,
+@219 splice 51 0
+|)
+@221 splice 2 18
+|HWVRAM_STORE(E,
+@221 splice 51 0
+|)
+@224 splice 2 18
+|HWVRAM_STORE(G,
+@224 splice 51 0
+|)
+@225 splice 2 18
+|HWVRAM_STORE(E,
+@225 splice 51 0
+|)
+@228 splice 2 18
+|HWVRAM_STORE(G,
+@228 splice 51 0
+|)
+@230 splice 2 18
+|HWVRAM_STORE(F,
+@230 splice 51 0
+|)
+@233 splice 2 18
+|HWVRAM_STORE(G,
+@233 splice 51 0
+|)
+@245 splice 2 18
+|HWVRAM_STORE(G,
+@245 splice 51 0
+|)
+@247 splice 2 18
+|HWVRAM_STORE(F,
+@247 splice 51 0
+|)
+@249 splice 2 18
+|HWVRAM_STORE(E,
+@249 splice 51 0
+|)
+@252 splice 2 18
+|HWVRAM_STORE(G,
+@252 splice 51 0
+|)
+@253 splice 2 18
+|HWVRAM_STORE(E,
+@253 splice 51 0
+|)
+@256 splice 2 18
+|HWVRAM_STORE(G,
+@256 splice 51 0
+|)
+@258 splice 2 18
+|HWVRAM_STORE(F,
+@258 splice 51 0
+|)
+@261 splice 2 18
+|HWVRAM_STORE(G,
+@261 splice 51 0
+|)
+@273 splice 2 18
+|HWVRAM_STORE(D,
+@273 splice 51 0
+|)
+@276 splice 2 18
+|HWVRAM_STORE(D,
+@276 splice 51 0
+|)
+@278 splice 2 18
+|HWVRAM_STORE(C,
+@278 splice 51 0
+|)
+@281 splice 2 18
+|HWVRAM_STORE(D,
+@281 splice 51 0
+|)
+@283 splice 2 18
+|HWVRAM_STORE(C,
+@283 splice 51 0
+|)
+@285 splice 2 18
+|HWVRAM_STORE(B,
+@285 splice 51 0
+|)
+@288 splice 2 18
+|HWVRAM_STORE(C,
+@288 splice 51 0
+|)
+@290 splice 2 18
+|HWVRAM_STORE(B,
+@290 splice 51 0
+|)
+@292 splice 2 18
+|HWVRAM_STORE(A,
+@292 splice 51 0
+|)
+@296 splice 2 18
+|HWVRAM_STORE(A,
+@296 splice 51 0
+|)
+@297 splice 2 18
+|HWVRAM_STORE(B,
+@297 splice 51 0
+|)
+@298 splice 2 18
+|HWVRAM_STORE(D,
+@298 splice 51 0
+|)
+@301 splice 2 18
+|HWVRAM_STORE(D,
+@301 splice 51 0
+|)
+@303 splice 2 18
+|HWVRAM_STORE(A,
+@303 splice 51 0
+|)
+@304 splice 2 18
+|HWVRAM_STORE(C,
+@304 splice 51 0
+|)
+@307 splice 2 18
+|HWVRAM_STORE(A,
+@307 splice 51 0
+|)
+@308 splice 2 18
+|HWVRAM_STORE(D,
+@308 splice 51 0
+|)
+@311 splice 2 18
+|HWVRAM_STORE(B,
+@311 splice 51 0
+|)
+@312 splice 2 18
+|HWVRAM_STORE(D,
+@312 splice 51 0
+|)
+@324 splice 2 18
+|HWVRAM_STORE(B,
+@324 splice 52 0
+|)
+@326 splice 2 18
+|HWVRAM_STORE(A,
+@326 splice 52 0
+|)
+@330 splice 2 18
+|HWVRAM_STORE(B,
+@330 splice 52 0
+|)
+@333 splice 2 18
+|HWVRAM_STORE(G,
+@333 splice 52 0
+|)
+@335 splice 2 18
+|HWVRAM_STORE(F,
+@335 splice 52 0
+|)
+@337 splice 2 18
+|HWVRAM_STORE(E,
+@337 splice 52 0
+|)
+@340 splice 2 18
+|HWVRAM_STORE(G,
+@340 splice 52 0
+|)
+@341 splice 2 18
+|HWVRAM_STORE(E,
+@341 splice 52 0
+|)
+@344 splice 2 18
+|HWVRAM_STORE(G,
+@344 splice 52 0
+|)
+@346 splice 2 18
+|HWVRAM_STORE(F,
+@346 splice 52 0
+|)
+@349 splice 2 18
+|HWVRAM_STORE(G,
+@349 splice 52 0
+|)
+@361 splice 2 18
+|HWVRAM_STORE(D,
+@361 splice 53 0
+|)
+@362 splice 2 18
+|HWVRAM_STORE(C,
+@362 splice 53 0
+|)
+@365 splice 2 18
+|HWVRAM_STORE(C,
+@365 splice 53 0
+|)
+@368 splice 2 18
+|HWVRAM_STORE(D,
+@368 splice 53 0
+|)
+@401 splice 2 18
+|HWVRAM_STORE(A,
+@401 splice 43 0
+|)
+@402 splice 2 18
+|HWVRAM_STORE(C,
+@402 splice 43 0
+|)
+@405 splice 2 18
+|HWVRAM_STORE(A,
+@405 splice 43 0
+|)
+@406 splice 2 18
+|HWVRAM_STORE(D,
+@406 splice 43 0
+|)
+@409 splice 2 18
+|HWVRAM_STORE(B,
+@409 splice 43 0
+|)
+@410 splice 2 18
+|HWVRAM_STORE(D,
+@410 splice 43 0
+|)
+@413 splice 2 18
+|HWVRAM_STORE(A,
+@413 splice 43 0
+|)
+@414 splice 2 18
+|HWVRAM_STORE(B,
+@414 splice 43 0
+|)
+@415 splice 2 18
+|HWVRAM_STORE(D,
+@415 splice 43 0
+|)
+@418 splice 2 18
+|HWVRAM_STORE(A,
+@418 splice 43 0
+|)
+@419 splice 2 18
+|HWVRAM_STORE(C,
+@419 splice 43 0
+|)
+@420 splice 2 18
+|HWVRAM_STORE(D,
+@420 splice 43 0
+|)
+@423 splice 2 18
+|HWVRAM_STORE(D,
+@423 splice 43 0
+|)
+@426 splice 2 18
+|HWVRAM_STORE(D,
+@426 splice 43 0
+|)
+@428 splice 2 18
+|HWVRAM_STORE(C,
+@428 splice 43 0
+|)
+@431 splice 2 18
+|HWVRAM_STORE(D,
+@431 splice 43 0
+|)
+@433 splice 2 18
+|HWVRAM_STORE(C,
+@433 splice 43 0
+|)
+@435 splice 2 18
+|HWVRAM_STORE(B,
+@435 splice 43 0
+|)
+@438 splice 2 18
+|HWVRAM_STORE(D,
+@438 splice 43 0
+|)
+@440 splice 2 18
+|HWVRAM_STORE(C,
+@440 splice 43 0
+|)
+@442 splice 2 18
+|HWVRAM_STORE(B,
+@442 splice 43 0
+|)
+@444 splice 2 18
+|HWVRAM_STORE(A,
+@444 splice 43 0
+|)
+@466 splice 2 18
+|HWVRAM_STORE(A,
+@466 splice 43 0
+|)
+@468 splice 2 18
+|HWVRAM_STORE(B,
+@468 splice 43 0
+|)
+@472 splice 2 18
+|HWVRAM_STORE(C,
+@472 splice 43 0
+|)
+@474 splice 2 18
+|HWVRAM_STORE(D,
+@474 splice 43 0
+|)
+@481 splice 2 18
+|HWVRAM_STORE(A,
+@481 splice 43 0
+|)
+@485 splice 2 18
+|HWVRAM_STORE(C,
+@485 splice 43 0
+|)
+@498 splice 2 18
+|HWVRAM_STORE(G,
+@498 splice 47 0
+|)
+@500 splice 2 18
+|HWVRAM_STORE(F,
+@500 splice 47 0
+|)
+@503 splice 2 18
+|HWVRAM_STORE(G,
+@503 splice 47 0
+|)
+@506 splice 2 18
+|HWVRAM_STORE(G,
+@506 splice 47 0
+|)
+@508 splice 2 18
+|HWVRAM_STORE(F,
+@508 splice 47 0
+|)
+@510 splice 2 18
+|HWVRAM_STORE(E,
+@510 splice 50 0
+|)
+@535 splice 2 18
+|HWVRAM_STORE(E,
+@535 splice 52 0
+|)
+@539 splice 2 18
+|HWVRAM_STORE(G,
+@539 splice 50 0
+|)
+@542 splice 2 18
+|HWVRAM_STORE(G,
+@542 splice 50 0
+|)
+@544 splice 2 18
+|HWVRAM_STORE(F,
+@544 splice 50 0
+|)
+@571 splice 2 18
+|HWVRAM_STORE(F,
+@571 splice 48 0
+|)
+@575 splice 2 18
+|HWVRAM_STORE(G,
+@575 splice 48 0
+|)
+@590 splice 2 18
+|HWVRAM_STORE(C,
+@590 splice 50 0
+|)
+@593 splice 2 18
+|HWVRAM_STORE(I,
+@593 splice 50 0
+|)
+@595 splice 2 18
+|HWVRAM_STORE(H,
+@595 splice 50 0
+|)
+@609 splice 2 18
+|HWVRAM_STORE(D,
+@609 splice 51 0
+|)
+@612 splice 2 18
+|HWVRAM_STORE(I,
+@612 splice 51 0
+|)
+@637 splice 2 18
+|HWVRAM_STORE(H,
+@637 splice 51 0
+|)
+@663 splice 2 18
+|HWVRAM_STORE(I,
+@663 splice 47 0
+|)
+@1262 splice 2 18
+|HWVRAM_STORE(A,
+@1262 splice 22 0
+|)
+@1265 splice 2 18
+|HWVRAM_STORE(B,
+@1265 splice 22 0
+|)
+@1268 splice 2 18
+|HWVRAM_STORE(C,
+@1268 splice 22 0
+|)
+@1271 splice 2 18
+|HWVRAM_STORE(D,
+@1271 splice 22 0
+|)
+@1274 splice 2 18
+|HWVRAM_STORE(E,
+@1274 splice 22 0
+|)
+@1277 splice 2 18
+|HWVRAM_STORE(F,
+@1277 splice 22 0
+|)
+@1280 splice 2 18
+|HWVRAM_STORE(G,
+@1280 splice 22 0
+|)
+@1283 splice 2 18
+|HWVRAM_STORE(H,
+@1283 splice 22 0
+|)
+@1286 splice 2 18
+|HWVRAM_STORE(I,
+@1286 splice 22 0
+|)

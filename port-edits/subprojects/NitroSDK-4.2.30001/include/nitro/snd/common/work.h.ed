@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/snd/common/work.h
+sha1 d7a144faa77b84646316bb57f2bfc01d54ff88d4
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@55 insert-before 1
+|	MWCC_BITFIELD_UNIT_END(BOOL)
+@64 insert-before 1
+|	MWCC_BITFIELD_UNIT_END(BOOL)

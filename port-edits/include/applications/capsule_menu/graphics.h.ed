@@ -1,0 +1,8 @@
+3DP-edit 1
+path include/applications/capsule_menu/graphics.h
+sha1 e0be0b97e5cdcd8919d7a52368ec57840689a43e
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@74 insert-before 1
+|void CapsuleGraphics_LoadBgLayer2Tilemap(CapsuleAppManager *appMan, NARC *narc);
+@80 insert-before 1
+|void CapsuleGraphics_Dummy(CapsuleAppManager *appMan);

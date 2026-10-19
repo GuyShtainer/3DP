@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/applications/naming_screen.c
+sha1 34eafbdc36b6ca604bd4ea5d2633c81a3e8f2c3f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@242 insert-before 1
+|    MWCC_BITFIELD_UNIT_END(u16)

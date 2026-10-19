@@ -1,0 +1,6 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/os/common/reset.h
+sha1 caad64e4833461aaaf523935afec31a7930429e0
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@21 splice 0 0
+|static 

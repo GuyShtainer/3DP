@@ -1,0 +1,44 @@
+3DP-edit 1
+path subprojects/NitroDWC-2.2.30008/include/gs/nonport.h
+sha1 6fc1573009a956cf6b5351e677edd468dec2a5f5
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@563 splice 46 0
+| __asm__("gsi_nitro_socket")
+@564 splice 32 0
+| __asm__("gsi_nitro_closesocket")
+@565 splice 38 0
+| __asm__("gsi_nitro_shutdown")
+@566 splice 56 0
+| __asm__("gsi_nitro_bind")
+@567 splice 59 0
+| __asm__("gsi_nitro_connect")
+@568 splice 40 0
+| __asm__("gsi_nitro_listen")
+@574 delete 1
+@575 insert-before 1
+|) __asm__("gsi_nitro_accept");
+@581 delete 1
+@582 insert-before 1
+|    ) __asm__("gsi_nitro_recv");
+@590 delete 1
+@591 insert-before 1
+|    ) __asm__("gsi_nitro_recvfrom");
+@597 delete 1
+@598 insert-before 1
+|    ) __asm__("gsi_nitro_send");
+@606 delete 1
+@607 insert-before 1
+|    ) __asm__("gsi_nitro_sendto");
+@614 delete 1
+@615 insert-before 1
+|    ) __asm__("gsi_nitro_getsockopt");
+@622 delete 1
+@623 insert-before 1
+|    ) __asm__("gsi_nitro_setsockopt");
+@631 delete 1
+@632 insert-before 1
+|    ) __asm__("gsi_nitro_getsockname");
+@639 splice 45 0
+| __asm__("gsi_nitro_inet_addr")
+@735 splice 30 0
+| __asm__("gsi_nitro_time")

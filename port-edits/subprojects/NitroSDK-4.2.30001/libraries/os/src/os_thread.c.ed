@@ -1,0 +1,33 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_thread.c
+sha1 90833f535705f091ef0e64f06b7a1520c046da23
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@373 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@379 insert-before 6
+|#else
+|BOOL OS_IsThreadAvailable (void)
+|{
+|    return OSi_IsThreadInitialized;
+|}
+|#endif
+@1039 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@1046 insert-before 6
+|#else
+|u32 OSi_GetSystemStackPointer (void)
+|{
+|    return HWOS_GetSystemStackPointer();
+|}
+|#endif
+@1049 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@1054 insert-before 6
+|#else
+|u32 OSi_GetCurrentStackPointer (void)
+|{
+|    return HWOS_GetCurrentStackPointer();
+|}
+|#endif

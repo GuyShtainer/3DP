@@ -1,0 +1,14 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/spi/src/pm.c
+sha1 3ebe35cf36f35cf9e80189e42485f125f8580d31
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@28 splice 0 0
+|static 
+@33 splice 0 0
+|static 
+@38 splice 0 0
+|static 
+@39 splice 0 0
+|static 
+@40 splice 0 0
+|static 

@@ -1,0 +1,6 @@
+3DP-edit 1
+path lib/crypto/src/bignum.c
+sha1 35a0c1ec230fa2b28f1e6bf7147ea19b92740b0e
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@4 insert-before 1
+|#include <nitro/mi/memory.h>

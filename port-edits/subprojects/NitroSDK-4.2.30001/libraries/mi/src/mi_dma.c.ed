@@ -1,0 +1,51 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_dma.c
+sha1 b09e27ed9c68149411d5b47146142166b945b66f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@4 insert-before 4
+|
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|#endif
+@15 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@25 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@37 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@48 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@56 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@68 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@381 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@408 insert-before 3
+|#ifdef SDK_GCC
+|        HWDEV_DmaStart(dmaNo);   /* port: DMA is a function-level device (hw_dma.c); a CNT write with the enable bit runs it */
+|#endif
+@453 insert-before 9
+|#ifdef SDK_GCC
+|    /* port: the check panics on any source >= 0x08000000, which is where every libctru heap address lives; the DS ranges it guards
+|       (I/O registers, the GBA cart) do not exist as DMA sources here */
+|    (void)dmaNo;
+|    (void)src;
+|    (void)size;
+|    (void)dir;
+|    return;
+|#endif

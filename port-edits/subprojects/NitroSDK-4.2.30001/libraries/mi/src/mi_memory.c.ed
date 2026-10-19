@@ -1,0 +1,344 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c
+sha1 6f5eca5853b0d7aa7a411fb44511598a630fbfde
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@3 insert-before 9
+|
+|/* 3DS port (bet 2.1b): the bulk writers mark the 1 KB VRAM dirty pages of their destination (source/hw/hw_vram.c); an address that is not VRAM is ignored.
+|   Plain CPU stores and MI_Copy16B..MI_Copy36B stay unhooked by design. */
+|#if defined(SDK_GCC) && defined(SDK_ARM9)
+|#include <hw_dev_hooks.h>
+|#define MIi_VRAM_TOUCH(d, n) HWVRAM_Touch((d), (n))
+|#else
+|#define MIi_VRAM_TOUCH(d, n) ((void)0)
+|#endif
+@49 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@72 insert-before 6
+|#else
+|/* The DS routines are ldm/stm chunks: each chunk is loaded in full before it is stored. */
+|static void MIi_CopyChunk (const u32 *s, u32 *d, int n)
+|{
+|    u32 t[4];
+|    int i;
+@73 insert-before 21
+|    for (i = 0; i < n; i++) {
+|        t[i] = s[i];
+|    }
+|    for (i = 0; i < n; i++) {
+|        d[i] = t[i];
+|    }
+|}
+|
+|void MIi_CpuClear16 (u16 data, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    /* signed compare, size rounded up to even (as the asm) */
+|    s32 i;
+|
+|    for (i = 0; i < (s32)size; i += 2) {
+|        *(u16 *)((u8 *)destp + i) = data;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@116 insert-before 5
+|#else
+|void MIi_CpuCopy16 (const void *srcp, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    s32 i;
+@117 insert-before 7
+|    for (i = 0; i < (s32)size; i += 2) {
+|        *(u16 *)((u8 *)destp + i) = *(const u16 *)((const u8 *)srcp + i);
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@153 insert-before 4
+|#else
+|void MIi_CpuSend16 (const void *srcp, volatile void *destp, u32 size)
+|{
+|    s32 i;
+@154 insert-before 7
+|    for (i = 0; i < (s32)size; i += 2) {
+|        *(volatile u16 *)destp = *(const u16 *)((const u8 *)srcp + i);
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@171 insert-before 7
+|#else
+|void MIi_CpuClear32 (u32 data, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    /* loop while dest < dest+size, so a size that is not a multiple of 4 rounds up */
+|    u32 *d = (u32 *)destp;
+|    u32 *e = (u32 *)((u8 *)destp + size);
+@172 insert-before 7
+|    while (d < e) {
+|        *d++ = data;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@195 insert-before 7
+|#else
+|void MIi_CpuCopy32 (const void *srcp, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    const u32 *s = (const u32 *)srcp;
+|    u32 *d = (u32 *)destp;
+|    u32 *e = (u32 *)((u8 *)destp + size);
+@196 insert-before 7
+|    while (d < e) {
+|        *d++ = *s++;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@219 insert-before 5
+|#else
+|void MIi_CpuSend32 (const void *srcp, volatile void *destp, u32 size)
+|{
+|    const u32 *s = (const u32 *)srcp;
+|    const u32 *e = (const u32 *)((const u8 *)srcp + size);
+@220 insert-before 7
+|    while (s < e) {
+|        *(volatile u32 *)destp = *s++;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@260 insert-before 8
+|#else
+|void MIi_CpuClearFast (u32 data, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    u32 *d = (u32 *)destp;
+|    u32 *blockEnd = (u32 *)((u8 *)destp + (size >> 5 << 5));
+|    u32 *e = (u32 *)((u8 *)destp + size);
+|    int i;
+@261 insert-before 13
+|    while (d < blockEnd) {
+|        for (i = 0; i < 8; i++) {
+|            d[i] = data;
+|        }
+|        d += 8;
+|    }
+|    while (d < e) {
+|        *d++ = data;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@306 insert-before 10
+|#else
+|void MIi_CpuCopyFast (const void *srcp, void *destp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(destp, size);
+|    const u32 *s = (const u32 *)srcp;
+|    u32 *d = (u32 *)destp;
+|    u32 *blockEnd = (u32 *)((u8 *)destp + (size >> 5 << 5));
+|    u32 *e = (u32 *)((u8 *)destp + size);
+|    u32 t[8];
+|    int i;
+@307 insert-before 17
+|    while (d < blockEnd) {
+|        for (i = 0; i < 8; i++) {
+|            t[i] = s[i];
+|        }
+|        for (i = 0; i < 8; i++) {
+|            d[i] = t[i];
+|        }
+|        s += 8;
+|        d += 8;
+|    }
+|    while (d < e) {
+|        *d++ = *s++;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@316 insert-before 9
+|#else
+|void MI_Copy16B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 3);
+|    MIi_CopyChunk(s + 3, d + 3, 1);
+|}
+|#endif
+@317 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@327 insert-before 10
+|#else
+|void MI_Copy32B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 3);
+|    MIi_CopyChunk(s + 3, d + 3, 3);
+|    MIi_CopyChunk(s + 6, d + 6, 2);
+|}
+|#endif
+@328 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@338 insert-before 10
+|#else
+|void MI_Copy36B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 3);
+|    MIi_CopyChunk(s + 3, d + 3, 3);
+|    MIi_CopyChunk(s + 6, d + 6, 3);
+|}
+|#endif
+@339 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@351 insert-before 11
+|#else
+|void MI_Copy48B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 3);
+|    MIi_CopyChunk(s + 3, d + 3, 3);
+|    MIi_CopyChunk(s + 6, d + 6, 3);
+|    MIi_CopyChunk(s + 9, d + 9, 3);
+|}
+|#endif
+@352 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@366 insert-before 12
+|#else
+|void MI_Copy64B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 3);
+|    MIi_CopyChunk(s + 3, d + 3, 3);
+|    MIi_CopyChunk(s + 6, d + 6, 3);
+|    MIi_CopyChunk(s + 9, d + 9, 3);
+|    MIi_CopyChunk(s + 12, d + 12, 4);
+|}
+|#endif
+@367 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@389 insert-before 15
+|#else
+|void MI_Copy128B (const void *pSrc, void *pDest)
+|{
+|    const u32 *s = (const u32 *)pSrc;
+|    u32 *d = (u32 *)pDest;
+|    MIi_CopyChunk(s + 0, d + 0, 4);
+|    MIi_CopyChunk(s + 4, d + 4, 4);
+|    MIi_CopyChunk(s + 8, d + 8, 4);
+|    MIi_CopyChunk(s + 12, d + 12, 4);
+|    MIi_CopyChunk(s + 16, d + 16, 4);
+|    MIi_CopyChunk(s + 20, d + 20, 4);
+|    MIi_CopyChunk(s + 24, d + 24, 4);
+|    MIi_CopyChunk(s + 28, d + 28, 4);
+|}
+|#endif
+@390 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@512 insert-before 8
+|#else
+|void MI_CpuFill8 (void *dstp, u8 data, u32 size)
+|{
+|    MIi_VRAM_TOUCH(dstp, size);
+|    /* The DS code works on halfwords (read-modify-write of the neighbour byte);
+|       the visible result for non-overlapping buffers is this byte loop. */
+|    u8 *d = (u8 *)dstp;
+|    u32 i;
+@513 insert-before 7
+|    for (i = 0; i < size; i++) {
+|        d[i] = data;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@759 insert-before 15
+|#else
+|void MI_CpuCopy8 (const void *srcp, void *dstp, u32 size)
+|{
+|    MIi_VRAM_TOUCH(dstp, size);
+|    /* Forward byte copy; overlapping buffers are not supported (the DS version is
+|       halfword/word based and does not define overlap either). */
+|    const u8 *s = (const u8 *)srcp;
+|    u8 *d = (u8 *)dstp;
+|    u32 i;
+|
+|    for (i = 0; i < size; i++) {
+|        d[i] = s[i];
+|    }
+|}
+|#endif
+@763 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@773 insert-before 5
+|#else
+|void MI_Zero32B (void *pDest)
+|{
+|    u32 *d = (u32 *)pDest;
+|    int i;
+@774 insert-before 7
+|    for (i = 0; i < 8; i++) {
+|        d[i] = 0;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@784 insert-before 5
+|#else
+|void MI_Zero36B (void *pDest)
+|{
+|    u32 *d = (u32 *)pDest;
+|    int i;
+@785 insert-before 7
+|    for (i = 0; i < 9; i++) {
+|        d[i] = 0;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@796 insert-before 5
+|#else
+|void MI_Zero48B (void *pDest)
+|{
+|    u32 *d = (u32 *)pDest;
+|    int i;
+@797 insert-before 7
+|    for (i = 0; i < 12; i++) {
+|        d[i] = 0;
+|    }
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@810 insert-before 11
+|#else
+|void MI_Zero64B (void *pDest)
+|{
+|    u32 *d = (u32 *)pDest;
+|    int i;
+|
+|    for (i = 0; i < 16; i++) {
+|        d[i] = 0;
+|    }
+|}
+|#endif

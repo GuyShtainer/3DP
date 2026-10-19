@@ -1,0 +1,16 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_main.h
+sha1 0323fb127f4c4143dbec8900549ffa2ebcc0302a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@75 insert-before 3
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_MAIN_MEM_SHARED              HW_ARRAY_(g_hwsys)    /* the DS page 0x027ff000..0x027fffff, see the private design notes */
+|#else
+@76 insert-before 5
+|#endif
+|#if defined(SDK_GCC) && !defined(SDK_ASM)
+|#define HW_MAIN_MEM_SHARED_END          (HW_MAIN_MEM_SHARED + HW_MAIN_MEM_SHARED_SIZE - HW_MAIN_MEM_SYSTEM_SIZE)   /* inside g_hwsys, as on the DS */
+|#define HW_MAIN_MEM_SYSTEM_END          (HW_MAIN_MEM_SHARED + HW_MAIN_MEM_SHARED_SIZE)
+|#else
+@79 insert-before 1
+|#endif

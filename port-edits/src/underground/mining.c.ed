@@ -1,0 +1,7 @@
+3DP-edit 1
+path src/underground/mining.c
+sha1 f97ff9d2b2475d03c4ccccdbd4416739d6cfd34a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2098 delete 2
+@2100 insert-before 1
+|    enum { dirtLayer4MapLength = 8, dirtLayer6MapLength = 5 }; // integer constants, not const objects: GCC makes the arrays below VLAs otherwise

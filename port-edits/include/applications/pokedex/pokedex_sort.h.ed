@@ -1,0 +1,6 @@
+3DP-edit 1
+path include/applications/pokedex/pokedex_sort.h
+sha1 08a23ef99ff5458e63dc8ef57cf1ab5dddf6c057
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@130 insert-before 1
+|int PokedexSort_NumDisplayed(const PokedexSortData *param0);

@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/dtcm_end.h
+sha1 e240a734815d5d0e7b3fabb74aec707657e6f96a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@6 delete 1
+@7 insert-before 2
+|    /* SDK_GCC: no-op. The port runs on the 3DS ARM11 in one flat address space; there is no DTCM
+|       to place code/data in, so everything stays in the ordinary .text/.data/.bss. */

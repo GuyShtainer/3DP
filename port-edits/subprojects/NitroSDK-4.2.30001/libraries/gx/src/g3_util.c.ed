@@ -1,0 +1,185 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3_util.c
+sha1 3ad0c576b84cda1410119ef6d3f9f3ae44155776
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@78 delete 1
+@83 delete 7
+@90 insert-before 7
+|	HWG3_STORE(MTX_MULT_3x3, FX32_ONE);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, c);
+|	HWG3_STORE(MTX_MULT_3x3, s);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+@90 splice 1 4
+|HWG3_STORE(MTX_MULT_3x3,
+@90 splice 8 0
+|)
+@91 delete 1
+@92 insert-before 1
+|	HWG3_STORE(MTX_MULT_3x3, c);
+@96 delete 1
+@101 delete 2
+@103 insert-before 2
+|	HWG3_STORE(MTX_MULT_3x3, c);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+@103 splice 1 4
+|HWG3_STORE(MTX_MULT_3x3,
+@103 splice 8 0
+|)
+@104 delete 6
+@110 insert-before 6
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, FX32_ONE);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, s);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, c);
+@114 delete 1
+@119 delete 3
+@122 insert-before 3
+|	HWG3_STORE(MTX_MULT_3x3, c);
+|	HWG3_STORE(MTX_MULT_3x3, s);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+@122 splice 1 4
+|HWG3_STORE(MTX_MULT_3x3,
+@122 splice 8 0
+|)
+@123 delete 5
+@128 insert-before 5
+|	HWG3_STORE(MTX_MULT_3x3, c);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, 0);
+|	HWG3_STORE(MTX_MULT_3x3, FX32_ONE);
+@132 delete 1
+@136 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@136 splice 14 0
+|)
+@137 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@137 splice 14 0
+|)
+@138 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@138 splice 14 0
+|)
+@139 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@139 splice 14 0
+|)
+@140 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@140 splice 14 0
+|)
+@141 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@141 splice 14 0
+|)
+@142 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@142 splice 14 0
+|)
+@143 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@143 splice 14 0
+|)
+@144 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@144 splice 19 0
+|)
+@145 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@145 splice 19 0
+|)
+@146 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@146 splice 19 0
+|)
+@147 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@147 splice 19 0
+|)
+@148 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@148 splice 19 0
+|)
+@149 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@149 splice 19 0
+|)
+@150 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@150 splice 19 0
+|)
+@151 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@151 splice 19 0
+|)
+@210 delete 1
+@214 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@214 splice 19 0
+|)
+@215 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@215 splice 19 0
+|)
+@216 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@216 splice 19 0
+|)
+@217 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@217 splice 19 0
+|)
+@218 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@218 splice 19 0
+|)
+@219 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@219 splice 19 0
+|)
+@220 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@220 splice 19 0
+|)
+@221 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@221 splice 19 0
+|)
+@222 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@222 splice 19 0
+|)
+@223 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@223 splice 19 0
+|)
+@224 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@224 splice 19 0
+|)
+@225 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@225 splice 19 0
+|)
+@226 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@226 splice 14 0
+|)
+@227 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@227 splice 14 0
+|)
+@228 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@228 splice 14 0
+|)
+@229 splice 1 4
+|HWG3_STORE(MTX_LOAD_4x4,
+@229 splice 14 0
+|)

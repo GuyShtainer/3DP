@@ -1,0 +1,80 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/math/src/qsort.c
+sha1 ac4e58d5fc8b113774677f5b2e96084689b6aef5
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@215 insert-before 73
+|#else
+|static void MATHi_QSortSwap (u8 *a, u8 *b, u32 width)
+|{
+|    u32 i;
+|    for (i = 0; i < width; i++) {
+|        u8 t = a[i];
+|        a[i] = b[i];
+|        b[i] = t;
+|    }
+|}
+|
+|void MATH_QSort (void *head, u32 num, u32 width, MATHCompareFunc comp, void *stackBuf)
+|{
+|    /* Same algorithm as the asm: explicit stack of (left,right) pairs, pivot
+|       at left + ((right-left) >> bitlen(width)) * width, larger half pushed first. */
+|    u8 *localStack[64];
+|    u8 **base = stackBuf ? (u8 **)stackBuf : localStack;
+|    u8 **sp = base;
+|    u32 shift = 0;
+|    u32 w;
+|
+|    if ((s32)num <= 1) {
+|        return;
+|    }
+|    for (w = width; w != 0; w >>= 1) {
+|        shift++;
+|    }
+|    *sp++ = (u8 *)head;
+|    *sp++ = (u8 *)head + (num - 1) * width;
+|
+|    while (sp != base) {
+|        u8 *right = sp[-1];
+|        u8 *left = sp[-2];
+|        u8 *l, *r;
+|        sp -= 2;
+|
+|        if ((u32)(right - left) == width) {
+|            if (comp(left, right) > 0) {
+|                MATHi_QSortSwap(left, right, width);
+|            }
+|            continue;
+|        }
+|        MATHi_QSortSwap(left, left + ((u32)(right - left) >> shift) * width, width);
+|        l = left + width;
+|        r = right;
+|        for (;;) {
+|            while (l < right && comp(l, left) < 0) {
+|                l += width;
+|            }
+|            while (comp(r, left) > 0) {
+|                r -= width;
+|            }
+|            if (l >= r) {
+|                break;
+|            }
+|            MATHi_QSortSwap(l, r, width);
+|            l += width;
+|            r -= width;
+|            if (l > r) {
+|                break;
+|            }
+|        }
+|        MATHi_QSortSwap(left, r, width);
+|        if ((u32)(r - left) > (u32)(right - r)) {
+|            if (left < r - width) { *sp++ = left; *sp++ = r - width; }
+|            if (r + width < right) { *sp++ = r + width; *sp++ = right; }
+|        } else {
+|            if (r + width < right) { *sp++ = r + width; *sp++ = right; }
+|            if (left < r - width) { *sp++ = left; *sp++ = r - width; }
+|        }
+|    }
+|}
+|#endif

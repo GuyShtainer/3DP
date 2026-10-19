@@ -1,0 +1,10 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/g2d/src/internal/g2di_SplitChar.c
+sha1 95d515f3020c9ca795105b556bd814aef19515c8
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@38 splice 4 1
+|*ppChar = 
+@38 splice 29 1
+| 
+@38 splice 31 1
+| 1

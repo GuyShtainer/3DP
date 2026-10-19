@@ -1,0 +1,100 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx33.c
+sha1 3e200182771054081fbb325451b146376d6811b0
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@7 splice 0 0
+|static 
+@12 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@24 insert-before 8
+|#else
+|void MTX_Identity33_ (MtxFx33 *pDst)
+|{
+|	pDst->_00 = 4096; pDst->_01 = 0;    pDst->_02 = 0;
+|	pDst->_10 = 0;    pDst->_11 = 4096; pDst->_12 = 0;
+|	pDst->_20 = 0;    pDst->_21 = 0;    pDst->_22 = 4096;
+|}
+|#endif
+@25 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@39 insert-before 9
+|#else
+|void MTX_Copy33To43_ (const MtxFx33 *pSrc, MtxFx43 *pDst)
+|{
+|	pDst->_00 = pSrc->_00; pDst->_01 = pSrc->_01; pDst->_02 = pSrc->_02;
+|	pDst->_10 = pSrc->_10; pDst->_11 = pSrc->_11; pDst->_12 = pSrc->_12;
+|	pDst->_20 = pSrc->_20; pDst->_21 = pSrc->_21; pDst->_22 = pSrc->_22;
+|	pDst->_30 = 0;         pDst->_31 = 0;         pDst->_32 = 0;
+|}
+|#endif
+@40 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@58 insert-before 9
+|#else
+|void MTX_Copy33To44_ (const MtxFx33 *pSrc, MtxFx44 *pDst)
+|{
+|	pDst->_00 = pSrc->_00; pDst->_01 = pSrc->_01; pDst->_02 = pSrc->_02; pDst->_03 = 0;
+|	pDst->_10 = pSrc->_10; pDst->_11 = pSrc->_11; pDst->_12 = pSrc->_12; pDst->_13 = 0;
+|	pDst->_20 = pSrc->_20; pDst->_21 = pSrc->_21; pDst->_22 = pSrc->_22; pDst->_23 = 0;
+|	pDst->_30 = 0;         pDst->_31 = 0;         pDst->_32 = 0;         pDst->_33 = 4096;
+|}
+|#endif
+@59 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@69 insert-before 12
+|#else
+|void MTX_Transpose33_ (const MtxFx33 *pSrc, MtxFx33 *pDst)
+|{
+|	fx32 a = pSrc->_00, b = pSrc->_01, c = pSrc->_02;
+|	fx32 d = pSrc->_10, e = pSrc->_11, f = pSrc->_12;
+|	fx32 g = pSrc->_20, h = pSrc->_21, i = pSrc->_22;
+|
+|	pDst->_00 = a; pDst->_01 = d; pDst->_02 = g;
+|	pDst->_10 = b; pDst->_11 = e; pDst->_12 = h;
+|	pDst->_20 = c; pDst->_21 = f; pDst->_22 = i;
+|}
+|#endif
+@72 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@84 insert-before 8
+|#else
+|void MTX_Scale33_ (MtxFx33 *pDst, fx32 x, fx32 y, fx32 z)
+|{
+|	pDst->_00 = x; pDst->_01 = 0; pDst->_02 = 0;
+|	pDst->_10 = 0; pDst->_11 = y; pDst->_12 = 0;
+|	pDst->_20 = 0; pDst->_21 = 0; pDst->_22 = z;
+|}
+|#endif
+@112 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@129 insert-before 8
+|#else
+|void MTX_RotX33_ (MtxFx33 *pDst, fx32 sinVal, fx32 cosVal)
+|{
+|	pDst->_00 = 4096; pDst->_01 = 0;      pDst->_02 = 0;
+|	pDst->_10 = 0;    pDst->_11 = cosVal; pDst->_12 = sinVal;
+|	pDst->_20 = 0;    pDst->_21 = (fx32)(0u - (u32)sinVal); pDst->_22 = cosVal;
+|}
+|#endif
+@133 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@150 insert-before 8
+|#else
+|void MTX_RotY33_ (MtxFx33 *pDst, fx32 sinVal, fx32 cosVal)
+|{
+|	pDst->_00 = cosVal; pDst->_01 = 0;    pDst->_02 = (fx32)(0u - (u32)sinVal);
+|	pDst->_10 = 0;      pDst->_11 = 4096; pDst->_12 = 0;
+|	pDst->_20 = sinVal; pDst->_21 = 0;    pDst->_22 = cosVal;
+|}
+|#endif
+@154 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@169 insert-before 8
+|#else
+|void MTX_RotZ33_ (MtxFx33 *pDst, fx32 sinVal, fx32 cosVal)
+|{
+|	pDst->_00 = cosVal;  pDst->_01 = sinVal; pDst->_02 = 0;
+|	pDst->_10 = (fx32)(0u - (u32)sinVal); pDst->_11 = cosVal; pDst->_12 = 0;
+|	pDst->_20 = 0;       pDst->_21 = 0;      pDst->_22 = 4096;
+|}
+|#endif

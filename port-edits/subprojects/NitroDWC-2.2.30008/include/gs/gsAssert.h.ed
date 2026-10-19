@@ -1,0 +1,10 @@
+3DP-edit 1
+path subprojects/NitroDWC-2.2.30008/include/gs/gsAssert.h
+sha1 b80b3c184626092ab406d72d956f2d6b5bb82403
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@81 insert-before 5
+|#if defined(SDK_GCC) || !defined(__MWERKS__)
+|/* MSL's assert failure handler: mwcc's <assert.h> declared it, GCC has no MSL; implemented by source/hw/hw_os.c */
+|void __msl_assertion_failed(const char *condition, const char *file, const char *func, int line);
+|#endif
+|

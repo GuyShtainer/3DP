@@ -1,0 +1,324 @@
+port-edits/ -- our changes to the pret decompilation and the Nitro SDKs, as edit scripts that carry only our own text.
+
+tools/sync_port.sh copies the pristine pret tree into port/ and then runs tools/apply_edits.py, which applies every
+port-edits/<pret path>.ed to port/<pret path> and copies every file under port-edits/new/ to port/<same path>. These
+replaced the unified diffs of port-patches/ (2026-10-15, release slice P1): a diff repeats the original lines as context
+and removed lines, an .ed file never does.
+
+THE .ed FORMAT
+One .ed per pret file (so one owner per file). It starts with a header:
+
+    3DP-edit 1
+    path <pret path>                    must match the .ed's own location under port-edits/
+    sha1 <SHA-1 of the pristine file>   at the pinned pret commit; any other content is refused
+    pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+    final-newline yes|no                only when the result's final newline differs from the pristine file's
+
+then operations, each on ORIGINAL line numbers (1-based), so they never depend on each other:
+
+    @N delete K           remove original lines N .. N+K-1
+    @N insert-before K    followed by K payload lines, inserted before original line N
+    @N insert-after K     followed by K payload lines, inserted after original line N (used for the end of the file)
+    @N splice C L         followed by 1 payload line: it replaces bytes [C, C+L) of original line N (C counts from 0)
+
+A payload line is '|' and then our text, up to the newline. A splice carries only the new bytes, never the text around
+them, so a near-copy of an original line (a renamed field, a changed constant) costs a few bytes.
+
+Order: the result equals applying the ops bottom-up by line and right-to-left by column. Between two original lines,
+the insert-after ops of the upper line come first, then the insert-before ops of the lower line; ops at the same
+position keep their written order. The applier refuses, and writes nothing at all, on: a malformed file, a SHA-1
+mismatch, a CR byte (clone with core.autocrlf=false), two deletes sharing a line, a splice on a deleted line, two
+splices on one line whose byte ranges overlap or start at the same column, an op past the end of the file or line, or a
+new/ file that would overwrite a different existing file.
+
+CHANGING AN EDIT
+1. Edit the file in port/ (after tools/sync_port.sh).
+2. python3 -I tools/mkedit.py --write <pret path> [...]   regenerates port-edits/<pret path>.ed from the pristine file
+   ($PLAT_REF: your pret checkout, see BUILDING.md) and port/<pret path>; a file pret does not have goes to new/, and an
+   .ed whose file is back to pristine is removed. mkedit applies its output back and refuses unless it reproduces the
+   port/ file byte for byte. (python3 -I tools/mkedit.py PRISTINE EDITED > x.ed prints one .ed.)
+3. tools/sync_port.sh again: it must reproduce your port/ file.
+4. make check-edit-text: no run of 40+ characters of the carried text may appear in the pristine pret tree, except
+   the lines listed in tools/check_edit_text_allow.txt (prototype and identifier lines); see that tool's header.
+5. make host-tests: tools/host-tests/port_edits_test.py regenerates every .ed and must get the committed bytes back.
+
+OWNERSHIP
+Rule 5 of the private design notes treats this file as the authority on which edit set owns a pret file. The
+sets keep the names of the patches they came from; the list of files per set is at the end.
+
+game-gcc-fixes               slice 1.2c. 53 game/lib files: the mwcc-isms GCC 15 rejects (static after non-static, cast-as-lvalue, const-member
+                             struct assignment, VLA initializer, implicit int / function / pointer conversions, missing prototypes, a header-guard
+                             collision). Per-class table: the private design notes ("slice 1.2c").
+nitrosdk-asm-to-c            slice 1.2b. The mwcc `asm` function bodies of the NitroSDK ARM9 census set (30 files) become C, or
+                             stubs over the HWOS_* hooks of port-shim/include/hw_os_hooks.h; the originals stay under
+                             `#if defined(__MWERKS__) || defined(SDK_CW)`. Adds lib/crypto/src/rc4_encrypt.c (C RC4 Encrypt and
+                             FastEncrypt for asm/rc4.s and rc4_fast.s). Per-function table: the private design notes.
+nitrosdk-memmap              bet 1.3. The DS memory map redirected to host arrays: the base macros of hw/ARM9/mmap_global.h (and HW_MAIN_MEM_SHARED in
+                             mmap_main.h) become `(u32)g_hw*` under SDK_GCC; common/mmap_shared.h's 56 `HW_MAIN_MEM + 0x007ffNNN` fields become
+                             `HW_MAIN_MEM_SHARED + 0xNNN`; gx_load3d.c's texture tables store slot offset + 1 (a shifted address is not a constant).
+                             the private design notes.
+nitrosdk-gcc-branches        slice 1.2a + 1.2c. The SDK's SDK_GCC branches (16 TO BE DEFINED headers, nitro/types.h); 1.2c adds the
+                             aligned(4) on s64/u64 (ABI parity with mwcc).
+nitrosdk-gcc-fixes           slice 1.2c. 9 SDK / NitroSystem / NitroWiFi files: static-after-non-static, cast-as-lvalue, implicit int, __alloca,
+                             u64 for the two raw `unsigned long long` struct members.
+
+Review 1.2 fixes (2026-10-12) touched these edit sets: MWCC_BITFIELD_UNIT_END in nitro/types.h (nitrosdk-gcc-branches) and its uses
+(battle_mon.h, list_menu.h, naming_screen.c, struct_ov17_022444BC.h in game-gcc-fixes; snd/common/work.h in nitrosdk-gcc-fixes);
+`static inline` for mul64 and the other plain `inline` helpers; `return` in ov61_0222DD30.
+
+Bet 1.3 also touched nitrosdk-asm-to-c: os_exception.c (HW_EXCP_VECTOR_BUF_FOR_DEBUGGER follows the redirected system page) and
+os_system.c (OS_SpinWait calls HWOS_SpinWait, a yield point).
+
+Review 1.3 fixes (2026-10-12):
+nitrosdk-devices             bet 1.3. The device hooks (port-shim/include/hw_dev_hooks.h): timer.h (control write -> HWOS_TimerControlWrite),
+                             pxi_fifo.c (PXI_InitFifo takes its EMULATOR branch under SDK_GCC: OS_IsRunOnEmulator() is FALSE in a final-ROM
+                             build and the ARM7 INTF handshake would never end; FIFO regs go through the loopback), mi_dma.c (CNT write ->
+                             HWDEV_DmaStart; MIi_CheckDma0SourceAddress a no-op under SDK_GCC), cp/divider.h and cp/sqrt.h (operand/control
+                             write -> HWDEV_CpDivRun / HWDEV_CpSqrtRun). the private design notes.
+Also added to the older sets: nitrosdk-asm-to-c (31 files; cp_context.c calls the CP hooks), nitrosdk-memmap (7 files; HW_SND_PTR_MIN,
+HW_MAIN_MEM_SHARED_END / SYSTEM_END, SNDi_PTR_MIN in snd_bank.c / snd_command.c), nitrosdk-gcc-fixes (15 files; DWC gsAssert.h
+__msl_assertion_failed prototype and the nonport.c build fixes).
+
+nitrosdk-vramcnt             bet 2.1b. Every VRAMCNT_A..I store becomes HWVRAM_STORE(BANK, v) (ioreg_GX.h macro: the register byte, then HWVRAM_SetCnt of
+                             port-shim/include/hw_dev_hooks.h): gx_vramcnt.c (135 sites), gxstate.c (GX_InitGXState resets all nine banks). The bulk
+                             writers MIi_Cpu* / MI_CpuFill8 / MI_CpuCopy8 call HWVRAM_Touch (dirty pages) inside nitrosdk-asm-to-c (mi_memory.c is owned
+                             there). mi_wram.c writes WRAMCNT (0x247), not a bank: untouched. the private design notes.
+
+Bet 2.1e review fix P-S1 (2026-10-13): the sets below were missing from this list; each entry names its files.
+
+nitrosdk-card-fs             bet 1.4. card/src/card_rom.c (the three card registers CARDCNT / data go through HWDEV_CardCtrlRead / Write / DataRead under SDK_GCC: they have
+                             side effects, a read streams the page; no DMA-timed card path) and fs/src/fs_overlay.c (FS_LoadOverlayImage[Async], FS_StartOverlay, FS_EndOverlay
+                             call HWDEV_Overlay{Load,Start,Unload}). the private design notes.
+nitrosdk-snd-arm7            bet 1.5. snd/src/snd_main.c, snd/src/snd_util.c and include/nitro/hw/ARM7/mmap_global.h: the ARM7 sound driver compiled with SDK_ARM7 + SDK_GCC runs on
+                             the ARM11 next to the ARM9 code (its register accesses go to the host I/O block, HW_SND_PTR_MIN, the DS-BIOS table lookups are compiled out, the
+                             SND thread entry points are compiled out). the private design notes.
+nitrosdk-spi-wait            bet 1.3. spi/src/tp.c: TP_WaitBusy / TP_WaitAllBusy drain the PXI FIFO (PXIi_HandlerRecvFifoNotEmpty) inside their spin, as PMi_WaitBusy does;
+                             nothing delivers an IRQ inside a spin loop. the private design notes.
+dwc-nonport-prefix           bet 1.6a. NitroDWC gs/nonport.h: __asm__("gsi_nitro_<name>") on socket, closesocket, shutdown, bind, connect, listen, accept, recv, recvfrom, send,
+                             sendto, getsockopt, setsockopt, getsockname, inet_addr, time, so libctru's / newlib's symbols are not hit. the private design notes.
+gds-single-definition        bet 1.6a. lib/gds/include/gds_internal.h + src/ov61_0222CEDC.c: Unk_ov61_0222E764 is defined once (extern in the header; mwcc merged the header's
+                             tentative definitions, GCC does not).
+nitrosdk-g3-ports            bet 2.1a. The geometry-engine input hooks of the SDK: ioreg_G3.h (HWG3_STORE / HWG3_STORE_OFS / HWG3_FIFO around every reg_G3_* store), mi/memory.h
+                             (MIi_IS_G3_PORT: MI_CpuCopy32 / MI_CpuSend32 / MI_CpuCopyFast aimed at 0x400..0x5FF), gx/g3imm.h, gx/src/g3imm.c, gx/src/g3_util.c.
+                             the private design notes.
+nitrosystem-g3-ports         bet 2.1a. The same hooks in NitroSystem: g3d/src/sbc.c, g3d/src/util.c, g3d/src/gecom.c, g2d/src/g2d_OamSoftwareSpriteDraw.c.
+main-boot-trace              bets 1.6a, 2.1d, 2.1e. Trace-only lines (Rule 2: no behaviour change): src/main.c (boot milestones), src/field_system.c (FieldSystem continue),
+                             src/field_map_change.c (`boot: field landed`), src/billboard_vram_transfer.c (2.1e: `boot: billboard null tex idx=.. pltt idx=.. seq=..` when a
+                             billboard transfer request has a NULL source buffer); 2.2c adds the B1/B3 snapshot point + key line to src/main.c and port_field_key to src/field_system.c.
+
+port-vblank-task-queue       bet 2.2a2. system.c: VBLANK_TASK_MAX 32 -> 128 (the cooperative vblank cannot drain the list during a one-frame field load; the private design notes slice (a2)).
+port-wide-camera             bet 2.8. src/camera.c, Camera_ComputeProjectionMatrix only: the two projection calls take sinFovY through HWDEV_WideSin and the aspect through
+                             HWDEV_WideAspect, and one line after each hands the matrix the game built (and camera->distance) to HWDEV_WideProjection. All three are the
+                             identity / a no-op unless config.ini wide = 1 (source/hw/hw_devs.c). camera->perspective is never written. the private design notes.
+
+FILES BY EDIT SET
+
+dwc-nonport-prefix (1):
+    subprojects/NitroDWC-2.2.30008/include/gs/nonport.h.ed
+
+game-gcc-fixes (70):
+    include/applications/capsule_menu/graphics.h.ed
+    include/applications/capsule_menu/manager.h.ed
+    include/applications/pokedex/pokedex_sort.h.ed
+    include/battle/battle_controller.h.ed
+    include/battle/battle_mon.h.ed
+    include/inlines.h.ed
+    include/link_contest_records.h.ed
+    include/list_menu.h.ed
+    include/overlay017/struct_ov17_022444BC.h.ed
+    include/player_avatar.h.ed
+    include/pokemon_sprite.h.ed
+    lib/crypto/src/bignum.c.ed
+    lib/crypto/src/sign.c.ed
+    lib/gds/src/ov61_0222DCDC.c.ed
+    lib/spl/src/spl_draw.c.ed
+    lib/spl/src/spl_emitter.c.ed
+    src/applications/capsule_menu/graphics.c.ed
+    src/applications/naming_screen.c.ed
+    src/applications/pc_boxes/box_app_manager.c.ed
+    src/applications/pokedex/pokedex_panel.c.ed
+    src/battle/battle_controller_player.c.ed
+    src/battle/healthbox.c.ed
+    src/cutscenes/end_credits/main.c.ed
+    src/enc_effects.c.ed
+    src/field_battle_data_transfer.c.ed
+    src/gts_application/screens/deposit.c.ed
+    src/main_menu/distribution_cartridge.c.ed
+    src/main_menu/ov97_02232DC8.c.ed
+    src/main_menu/ov97_02238D74.c.ed
+    src/menu.c.ed
+    src/overlay005/fishing.c.ed
+    src/overlay005/ov5_021EB1A0.c.ed
+    src/overlay005/ov5_021ECE40.c.ed
+    src/overlay005/ov5_021F134C.c.ed
+    src/overlay005/ov5_021F2D20.c.ed
+    src/overlay005/ov5_021F3284.c.ed
+    src/overlay005/ov5_021F348C.c.ed
+    src/overlay005/ov5_021F37A8.c.ed
+    src/overlay005/ov5_021F3A50.c.ed
+    src/overlay005/ov5_021F3E74.c.ed
+    src/overlay005/ov5_021F5A10.c.ed
+    src/overlay005/ov5_021F600C.c.ed
+    src/overlay006/hm_cut_in.c.ed
+    src/overlay062/ov62_02234A10.c.ed
+    src/overlay062/ov62_02246B00.c.ed
+    src/overlay066/ov66_0223177C.c.ed
+    src/overlay068/ov68_0225C700.c.ed
+    src/overlay100/ov100_021D46C8.c.ed
+    src/overlay104/frontier_opponents.c.ed
+    src/overlay104/frontier_script_manager.c.ed
+    src/overlay104/ov104_0223A0C4.c.ed
+    src/overlay117/ov117_022626B0.c.ed
+    src/overlay_manager.c.ed
+    src/palette.c.ed
+    src/password_word_bank.c.ed
+    src/player_move.c.ed
+    src/pokemon.c.ed
+    src/savedata.c.ed
+    src/scrcmd.c.ed
+    src/scrcmd_contests.c.ed
+    src/script_manager.c.ed
+    src/trainer_encounter.c.ed
+    src/underground/mining.c.ed
+    src/underground/text_printer.c.ed
+    src/underground_map_transition.c.ed
+    src/unk_0203D1B8.c.ed
+    src/unk_0204AEE8.c.ed
+    src/unk_0206450C.c.ed
+    src/unk_020673B8.c.ed
+    src/unk_02069BE0.c.ed
+
+gds-single-definition (2):
+    lib/gds/include/gds_internal.h.ed
+    lib/gds/src/ov61_0222CEDC.c.ed
+
+main-boot-trace (6):
+    src/billboard_vram_transfer.c.ed
+    src/field_map_change.c.ed
+    src/field_system.c.ed
+    src/game_start.c.ed
+    src/main.c.ed
+    src/system_data.c.ed
+
+nitrosdk-asm-to-c (32):
+    new/lib/crypto/src/rc4_encrypt.c
+    subprojects/NitroSDK-4.2.30001/include/nitro/gx/g3x.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/cp/src/cp_context.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx22.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx33.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx43.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/fx/src/fx_mtx44.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3x.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/gxasm.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/math/src/qsort.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_memory.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_swap.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncomp_stream.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_uncompress.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_alarm.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_cache.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_context.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_exception.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_init.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_irqHandler.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_profile.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionRegion.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_protectionUnit.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_reset.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_spinLock.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_tcm.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_terminate_proc.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_thread.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_vramExclusive.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/rtc/src/external.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/spi/src/mic.c.ed
+
+nitrosdk-card-fs (2):
+    subprojects/NitroSDK-4.2.30001/libraries/card/src/card_rom.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/fs/src/fs_overlay.c.ed
+
+nitrosdk-devices (6):
+    subprojects/NitroSDK-4.2.30001/include/nitro/cp/divider.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/cp/sqrt.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/os/common/timer.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/card/src/card_common.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/mi/src/mi_dma.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/pxi/src/pxi_fifo.c.ed
+
+nitrosdk-g3-ports (5):
+    subprojects/NitroSDK-4.2.30001/include/nitro/gx/g3imm.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/ioreg_G3.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/mi/memory.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3_util.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3imm.c.ed
+
+nitrosdk-gcc-branches (17):
+    subprojects/NitroSDK-4.2.30001/include/nitro/code16.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/code32.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/dtcm_begin.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/dtcm_end.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/itcm_begin.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/itcm_end.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/math/math.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/parent_begin.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/parent_end.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/platform.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/section.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/sinit.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/types.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/version_begin.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/version_end.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/wram_begin.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/wram_end.h.ed
+
+nitrosdk-gcc-fixes (15):
+    subprojects/NitroDWC-2.2.30008/include/base/dwc_friend.h.ed
+    subprojects/NitroDWC-2.2.30008/include/gs/gsAssert.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/dgt/dgt.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/mi/compress.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/os/common/reset.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/snd/common/work.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/spi/ARM9/pm.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/include/gxasm.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/math/src/checksum.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/spi/src/pm.c.ed
+    subprojects/NitroSystem-071126.1/libraries/g2d/src/g2d_CharCanvas.c.ed
+    subprojects/NitroSystem-071126.1/libraries/g2d/src/internal/g2di_SplitChar.c.ed
+    subprojects/NitroSystem-071126.1/libraries/gfd/src/VramManager/gfd_FrameTexVramMan.c.ed
+    subprojects/NitroSystem-071126.1/libraries/snd/src/sndarc_stream.c.ed
+    subprojects/NitroWiFi-2.1.30003/include/nitroWiFi/cps.h.ed
+
+nitrosdk-memmap (7):
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_global.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/mmap_main.h.ed
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/common/mmap_shared.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/gx_load3d.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/os/src/os_interrupt.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_bank.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_command.c.ed
+
+nitrosdk-snd-arm7 (3):
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM7/mmap_global.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_main.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/snd/src/snd_util.c.ed
+
+nitrosdk-spi-wait (1):
+    subprojects/NitroSDK-4.2.30001/libraries/spi/src/tp.c.ed
+
+nitrosdk-vramcnt (3):
+    subprojects/NitroSDK-4.2.30001/include/nitro/hw/ARM9/ioreg_GX.h.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/gx_vramcnt.c.ed
+    subprojects/NitroSDK-4.2.30001/libraries/gx/src/gxstate.c.ed
+
+nitrosystem-g3-ports (4):
+    subprojects/NitroSystem-071126.1/libraries/g2d/src/g2d_OamSoftwareSpriteDraw.c.ed
+    subprojects/NitroSystem-071126.1/libraries/g3d/src/gecom.c.ed
+    subprojects/NitroSystem-071126.1/libraries/g3d/src/sbc.c.ed
+    subprojects/NitroSystem-071126.1/libraries/g3d/src/util.c.ed
+
+port-vblank-task-queue (1):
+    src/system.c.ed
+
+port-wide-camera (1):
+    src/camera.c.ed

@@ -1,0 +1,77 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/card/src/card_rom.c
+sha1 9a191c08913773e3e8f60f56824102ded1c38b52
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 insert-before 11
+|#if defined(SDK_GCC)
+|#include <hw_dev_hooks.h>
+|/* the card registers have side effects (a read streams the page): hooks over hw_card, not plain memory */
+|#define CARDi_CNT_READ()    HWDEV_CardCtrlRead()
+|#define CARDi_CNT_WRITE(v)  HWDEV_CardCtrlWrite((u32)(v))
+|#define CARDi_DATA_READ()   HWDEV_CardDataRead()
+|#else
+|#define CARDi_CNT_READ()    (*(vu32 *)REG_CARDCNT)
+|#define CARDi_CNT_WRITE(v)  (*(vu32 *)REG_CARDCNT = (v))
+|#define CARDi_DATA_READ()   (*(vu32 *)REG_CARD_DATA)
+|#endif
+@51 splice 16 1
+|CARDi_CNT_READ
+@51 splice 18 6
+|
+@51 splice 25 11
+|
+@72 insert-before 1
+|#ifndef SDK_GCC
+@80 splice 8 1
+|CARDi_CNT_WRITE
+@80 splice 10 21
+|
+@80 splice 38 0
+|)
+@98 insert-before 2
+|#endif
+|
+@99 splice 23 0
+| && !defined(SDK_GCC)
+@144 insert-before 3
+|    #if defined(SDK_GCC)
+|        p->ctrl = CARDi_GetRomFlag(CARD_COMMAND_PAGE);   /* no DMA-timed card path on the 3DS: the poll loop of CARDi_ReadCard reads it */
+|    #else
+@145 insert-before 1
+|    #endif
+@170 splice 16 1
+|CARDi_CNT_WRITE
+@170 splice 18 21
+|
+@170 splice 46 0
+|)
+@172 splice 37 1
+|CARDi_CNT_READ
+@172 splice 39 6
+|
+@172 splice 46 11
+|
+@175 splice 35 1
+|CARDi_DATA_READ
+@175 splice 37 6
+|
+@175 splice 44 13
+|
+@200 splice 8 1
+|CARDi_CNT_WRITE
+@200 splice 10 21
+|
+@200 splice 93 0
+|)
+@201 splice 17 1
+|CARDi_CNT_READ
+@201 splice 19 6
+|
+@201 splice 26 11
+|
+@203 splice 15 1
+|CARDi_DATA_READ
+@203 splice 17 6
+|
+@203 splice 24 13
+|

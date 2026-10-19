@@ -1,0 +1,32 @@
+build*/
+*.3dsx
+*.smdh
+*.elf
+*.cia
+*.map
+
+# NEVER commit copyrighted ROMs / saves (bring your own; see BUILDING.md)
+roms/
+saves/*.sav
+*.nds
+*.sav
+*.dsv
+
+# OS junk / build listings
+.DS_Store
+*.lst
+
+# baked game data (generated from your own ROM) — never committed
+data/*.bin
+__pycache__/
+
+# decomp + SDK copy (never committed; made by tools/sync_port.sh)
+port/
+
+
+# makerom / bannertool for `make cia` (BUILDING.md): drop them here or put them on PATH
+tools/bin/
+*.o
+
+# your own pret checkout path (tools/get_pret.sh; BUILDING.md): a machine-specific path, never committed
+.plat_ref

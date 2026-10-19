@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/palette.c
+sha1 f36ec3aa9d3d5fe537c8f8eba8a4189a3ec55d03
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@5 insert-before 1
+|#include <stdlib.h>

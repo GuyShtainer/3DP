@@ -1,0 +1,42 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/types.h
+sha1 ca8f601d9698631b64899a1d11fcf592bf680465
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@19 insert-before 20
+|/* SDK_GCC: mwcc aligned 64-bit integers to 4 bytes (GameTime in SystemData, the u64 in PokemonDataBlockC and
+| * the like depend on it); GCC aligns them to 8. aligned(4) on the typedef restores the mwcc layout; every
+| * 64-bit typedef (vu64, vs64, fx64, fx64c, OSTick, SOCTime, REGType64) derives from these two. */
+|#ifdef SDK_GCC
+|    #define SDK_ALIGN4_64_ __attribute__((aligned(4)))
+|#else
+|    #define SDK_ALIGN4_64_
+|#endif
+|
+|/* SDK_GCC: mwcc gives a run of bitfields the whole storage unit of its declared type and starts the next unit when the declared
+| * type changes (so the next member begins after the unit, and a differently-typed bitfield begins on the next unit boundary);
+| * GCC packs across type changes and starts the next member at the next free byte. MWCC_BITFIELD_UNIT_END(T) is a zero-width
+| * bitfield of type T that ends the current unit at T's alignment, which reproduces the mwcc offsets (the private layout oracle
+| * is the proof). It expands to nothing for mwcc. Rule and the list of sites: the private design notes. */
+|#ifdef SDK_GCC
+|    #define MWCC_BITFIELD_UNIT_END(T) T : 0;
+|#else
+|    #define MWCC_BITFIELD_UNIT_END(T)
+|#endif
+|
+@26 splice 38 0
+| SDK_ALIGN4_64_
+@36 splice 36 0
+| SDK_ALIGN4_64_
+@76 insert-before 7
+|#if defined(SDK_GCC) && !defined(__cplusplus)
+|    /* The game shipped against Metrowerks' MSL, whose NULL is plain 0 (the decomp passes NULL to u8/BOOL
+|       parameters ~70 times). Match it; port-shim/include/stddef.h re-asserts this after GCC's stddef.h. */
+|    #undef NULL
+|    #define NULL    0
+|#endif
+|
+@84 splice 42 0
+| || defined(SDK_GCC)
+@92 insert-before 2
+|#elif defined(SDK_GCC)
+|    #define SDK_WEAK_SYMBOL __attribute__((weak))

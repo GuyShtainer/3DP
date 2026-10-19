@@ -1,0 +1,24 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_irqHandler.c
+sha1 c94fcb5bde9113edf2bc7c95ca199278e100b81e
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@30 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@126 insert-before 6
+|#else
+|void OS_IrqHandler (void)
+|{
+|    HWOS_IrqHandler();
+|}
+|#endif
+@127 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@295 insert-before 6
+|#else
+|void OS_IrqHandler_ThreadSwitch (void)
+|{
+|    HWOS_IrqHandlerThreadSwitch();
+|}
+|#endif

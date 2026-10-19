@@ -1,0 +1,17 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_profile.c
+sha1 305d0c7e3114532c9f193a530d846b1587878081
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@13 insert-before 8
+|#else
+|    SDK_WEAK_SYMBOL void __PROFILE_ENTRY (void)
+|    {
+|    }
+|
+|    SDK_WEAK_SYMBOL void __PROFILE_EXIT (void)
+|    {
+|    }
+@13 insert-after 1
+|#endif

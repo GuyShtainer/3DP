@@ -1,0 +1,8 @@
+3DP-edit 1
+path include/battle/battle_controller.h
+sha1 fa8019c66f7baf5d4bd0193c980d7a8cccab12b4
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@31 insert-before 3
+|void BattleController_EmitSelectedCommand(BattleSystem *battleSys, int battler, int command);
+|void BattleController_EmitSelectedMove(BattleSystem *battleSys, int battler, int command);
+|void BattleController_EmitSelectedTarget(BattleSystem *battleSys, int battler, int command);

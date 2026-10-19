@@ -1,0 +1,37 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/g3imm.c
+sha1 e0f8bece82ba47bb8f7ac3a5cc023dba9f07bec8
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@9 delete 1
+@10 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_LOAD_4x4);
+@17 delete 1
+@18 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_LOAD_4x3);
+@25 delete 1
+@26 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_MULT_4x4);
+@33 delete 1
+@34 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_MULT_4x3);
+@41 delete 1
+@42 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_MULT_3x3);
+@49 delete 1
+@50 insert-before 1
+|	HWG3_FIFO(G3OP_SHININESS);
+@58 delete 1
+@59 insert-before 1
+|	HWG3_FIFO(G3OP_MTX_MULT_4x3);
+@61 splice 1 17
+|HWG3_FIFO(
+@61 splice 31 0
+|)
+@62 splice 1 17
+|HWG3_FIFO(
+@62 splice 31 0
+|)
+@63 splice 1 17
+|HWG3_FIFO(
+@63 splice 31 0
+|)

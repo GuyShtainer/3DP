@@ -1,0 +1,107 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_system.c
+sha1 583f04fdbd2fdb1c65e20c6c9dc1c598ea6878ea
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@12 insert-before 4
+|#else
+|OSIntrMode OS_EnableInterrupts (void)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@13 insert-before 6
+|    HWOS_CpsrWriteC(cpsr & ~(u32)HW_PSR_IRQ_DISABLE);
+|    return cpsr & HW_PSR_IRQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@21 insert-before 4
+|#else
+|OSIntrMode OS_DisableInterrupts (void)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@22 insert-before 6
+|    HWOS_CpsrWriteC(cpsr | HW_PSR_IRQ_DISABLE);
+|    return cpsr & HW_PSR_IRQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@31 insert-before 4
+|#else
+|OSIntrMode OS_RestoreInterrupts (OSIntrMode state)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@32 insert-before 6
+|    HWOS_CpsrWriteC((cpsr & ~(u32)HW_PSR_IRQ_DISABLE) | state);
+|    return cpsr & HW_PSR_IRQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@40 insert-before 4
+|#else
+|OSIntrMode OS_EnableInterrupts_IrqAndFiq (void)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@41 insert-before 6
+|    HWOS_CpsrWriteC(cpsr & ~(u32)HW_PSR_IRQ_FIQ_DISABLE);
+|    return cpsr & HW_PSR_IRQ_FIQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@49 insert-before 4
+|#else
+|OSIntrMode OS_DisableInterrupts_IrqAndFiq (void)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@50 insert-before 6
+|    HWOS_CpsrWriteC(cpsr | HW_PSR_IRQ_FIQ_DISABLE);
+|    return cpsr & HW_PSR_IRQ_FIQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@59 insert-before 4
+|#else
+|OSIntrMode OS_RestoreInterrupts_IrqAndFiq (OSIntrMode state)
+|{
+|    u32 cpsr = HWOS_CpsrRead();
+@60 insert-before 6
+|    HWOS_CpsrWriteC((cpsr & ~(u32)HW_PSR_IRQ_FIQ_DISABLE) | state);
+|    return cpsr & HW_PSR_IRQ_FIQ_DISABLE;
+|}
+|#endif
+|
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@66 insert-before 6
+|#else
+|OSIntrMode_Irq OS_GetCpsrIrq (void)
+|{
+|    return (OSIntrMode_Irq)(HWOS_CpsrRead() & HW_PSR_IRQ_DISABLE);
+|}
+|#endif
+@67 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@73 insert-before 6
+|#else
+|OSProcMode OS_GetProcMode (void)
+|{
+|    return (OSProcMode)(HWOS_CpsrRead() & HW_PSR_CPU_MODE_MASK);
+|}
+|#endif
+@78 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@84 insert-before 8
+|#else
+|    void OS_SpinWait (u32 cycle)
+|    {
+|        /* DS: a busy loop of floor(cycle / 4) + 1 iterations at 67 MHz. 3DS port: a yield point of the event model
+|           time advances by `cycle` DS cycles and due IRQs/alarms/devices run. */
+|        HWOS_SpinWait(cycle);
+|    }
+|#endif

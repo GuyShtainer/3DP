@@ -1,0 +1,160 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/gx/src/gxasm.c
+sha1 34ab402a39ca767e29290872e6d61d2cf25920f8
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@4 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@16 insert-before 23
+|#else
+|void GX_SendFifo48B (const void *pSrc, void *pDest)
+|{
+|    if (MIi_IS_G3_PORT(pDest)) {   /* 3DS port (bet 2.1a): the destination is the GX FIFO; see source/hw/hw_gx.c */
+|        HWG3_Words(MIi_G3_PORT_OFS(pDest), pSrc, 12, HWG3_MODE_FIFO);
+|        return;
+|    }
+|    const u32 *s = (const u32 *)pSrc;
+|    volatile u32 *d = (volatile u32 *)pDest;
+|    d[0] = s[0];
+|    d[1] = s[1];
+|    d[2] = s[2];
+|    d[0] = s[3];
+|    d[1] = s[4];
+|    d[2] = s[5];
+|    d[0] = s[6];
+|    d[1] = s[7];
+|    d[2] = s[8];
+|    d[0] = s[9];
+|    d[1] = s[10];
+|    d[2] = s[11];
+|}
+|#endif
+@17 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@43 insert-before 46
+|#else
+|void GX_SendFifo64B (const void *pSrc, void *pDest)
+|{
+|    if (MIi_IS_G3_PORT(pDest)) {   /* 3DS port (bet 2.1a): the destination is the GX FIFO; see source/hw/hw_gx.c */
+|        HWG3_Words(MIi_G3_PORT_OFS(pDest), pSrc, 16, HWG3_MODE_FIFO);
+|        return;
+|    }
+|    const u32 *s = (const u32 *)pSrc;
+|    volatile u32 *d = (volatile u32 *)pDest;
+|#ifdef SDK_TEG
+|    d[0] = s[0];
+|    d[1] = s[1];
+|    d[2] = s[2];
+|    d[0] = s[3];
+|    d[1] = s[4];
+|    d[2] = s[5];
+|    d[0] = s[6];
+|    d[1] = s[7];
+|    d[2] = s[8];
+|    d[0] = s[9];
+|    d[1] = s[10];
+|    d[2] = s[11];
+|    d[0] = s[12];
+|    d[1] = s[13];
+|    d[2] = s[14];
+|    d[0] = s[15];
+|#else
+|    d[0] = s[0];
+|    d[1] = s[1];
+|    d[2] = s[2];
+|    d[3] = s[3];
+|    d[4] = s[4];
+|    d[5] = s[5];
+|    d[6] = s[6];
+|    d[7] = s[7];
+|    d[0] = s[8];
+|    d[1] = s[9];
+|    d[2] = s[10];
+|    d[3] = s[11];
+|    d[4] = s[12];
+|    d[5] = s[13];
+|    d[6] = s[14];
+|    d[7] = s[15];
+|#endif
+|}
+|#endif
+@44 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@83 insert-after 78
+|#else
+|void GX_SendFifo128B (const void *pSrc, void *pDest)
+|{
+|    if (MIi_IS_G3_PORT(pDest)) {   /* 3DS port (bet 2.1a): the destination is the GX FIFO; see source/hw/hw_gx.c */
+|        HWG3_Words(MIi_G3_PORT_OFS(pDest), pSrc, 32, HWG3_MODE_FIFO);
+|        return;
+|    }
+|    const u32 *s = (const u32 *)pSrc;
+|    volatile u32 *d = (volatile u32 *)pDest;
+|#ifdef SDK_TEG
+|    d[0] = s[0];
+|    d[1] = s[1];
+|    d[2] = s[2];
+|    d[0] = s[3];
+|    d[1] = s[4];
+|    d[2] = s[5];
+|    d[0] = s[6];
+|    d[1] = s[7];
+|    d[2] = s[8];
+|    d[0] = s[9];
+|    d[1] = s[10];
+|    d[2] = s[11];
+|    d[0] = s[12];
+|    d[1] = s[13];
+|    d[2] = s[14];
+|    d[0] = s[15];
+|    d[1] = s[16];
+|    d[2] = s[17];
+|    d[0] = s[18];
+|    d[1] = s[19];
+|    d[2] = s[20];
+|    d[0] = s[21];
+|    d[1] = s[22];
+|    d[2] = s[23];
+|    d[0] = s[24];
+|    d[1] = s[25];
+|    d[2] = s[26];
+|    d[0] = s[27];
+|    d[1] = s[28];
+|    d[2] = s[29];
+|    d[0] = s[30];
+|    d[1] = s[31];
+|#else
+|    d[0] = s[0];
+|    d[1] = s[1];
+|    d[2] = s[2];
+|    d[3] = s[3];
+|    d[4] = s[4];
+|    d[5] = s[5];
+|    d[6] = s[6];
+|    d[7] = s[7];
+|    d[0] = s[8];
+|    d[1] = s[9];
+|    d[2] = s[10];
+|    d[3] = s[11];
+|    d[4] = s[12];
+|    d[5] = s[13];
+|    d[6] = s[14];
+|    d[7] = s[15];
+|    d[0] = s[16];
+|    d[1] = s[17];
+|    d[2] = s[18];
+|    d[3] = s[19];
+|    d[4] = s[20];
+|    d[5] = s[21];
+|    d[6] = s[22];
+|    d[7] = s[23];
+|    d[0] = s[24];
+|    d[1] = s[25];
+|    d[2] = s[26];
+|    d[3] = s[27];
+|    d[4] = s[28];
+|    d[5] = s[29];
+|    d[6] = s[30];
+|    d[7] = s[31];
+|#endif
+|}
+|#endif

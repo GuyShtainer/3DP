@@ -1,0 +1,10 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_interrupt.c
+sha1 7acadb864fa7a54c532a03434aae23449ff6cdfb
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@135 insert-before 3
+|#if defined(SDK_GCC)
+|    reg_OS_IF = prep & ~intr;   /* 3DS port: the DS IF register clears the bits written as 1; here it is plain memory (event-model.md) */
+|#else
+@136 insert-before 1
+|#endif

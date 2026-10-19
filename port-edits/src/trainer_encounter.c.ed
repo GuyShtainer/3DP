@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/trainer_encounter.c
+sha1 004e10dd19bc0803df59b57f1a1cbe34d7384989
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@82 splice 0 0
+|static 

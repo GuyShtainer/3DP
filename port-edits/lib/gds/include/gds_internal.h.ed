@@ -1,0 +1,7 @@
+3DP-edit 1
+path lib/gds/include/gds_internal.h
+sha1 12dc643e100d0956495e18fdc7be18e35216700a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@74 delete 1
+@75 insert-before 1
+|extern UnkStruct_ov61_0222E764 Unk_ov61_0222E764;   // port: one definition, in ov61_0222CEDC.c (mwcc merged the header's tentative definitions)

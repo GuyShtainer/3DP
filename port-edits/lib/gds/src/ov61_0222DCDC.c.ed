@@ -1,0 +1,7 @@
+3DP-edit 1
+path lib/gds/src/ov61_0222DCDC.c
+sha1 5cb9a7b51c203e0bb3cd85a3cba0f1c76a33d392
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@33 delete 1
+@34 insert-before 1
+|    return ov61_0222D1FC(20000, &v0, param1, -1); // GCC port: the DS code had no return; mwcc left the callee's r0 in place (verified in the objdump of the matching build), so this is the same value

@@ -1,0 +1,15 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_terminate_proc.c
+sha1 d9119345ceab4bfa69b1077fc08ba41265aff1a4
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 1
+|#include <hw_os_hooks.h>
+@13 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@19 insert-before 6
+|#else
+|SDK_WEAK_SYMBOL void OS_Halt(void)
+|{
+|    HWOS_Halt();
+|}
+|#endif

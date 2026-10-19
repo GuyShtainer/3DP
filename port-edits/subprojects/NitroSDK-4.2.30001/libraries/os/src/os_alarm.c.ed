@@ -1,0 +1,14 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/os/src/os_alarm.c
+sha1 04dae6e1570cf70147bf3b3100d6a343772dd4ac
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@238 insert-before 1
+|#if defined(__MWERKS__) || defined(SDK_CW)
+@245 insert-before 7
+|#else
+|void OSi_AlarmHandler (void *arg)
+|{
+|    (void)arg;
+|    OSi_ArrangeTimer();
+|}
+|#endif

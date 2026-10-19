@@ -1,0 +1,43 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/libraries/pxi/src/pxi_fifo.c
+sha1 b0e9460d903271c6b9f972cb6d6ee9896505f783
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@2 insert-before 7
+|
+|#ifdef SDK_GCC
+|    #include <hw_dev_hooks.h>
+|    #define PXIi_PORT_LOOPBACK() (HWDEV_PxiReset(), TRUE)
+|#else
+|    #define PXIi_PORT_LOOPBACK() OS_IsRunOnEmulator()
+|#endif
+@34 delete 1
+@35 insert-before 3
+|#if !defined(SDK_FINALROM) || defined(SDK_GCC)
+|        /* port: SDK_FINALROM compiles the emulator branch out, leaving the ARM7 INTF handshake below, which loops for ever with no ARM7.
+|           The emulator branch is one write (our A9 status = 1); hw_pxi.c is the loopback ARM7 that the PXI words reach. */
+@35 splice 12 18
+|PXIi_PORT_LOOPBACK
+@123 insert-before 3
+|#ifdef SDK_GCC
+|    HWDEV_PxiCheckData((u32)fifotag, data);   /* port: SDK_ASSERT is compiled out (FINALROM), so the 26-bit pointer limit is checked here */
+|#endif
+@135 insert-before 3
+|#ifdef SDK_GCC
+|    HWDEV_PxiCntSync();
+|#endif
+@146 insert-before 3
+|#ifdef SDK_GCC
+|    HWDEV_PxiSend(data);   /* the word goes to the loopback ARM7's per-tag responder; its replies are queued for the recv handler */
+|#else
+@147 insert-before 1
+|#endif
+@155 insert-before 3
+|#ifdef SDK_GCC
+|    HWDEV_PxiCntSync();
+|#endif
+@166 insert-before 3
+|#ifdef SDK_GCC
+|    *data_buf = HWDEV_PxiRecv();
+|#else
+@167 insert-before 1
+|#endif

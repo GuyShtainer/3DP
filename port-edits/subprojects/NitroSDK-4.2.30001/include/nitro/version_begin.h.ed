@@ -1,0 +1,8 @@
+3DP-edit 1
+path subprojects/NitroSDK-4.2.30001/include/nitro/version_begin.h
+sha1 be4a1bc65ede6202146bc7c16fd1efa48e8d2442
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@8 delete 1
+@9 insert-before 2
+|    /* SDK_GCC: no-op. The port runs on the 3DS ARM11 in one flat address space; there is no VERSION section
+|       to place code/data in, so everything stays in the ordinary .text/.data/.bss. */

@@ -1,0 +1,8 @@
+3DP-edit 1
+path src/overlay005/fishing.c
+sha1 304841b328d2a5c752b7d55384e0a7b79dcffc2f
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@104 splice 0 0
+|static 
+@105 splice 0 0
+|static 

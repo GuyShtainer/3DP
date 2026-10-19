@@ -1,0 +1,6 @@
+3DP-edit 1
+path src/scrcmd_contests.c
+sha1 55e9ca9b55ba9ef8a5a4a0c21994032c87b08d30
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@13 insert-before 1
+|#include "chatot_cry.h"

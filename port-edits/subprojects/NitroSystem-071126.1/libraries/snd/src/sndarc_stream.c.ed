@@ -1,0 +1,10 @@
+3DP-edit 1
+path subprojects/NitroSystem-071126.1/libraries/snd/src/sndarc_stream.c
+sha1 9bbf9aa715fc1501ed9ded12bd7bdeb1539ec54a
+pret c248fb3f8cc9934ded800e489567c5c0eeee92eb
+@1281 splice 35 1
+|
+@1281 splice 53 3
+|
+@1282 insert-before 1
+|                        srcp += sizeof(AdpcmState);
