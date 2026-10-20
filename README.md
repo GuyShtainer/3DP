@@ -80,7 +80,7 @@ In plain words, in the order we want to work:
 5. **Every mode.** Battles, the Pokétch, the Underground, contests, the Battle Frontier, Pal Park.
    - **Local wireless:** the Union Room, trades and battles between two consoles running 3DP.
    - **Wi-Fi:** the GTS, Wi-Fi trades and battles through a community server that still serves Platinum,
-     if its operators agree and our legal check passes.
+     if its operators agree.
    - **The GBA slot:** a tab on the bottom screen to "insert" a dump of your own GBA cartridge and its
      save, so Pal Park and the GBA-slot encounters work.
 6. **Wide and deep.** Widescreen and stereo for the 2D effects, interiors and menus too.
@@ -96,7 +96,7 @@ decompilation, run `tools/get_pret.sh` (it fetches pret at the right commit), th
 
 - **Install the `.cia`.** The `.3dsx` from the Homebrew Launcher cannot reliably claim the second
   core, which the port needs. The `.cia` is the real target.
-- **Target:** New 3DS and New 2DS XL. Old 3DS is best effort.
+- **Target:** New 3DS and New 2DS XL. The Old 3DS and 2DS are not supported yet (see Plans).
 - **Files live in `sdmc:/3ds/3DP/`** on the SD card: the config, the logs and your save.
 - **First launch.** If no game is set up yet, a setup screen opens. Pick your game file (a dump of
   your own Pokémon Platinum cartridge; today the US release), then import an existing save or start a new one. Your
