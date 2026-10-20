@@ -10,7 +10,10 @@ Two things make it different from playing the game on a DS:
   camera uses the extra width to show more of the map. Nothing is stretched.
 - **Real stereo 3D.** The overworld is true 3D geometry, so the 3DS 3D slider gives it real depth.
 
-Version: **v0.1.0**. This is an early, rough release of the source.
+Version: **v0.1.0**. This is an early, rough release of the source. What changed and what comes next:
+[RELEASE-NOTES.md](RELEASE-NOTES.md).
+
+![The first-launch setup screen](media/setup-screen.png)
 
 ## What this repository contains
 
@@ -63,7 +66,7 @@ Also:
 - Old 3DS is best effort only. The target is the New 3DS and New 2DS XL.
 - The `.3dsx` cannot claim the second CPU core; use the `.cia`.
 - Wi-Fi Connection, Download Play and the GBA slot are out of scope.
-- **Keep a backup of your save.** The port writes your save file. Copy it somewhere safe first.
+- **Keep a backup of your save.** The port writes its own copy of your save in `sdmc:/3ds/3DP/`. Copy your save somewhere safe first.
 
 ## Plans
 
@@ -91,10 +94,29 @@ decompilation, run `tools/get_pret.sh` (it fetches pret at the right commit), th
   your own Pokémon Platinum (US) cartridge), then import an existing save or start a new one. Your
   original save file is only read, never written. Holding SELECT at launch opens the setup screen
   again.
+- **Turn on widescreen and 3D.** In this release they are off by default, so the game starts in the DS
+  layout. After the first launch, add two lines at the top of `sdmc:/3ds/3DP/config.ini`, `wide = 1` and
+  `stereo = 1`, then start 3DP again and use the 3D slider.
+
+## Your game file
+
+3DP needs a dump of your own Pokémon Platinum (US) cartridge: a `.nds` file made from a cartridge you
+own. Dump your own cartridge; 3DP does not include a game file, does not download one and has no
+dumper built in.
+
+The setup screen checks the file you pick and refuses anything that is not Pokémon Platinum (US).
 
 ## Sharing
 
 Please don't share builds; everyone builds their own. This is a request, not a licence term.
+
+## Legal
+
+- 3DP is a fan project. It is not affiliated with or endorsed by Nintendo, Game Freak, Creatures or
+  The Pokémon Company. Pokémon and all related names and trademarks belong to their owners.
+- No ROM, no game data and no builds are distributed here; see "What this repository contains" above.
+- The software comes with no warranty (GPLv3, sections 15 and 16). You use it at your own risk,
+  including the risk to your save.
 
 ## Licence
 
