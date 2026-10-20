@@ -25,7 +25,7 @@ The hardware layer is written from public hardware documentation (GBATEK) and do
 engineering; the edits were written against the pret decompilation.
 
 You bring two things: the pret decompilation (which you fetch and build yourself) and a dump of
-your own Pokémon Platinum (US) cartridge. There are no downloads here: no ROM, no prebuilt `.cia`,
+your own Pokémon Platinum cartridge (today the US release; every region is planned). There are no downloads here: no ROM, no prebuilt `.cia`,
 no release builds.
 
 3DP is not affiliated with or endorsed by Nintendo, Game Freak, Creatures or The Pokémon Company.
@@ -63,9 +63,10 @@ Also:
 - The Underground, contests, the Battle Frontier and Pal Park are not done ("Every mode" below).
 - Wide versions of the 2D effects (weather, cave darkness and so on) are not done ("Wide and deep" below).
 - Battles and the full story are untested.
-- Old 3DS is best effort only. The target is the New 3DS and New 2DS XL.
+- It is not made for the Old 3DS yet; that is planned (below). Today's target is the New 3DS and New 2DS XL.
+- Only the US release of Platinum is accepted today; every region is planned (below).
 - The `.3dsx` cannot claim the second CPU core; use the `.cia`.
-- Wi-Fi Connection, Download Play and the GBA slot are out of scope.
+- Local wireless, Wi-Fi and the GBA slot are not done; all three are planned (below). Platinum has no Download Play, so there is none to port.
 - **Keep a backup of your save.** The port writes its own copy of your save in `sdmc:/3ds/3DP/`. Copy your save somewhere safe first.
 
 ## Plans
@@ -77,7 +78,14 @@ In plain words, in the order we want to work:
 3. **Every pixel.** Close the remaining differences between our picture and the real game's.
 4. **System.** Clock and day/night, sleep, microphone, and better use of the bottom screen.
 5. **Every mode.** Battles, the Pokétch, the Underground, contests, the Battle Frontier, Pal Park.
+   - **Local wireless:** the Union Room, trades and battles between two consoles running 3DP.
+   - **Wi-Fi:** the GTS, Wi-Fi trades and battles through a community server that still serves Platinum,
+     if its operators agree and our legal check passes.
+   - **The GBA slot:** a tab on the bottom screen to "insert" a dump of your own GBA cartridge and its
+     save, so Pal Park and the GBA-slot encounters work.
 6. **Wide and deep.** Widescreen and stereo for the 2D effects, interiors and menus too.
+7. **Every region.** Platinum from every region, not only the US release.
+8. **Old 3DS.** Running on the original 3DS and 2DS too.
 
 ## Build and use
 
@@ -91,7 +99,7 @@ decompilation, run `tools/get_pret.sh` (it fetches pret at the right commit), th
 - **Target:** New 3DS and New 2DS XL. Old 3DS is best effort.
 - **Files live in `sdmc:/3ds/3DP/`** on the SD card: the config, the logs and your save.
 - **First launch.** If no game is set up yet, a setup screen opens. Pick your game file (a dump of
-  your own Pokémon Platinum (US) cartridge), then import an existing save or start a new one. Your
+  your own Pokémon Platinum cartridge; today the US release), then import an existing save or start a new one. Your
   original save file is only read, never written. Holding SELECT at launch opens the setup screen
   again.
 - **Turn on widescreen and 3D.** In this release they are off by default, so the game starts in the DS
@@ -100,11 +108,11 @@ decompilation, run `tools/get_pret.sh` (it fetches pret at the right commit), th
 
 ## Your game file
 
-3DP needs a dump of your own Pokémon Platinum (US) cartridge: a `.nds` file made from a cartridge you
+3DP needs a dump of your own Pokémon Platinum cartridge: a `.nds` file made from a cartridge you
 own. Dump your own cartridge; 3DP does not include a game file, does not download one and has no
 dumper built in.
 
-The setup screen checks the file you pick and refuses anything that is not Pokémon Platinum (US).
+The setup screen checks the file you pick and refuses anything that is not Pokémon Platinum (US). Other regions are planned.
 
 ## Sharing
 
